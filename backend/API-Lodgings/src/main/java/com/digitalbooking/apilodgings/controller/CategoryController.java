@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/digitalbooking/lodgings/api/v1/category")
+@RequestMapping(path = "/category")
 public class CategoryController {
 
     private final ICategoryService categoryService;
@@ -78,7 +78,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDeleted, headers, HttpStatus.OK);
     }
 
-    @GetMapping("/")
+    @GetMapping(path = {"","/"})
     public ResponseEntity<ResponseCategoryList> findAllCategories() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");

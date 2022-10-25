@@ -22,24 +22,27 @@ class CategoryServiceImplTest {
 
     private final ICategoryService categoryService;
 
+    private final int idLastRecord = 5;
+
+
     CategoryServiceImplTest(@Qualifier("CategoryServiceImpl") ICategoryService categoryService) {
         this.categoryService = categoryService;
     }
+
 
     @Test
     @Order(1)
     public void createCategory__RecordNewCategory__MustBeReturnCategoryStoredInDB() {
         // Arrange
         Category actual = new Category(
-                "Hostal",
+                "Hotel",
                 "Alojamiento y más",
                 "https://images.unsplash.com/photo-1565629196891-2ddb37c9e9fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80");
-        Category expected;
+        Category expected = new Category();
         // Act
         try {
             expected = categoryService.createCategory(actual);
-        } catch (BadRequestException e) {
-            throw new RuntimeException(e);
+        } catch (BadRequestException ignored) {
         }
         // Message
         String message;
@@ -64,12 +67,11 @@ class CategoryServiceImplTest {
     @Order(3)
     public void findCategoryByTitle__WithStoredRecord__MustBeReturnCategoryStoredInDB() {
         // Arrange
-        Optional<Category> actual;
+        Optional<Category> actual = Optional.empty();
         // Act
         try {
-            actual = categoryService.findCategoryByTitle("hostal");
-        } catch (NotFoundException e) {
-            throw new RuntimeException(e);
+            actual = categoryService.findCategoryByTitle("hotel");
+        } catch (NotFoundException ignored) {
         }
         // Message
         String message;
@@ -98,25 +100,21 @@ class CategoryServiceImplTest {
     public void updateCategory__WithStoredRecord__MustBeReturnUpdatedCategoryStoredInDB() {
         // Arrange
         Optional<Category> actual = Optional.empty();
-        Category categoryToUpdate;
         Category expected = new Category();
         // Act
         try {
-            actual = categoryService.findCategoryById(2);
+            actual = categoryService.findCategoryById(1);
             if (actual.isPresent()) {
-                categoryToUpdate = actual.get();
-                System.out.println(actual.get().getTitle());
-                System.out.println(categoryToUpdate.getTitle());
-                categoryToUpdate.setTitle("Habitación");
-                expected = categoryService.updateCategory(categoryToUpdate);
+                actual.get().setTitle("Apartamento");
+                expected = categoryService.updateCategory(actual.get());
             }
         } catch (NotFoundException | BadRequestException ignored) {
         }
         // Message
         String message;
         // Assert
-        if (actual.isPresent()){
-            assertNotEquals(actual.get().getTitle(), expected.getTitle());
+        if (actual.isPresent()) {
+            assertEquals(actual.get().getTitle(), expected.getTitle());
         }
     }
 

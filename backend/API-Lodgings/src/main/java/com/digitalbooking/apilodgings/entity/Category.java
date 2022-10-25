@@ -38,6 +38,10 @@ public class Category {
     @NotNull
     private String imageUrl;
 
+    @Column(name = "delete", nullable = false, length = 260)
+    @NotNull
+    private boolean delete;
+
 
     public Category(String title, String description, String imageUrl) {
         this.title = title;

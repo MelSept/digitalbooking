@@ -7,7 +7,7 @@ import com.digitalbooking.apilodgings.repository.ICategoryRepository;
 import com.digitalbooking.apilodgings.response.ResponseCategoryList;
 import com.digitalbooking.apilodgings.response.Response;
 import com.digitalbooking.apilodgings.response.ResponseError;
-import com.digitalbooking.apilodgings.validations.CategoryServiceValidation;
+import com.digitalbooking.apilodgings.validation.CategoryServiceValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +30,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public Category createCategory(Category category) throws BadRequestException {
+
         CategoryServiceValidation.ValidateCategoryCreation(category);
 
         Optional<Category> categoryFound = categoryRepository.findByTitleIgnoreCase(category.getTitle());
@@ -82,11 +83,17 @@ public class CategoryServiceImpl implements ICategoryService {
             throw new BadRequestException(responseError);
         }
 
-        Optional<Category> categoryFound = categoryRepository.findById(category.getId());
+        Category categoryFound = categoryRepository.findById(category.getId()).orElse(null);
 
-        if (categoryFound.isEmpty()) {
+        if (categoryFound == null) {
             Response responseException = new Response(String.format("Not found category with id: '%s'", category.getId()));
             throw new NotFoundException(responseException);
+        }
+
+        if (categoryFound.getTitle().equals(category.getTitle())){
+            ResponseError responseException = new ResponseError("Invalid Operation: can not create an existing category.");
+            responseException.addHint(String.format("try to get category info with /category/%s endpoint.", category.getTitle()));
+            throw new BadRequestException(responseException);
         }
 
         return categoryRepository.save(category);
