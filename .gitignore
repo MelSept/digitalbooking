@@ -47,15 +47,15 @@ build/
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-node_modules/
-/.pnp
+frontend/c12-grupo-6/node_modules
+.pnp
 .pnp.js
 
 # testing
-/coverage
+frontend/c12-grupo-6/coverage
 
 # production
-/build
+frontend/c12-grupo-6/build
 
 # misc
 .DS_Store
