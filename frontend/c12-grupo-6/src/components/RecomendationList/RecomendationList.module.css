@@ -1,0 +1,65 @@
+.recomendationContainer {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #e5e5e5;
+  color: #31363f;
+}
+
+.section {
+  margin-left: 10px;
+}
+
+.section h2 {
+  font-size: 19px;
+  font-weight: bold;
+  margin-left: 25px;
+  color: #31363f;
+}
+
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 520px) {
+  .section h2 {
+    font-size: 20px;
+  }
+
+  .section {
+    padding: 0;
+    margin-left: 0;
+    margin-right: 15px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 719px) {
+  .section h2 {
+    font-size: 25px;
+    margin-left: 69px;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 1240px) {
+  .section {
+    margin-left: 35px;
+    margin-right: 35px;
+  }
+
+  .section h2 {
+    font-size: 25px;
+  }
+}
+
+@media (min-width: 1241px) and (max-width: 1460px) {
+  .section h2 {
+    font-size: 25px;
+    margin-left: 69px;
+  }
+
+  .cardContainer {
+    justify-content: space-evenly;
+  }
+}

@@ -1,20 +1,30 @@
 import css from "./Footer.module.css";
-import Icofb from "../../assets/icons/facebook.png"
-import Icoig from "../../assets/icons/instagram.png";
-import Icoli from "../../assets/icons/linkedin.png";
-import Icotw from "../../assets/icons/twitter.png";
+import {
+  FaFacebook,
+  FaLinkedinIn,
+  FaTwitter,
+  FaInstagram,
+} from "react-icons/fa";
 
 function Footer() {
   return (
     <div className={css.footer}>
-      <div>
+      <div className={css.footerName}>
         <span>©2021 Digital Booking</span>
       </div>
-      <div>
-        <img src={Icofb} alt="logofb" />
-        <img src={Icoli} alt="logoli" />
-        <img src={Icotw} alt="logotw" />
-        <img src={Icoig} alt="logoig" />
+      <div className={css.iconsFooter}>
+        <span className={css.iconFooter}>
+          <FaFacebook />
+        </span>
+        <span className={css.iconFooter}>
+          <FaLinkedinIn />
+        </span>
+        <span className={css.iconFooter}>
+          <FaTwitter />
+        </span>
+        <span className={css.iconFooter}>
+          <FaInstagram />
+        </span>
       </div>
     </div>
   );

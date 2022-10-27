@@ -16,7 +16,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
 }
 .inicio {
   background: none;
@@ -32,8 +31,8 @@
   text-decoration: none;
   color: #545776;
 }
-.izq a:visited{
-  color:#545776;
+.izq a:visited {
+  color: #545776;
 }
 
 .boton {
@@ -41,9 +40,9 @@
   width: 206px;
   padding: 10px;
   background: #ffffff;
-  border: 1px solid #1DBEB4;
+  border: 1px solid #1dbeb4;
   border-radius: 5px;
-  color: #1DBEB4;
+  color: #1dbeb4;
   cursor: pointer;
   font-family: "Roboto";
   font-weight: 700;
@@ -55,14 +54,9 @@
 
 @media (max-width: 700px) {
   .boton,
-  .izq a {
-    display:none;
-  }
-  .logo {
-    position:absolute;
-  }
-  .header{
-    position: relative;
+  .linkLogo,
+  .tituloDb {
+    display: none;
   }
 }
 @media (min-width: 700px) {

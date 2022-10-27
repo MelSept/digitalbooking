@@ -46,9 +46,9 @@ function SearchBar() {
             </option>
           ))}
         </select>
-		<div className={css.inputField}>
-        	<DateRangePicker onPickDates={setDates} />
-		</div>
+        <div className={css.inputField}>
+          <DateRangePicker onPickDates={setDates} />
+        </div>
 
         <button className={css.submit} onClick={handleSubmit}>
           Buscar

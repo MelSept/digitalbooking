@@ -6,10 +6,12 @@ function Header() {
   return (
     <div className={css.header}>
       <div className={css.izq}>
-        <button className={css.inicio} >
-          <a href="#"><img src={Logo} className={css.logo} alt="logo" /></a>
+        <button className={css.inicio}>
+          <a className="linkLogo" href="#">
+            <img src={Logo} className={css.logo} alt="logo" />
+          </a>
         </button>
-        <a href="#"> Sentite como en tu hogar</a> 
+        <a href="#"> Sentite como en tu hogar</a>
       </div>
       <div className={css.der}>
         <button className={css.boton} onClick="">
@@ -21,6 +23,5 @@ function Header() {
     </div>
   );
 }
-
 
 export default Header;
