@@ -1,0 +1,61 @@
+.searchBar {
+    text-align: center;
+    background-color: #545776;
+    color: #fff;
+    padding: 20px;
+}
+.searchBar h1 {
+    color: #fff;
+}
+.searchBar .searchForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.searchBar .inputField {
+    height: 40px;
+    width: 422px;
+    border: none;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    margin: 4px;
+    background-color: #fff;
+    color: #7f7f7f;
+    text-align: left;
+}
+.searchBar .inputField .datePicker {
+    color: #7f7f7f;
+    height: 40px;
+}
+.searchBar .inputField .datePicker::placeholder {
+    color: #7f7f7f;
+}
+.searchBar .submit {
+    height: 40px;
+    width: 206px;
+    border: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    background-color: #1DBEB4;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #fff;
+}
+.searchBar .submit:hover {
+    cursor: pointer;
+}
+@media (max-width: 700px) {
+    .searchBar .searchForm {
+        flex-direction: column;
+   }
+    .searchBar .inputField {
+        width: 90%;
+   }
+    .searchBar .submit {
+        width: 90%;
+   }
+}

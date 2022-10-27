@@ -1,0 +1,7 @@
+[
+    {"id": 1, "name": "Buenos Aires", "country": "Argentina"},
+    {"id": 2, "name": "Córdoba", "country": "Argentina"},
+    {"id": 3, "name": "Cali", "country": "Colombia"},
+    {"id": 4, "name": "Bogotá", "country": "Colombia"},
+    {"id": 5, "name": "Medellín", "country": "Colombia"}               
+]
