@@ -1,5 +1,5 @@
 import css from "./SearchBar.module.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import DateRangePicker from "./DatePicker/DateRangePicker";
 
 // Cities ared loaded from static file

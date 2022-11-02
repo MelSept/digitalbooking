@@ -11,10 +11,11 @@
 }
 
 .section h2 {
-  font-size: 19px;
+  font-size: 20px;
   font-weight: bold;
-  margin-left: 25px;
   color: #31363f;
+  padding-top: 20px;
+  margin-left: 22px;
 }
 
 .cardContainer {
@@ -38,7 +39,6 @@
 @media (min-width: 600px) and (max-width: 719px) {
   .section h2 {
     font-size: 25px;
-    margin-left: 69px;
   }
 }
 
@@ -56,7 +56,6 @@
 @media (min-width: 1241px) and (max-width: 1460px) {
   .section h2 {
     font-size: 25px;
-    margin-left: 69px;
   }
 
   .cardContainer {

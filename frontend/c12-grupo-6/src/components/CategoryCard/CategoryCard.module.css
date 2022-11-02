@@ -5,7 +5,7 @@ p {
 
 .card {
   width: 300px;
-  height: 270px;
+  height: 250px;
   background-color: #fff;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -39,9 +39,17 @@ p {
   text-transform: lowercase;
   color: #bebebe;
 }
-@media (min-width: 420px) and (max-width: 549px) {
+@media (min-width: 320px) and (max-width: 420px) {
   .card {
-    width: 350px;
+    height: 240px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 420px) and (max-width: 599px) {
+  .card {
+    width: 100%;
     margin-bottom: 10px;
     height: 250px;
   }

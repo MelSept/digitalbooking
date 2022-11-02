@@ -11,8 +11,8 @@
 }
 
 .seccion h2 {
-  margin-top: 10px;
-  font-size: 19px;
+  padding-top: 20px;
+  font-size: 20px;
   font-weight: bold;
   color: #31363f;
 }
@@ -31,7 +31,6 @@
 
   .seccion h2 {
     font-size: 20px;
-    margin-left: 40px;
   }
 }
 
@@ -43,7 +42,7 @@
 
   .seccion h2 {
     font-size: 25px;
-    margin-left: 30px;
+    padding-left: 38px;
   }
 }
 
@@ -59,7 +58,7 @@
   .seccion h2 {
     font-size: 25px;
     margin-top: 10px;
-    padding-left: 40px;
+    padding-left: 32px;
   }
 }
 @media (min-width: 1241px) and (max-width: 1460px) {
@@ -74,6 +73,6 @@
   .seccion h2 {
     font-size: 25px;
     margin-top: 10px;
-    padding-left: 60px;
+    padding-left: 52px;
   }
 }
