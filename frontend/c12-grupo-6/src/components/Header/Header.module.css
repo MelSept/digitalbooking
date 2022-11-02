@@ -1,0 +1,67 @@
+.header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.izq {
+  display: flex;
+  align-items: center;
+  color: #607d8b;
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 300;
+  font-size: 20px;
+}
+.der {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.inicio {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.logo {
+  height: 70px;
+}
+.izq a {
+  margin-bottom: 5px;
+  margin-left: 10px;
+  text-decoration: none;
+  color: #545776;
+}
+.izq a:visited {
+  color: #545776;
+}
+
+.boton {
+  margin: 5px;
+  width: 206px;
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid #1dbeb4;
+  border-radius: 5px;
+  color: #1dbeb4;
+  cursor: pointer;
+  font-family: "Roboto";
+  font-weight: 700;
+  font-size: 16px;
+}
+#menu {
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .boton,
+  .linkLogo,
+  .tituloDb {
+    display: none;
+  }
+}
+@media (min-width: 700px) {
+  #menu {
+    display: none;
+  }
+}
