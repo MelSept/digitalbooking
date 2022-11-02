@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.controller;
 
-import com.digitalbooking.apilodgings.entity.Category;
+import com.digitalbooking.apilodgings.dto.CategoryDTO;
 import com.digitalbooking.apilodgings.exception.request.BadRequestException;
 import com.digitalbooking.apilodgings.exception.request.NotFoundException;
 import com.digitalbooking.apilodgings.response.Response;
@@ -12,8 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/category")
@@ -28,42 +26,43 @@ public class CategoryController {
 
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category requestCategory, @RequestHeader HttpHeaders requestHeaders) throws BadRequestException {
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO requestCategory) throws BadRequestException {
         HttpHeaders headers = new HttpHeaders();
 
         headers.add("Content-Type", "application/json");
 
-        Category categoryCreated = categoryService.createCategory(requestCategory);
+        CategoryDTO categoryCreated = categoryService.createCategory(requestCategory);
 
         return new ResponseEntity<>(categoryCreated, headers, HttpStatus.CREATED);
     }
 
     @GetMapping("/type/{title}")
-    public ResponseEntity<Optional<Category>> findCategoryByTitle(@PathVariable String title) throws NotFoundException {
+    public ResponseEntity<CategoryDTO> findCategoryByTitle(@PathVariable String title) throws NotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        Optional<Category> categoryFound = categoryService.findCategoryByTitle(title);
+        CategoryDTO categoryFound = categoryService.findCategoryByTitle(title);
 
         return new ResponseEntity<>(categoryFound, headers, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Category>> findCategoryByTitle(@PathVariable Integer id) throws NotFoundException, BadRequestException {
+    public ResponseEntity<CategoryDTO> findCategoryById(@PathVariable Integer id) throws NotFoundException, BadRequestException {
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        Optional<Category> categoryFound = categoryService.findCategoryById(id);
+        CategoryDTO categoryFound = categoryService.findCategoryById(id);
 
         return new ResponseEntity<>(categoryFound, headers, HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<Category> updateCategoryById(@RequestBody Category requestCategory) throws BadRequestException, NotFoundException {
+    public ResponseEntity<CategoryDTO> updateCategoryById(@RequestBody CategoryDTO requestCategory) throws BadRequestException, NotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        Category categoryUpdated = categoryService.updateCategory(requestCategory);
+        CategoryDTO categoryUpdated = categoryService.updateCategory(requestCategory);
 
         return new ResponseEntity<>(categoryUpdated, headers, HttpStatus.OK);
     }
@@ -78,7 +77,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDeleted, headers, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"","/"})
+    @GetMapping(path = {"", " ", "/"})
     public ResponseEntity<ResponseCategoryList> findAllCategories() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
