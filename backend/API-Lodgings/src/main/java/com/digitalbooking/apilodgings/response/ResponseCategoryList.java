@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.response;
 
-import com.digitalbooking.apilodgings.entity.Category;
+import com.digitalbooking.apilodgings.dto.CategoryDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +12,9 @@ import java.util.List;
 public class ResponseCategoryList {
 
     private final int count;
-    private final List<Category> categories;
+    private final List<CategoryDTO> categories;
 
-    public ResponseCategoryList(int count, List<Category> categories) {
+    public ResponseCategoryList(int count, List<CategoryDTO> categories) {
         this.count = count;
         this.categories = categories;
     }

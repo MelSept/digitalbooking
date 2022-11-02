@@ -25,6 +25,6 @@ public interface ICategoryRepository extends JpaRepository<Category, Integer> {
     Optional<Category> findByTitleIgnoreCase(String title);
 
 
-    @Query("select c from Category c")
-    List<Category> findAll();
+    @Query("select c from Category c where c.deleted = false")
+    List<Category> findAllByDeletedIsFalse();
 }
