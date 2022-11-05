@@ -14,8 +14,7 @@ variables:
   image: node:14.15.1
   stage: build 
   script: |
-    cd frontend
-    cd c12-grupo-6
+    cd frontend/c12-grupo-6
     npm install # Install all dependencies
     npm run build # Build command
   artifacts:
@@ -28,14 +27,13 @@ variables:
 
 .deploy_aws:
   image: python:latest
-  script: |
-    cd frontend
-    cd c12-grupo-6
-    pip install awscli #Install awscli tools
-    aws s3 sync ./build/ s3://${S3_BUCKET}
   stage: run
   dependencies:
-    - npm_build
+    - npm_build  
+  script: |
+    cd frontend/c12-grupo-6
+    pip install awscli #Install awscli tools
+    aws s3 sync ./build/ s3://${S3_BUCKET}
   before_script:
     - export S3_BUCKET=${S3_BUCKET_PROD}
   only:
