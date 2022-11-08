@@ -6,7 +6,7 @@ import com.digitalbooking.apilodgings.exception.request.BadRequestException;
 import com.digitalbooking.apilodgings.exception.request.NotFoundException;
 import com.digitalbooking.apilodgings.normalization.CategoryNormalization;
 import com.digitalbooking.apilodgings.repository.ICategoryRepository;
-import com.digitalbooking.apilodgings.response.ResponseCategoryList;
+import com.digitalbooking.apilodgings.response.category.ResponseCategoryList;
 import com.digitalbooking.apilodgings.response.Response;
 import com.digitalbooking.apilodgings.response.ResponseError;
 import com.digitalbooking.apilodgings.validation.CategoryValidation;
@@ -45,7 +45,10 @@ public class CategoryServiceImpl implements ICategoryService {
         Category categoryToSaved = new Category();
 
         if (categoryFound.isPresent() && categoryFound.get().isDeleted()) {
-            categoryToSaved = categoryFound.get();
+            categoryToSaved.setId(categoryFound.get().getId());
+            categoryToSaved.setTitle(categoryFound.get().getTitle());
+            categoryToSaved.setDescription(category.getDescription());
+            categoryToSaved.setImageUrl(category.getImageUrl());
             categoryToSaved.setDeleted(false);
 
             categoryToSaved = CategoryNormalization.Normalize(categoryToSaved);
