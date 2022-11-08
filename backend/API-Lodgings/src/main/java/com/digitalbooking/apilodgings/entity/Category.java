@@ -1,15 +1,10 @@
 package com.digitalbooking.apilodgings.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
-import org.springframework.boot.env.SpringApplicationJsonEnvironmentPostProcessor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -43,14 +38,8 @@ public class Category {
     @NotNull(message = "The 'imageUrl' field cannot be null.")
     private String imageUrl;
 
-    @Column(name = "deleted_flag")
+    @Column(name = "deleted")
     private boolean deleted;
-
-    // Reference
-
-    @OneToMany(mappedBy = "category")
-    @JsonIgnore
-    Set<Place> places;
 
 
     public Category(String title, String description, String imageUrl) {

@@ -1,4 +1,4 @@
-package com.digitalbooking.apilodgings.response.category;
+package com.digitalbooking.apilodgings.response;
 
 import com.digitalbooking.apilodgings.dto.CategoryDTO;
 import lombok.Getter;

@@ -1,0 +1,44 @@
+# Cache node modules - speeds up future builds
+cache:
+  paths:
+    - frontend/c12-grupo-6/node_modules
+
+stages:
+  - build
+  - run
+
+variables:
+  S3_BUCKET_PROD: "0521ptc12n2-grupo06-frontend"
+
+.npm_build:
+  image: node:14.15.1
+  stage: build 
+  script: |
+    cd frontend/c12-grupo-6
+    npm install # Install all dependencies
+    npm run build # Build command
+  artifacts:
+    paths:
+      - ./frontend/c12-grupo-6/build
+  only:
+    refs:
+      - develop       
+      
+
+.deploy_aws:
+  image: python:latest
+  stage: run
+  dependencies:
+    - npm_build  
+  script: |
+    cd frontend/c12-grupo-6
+    pip install awscli #Install awscli tools
+    aws s3 sync ./build/ s3://${S3_BUCKET}
+  before_script:
+    - export S3_BUCKET=${S3_BUCKET_PROD}
+  only:
+    refs:
+      - develop
+
+
+
