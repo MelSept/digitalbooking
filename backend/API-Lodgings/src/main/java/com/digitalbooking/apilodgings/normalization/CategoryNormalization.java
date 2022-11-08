@@ -4,7 +4,6 @@ import com.digitalbooking.apilodgings.entity.Category;
 
 public class CategoryNormalization {
 
-    // TODO: Change method declaration to DTO class
     public static Category Normalize(Category category) {
 
         Category categoryNormalize = new Category();

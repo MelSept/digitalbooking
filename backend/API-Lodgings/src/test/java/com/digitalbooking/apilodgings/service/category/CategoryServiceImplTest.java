@@ -20,6 +20,8 @@ class CategoryServiceImplTest {
 
     private final ICategoryService categoryService;
 
+    private final int idLastRecord = 5;
+
 
     CategoryServiceImplTest(@Qualifier("CategoryServiceImpl") ICategoryService categoryService) {
         this.categoryService = categoryService;
@@ -31,7 +33,7 @@ class CategoryServiceImplTest {
     public void createCategory__RecordNewCategory__MustBeReturnCategoryStoredInDB() {
         // Arrange
         CategoryDTO actual = new CategoryDTO();
-        actual.setTitle("Casa");
+        actual.setTitle("Hotel");
         actual.setDescription("Alojamiento y más");
         actual.setImageUrl("https://images.unsplash.com/photo-1565629196891-2ddb37c9e9fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80");
         CategoryDTO expected = new CategoryDTO();
@@ -66,7 +68,7 @@ class CategoryServiceImplTest {
         CategoryDTO actual = null;
         // Act
         try {
-            actual = categoryService.findCategoryByTitle("casa");
+            actual = categoryService.findCategoryByTitle("hotel");
         } catch (NotFoundException ignored) {
         }
         // Message
@@ -82,7 +84,7 @@ class CategoryServiceImplTest {
         CategoryDTO actual = null;
         // Act
         try {
-            actual = categoryService.findCategoryById(5);
+            actual = categoryService.findCategoryById(1);
         } catch (NotFoundException | BadRequestException ignored) {
         }
         // Message
@@ -99,7 +101,7 @@ class CategoryServiceImplTest {
         CategoryDTO expected = new CategoryDTO();
         // Act
         try {
-            actual = categoryService.findCategoryById(5);
+            actual = categoryService.findCategoryById(1);
             if (actual != null) {
                 actual.setDescription("Alojamiento");
                 expected = categoryService.updateCategory(actual);
@@ -121,8 +123,8 @@ class CategoryServiceImplTest {
         CategoryDTO expected = new CategoryDTO();
         // Act
         try {
-            categoryService.deleteCategoryById(5);
-            expected = categoryService.findCategoryById(5);
+            categoryService.deleteCategoryById(1);
+            expected = categoryService.findCategoryById(1);
         } catch (NotFoundException | BadRequestException ignored) {
         }
         // Message
