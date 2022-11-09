@@ -13,6 +13,13 @@ p {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  border: none;
+  padding-top: 10px;
+}
+
+.card:hover {
+  filter: opacity(0.5);
+  background-color: rgb(35, 172, 177);
 }
 
 .card img {
@@ -39,6 +46,7 @@ p {
   text-transform: lowercase;
   color: #bebebe;
 }
+
 @media (min-width: 320px) and (max-width: 420px) {
   .card {
     height: 240px;

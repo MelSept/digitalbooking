@@ -1,14 +1,13 @@
 import RecomendationCard from "../RecomendationCard/RecomendationCard";
-import data from "../../assets/json/dataCategorias.json";
 import styles from "./RecomendationList.module.css";
 
-const RecomendationList = () => {
+const RecomendationList = ({ recomendations }) => {
   return (
     <div className={styles.recomendationContainer}>
       <div className={styles.section}>
         <h2>Recomendaciones</h2>
         <div className={styles.cardContainer}>
-          {data.recomendaciones.map(
+          {recomendations.map(
             ({
               id,
               URLimg,
