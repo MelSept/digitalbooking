@@ -1,0 +1,82 @@
+.CreateUserContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.createUserContent {
+  width: 100%;
+  height: 100%;
+}
+
+.formCreateUser {
+  width: 100%;
+  height: 100%;
+}
+
+.regularStyle {
+  width: 100%;
+  height: 45px;
+  background: #e2dfe4;
+  color: #4b4949;
+  font-size: 16px;
+  border: 1px solid #d2dfde;
+  outline: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-weight: 600;
+  font-family: "Roboto";
+}
+
+.TitleComponent {
+  width: 100%;
+  height: 60px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LabelItemComponent {
+  font-size: 16px;
+  color: #4b4949;
+  font-weight: 600;
+  font-family: "Roboto";
+}
+
+.ItemComponent {
+  display: flex;
+  justify-content: left;
+  align-self: flex-start;
+  padding-left: 70px;
+}
+
+.inputContainer {
+  width: 80%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 50px;
+}
+
+@media screen and (min-width: 1030px) {
+  .formCreateUser {
+    width: 40%;
+    height: auto;
+    margin: auto auto;
+    padding: 0 0 30px 0;
+    box-shadow: 5px 15px 20px 0 rgba(0, 0, 0, 0.16);
+    border-radius: 10px;
+    box-sizing: content-box;
+    background: #ffffff;
+  }
+
+  .createUserContent {
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    align-items: center;
+  }
+}

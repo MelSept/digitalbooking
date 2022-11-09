@@ -1,0 +1,41 @@
+.containerLocation {
+  width: 100%;
+  background-color: #e5e5e5;
+  padding: 10px 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: Roboto;
+  font-weight: bold;
+  color: #545776;
+}
+
+.adress {
+  margin-left: 14px;
+}
+
+.productScore {
+  display: flex;
+}
+
+.comentCalification {
+  margin-right: 15px;
+}
+
+.markerIcon {
+  padding-right: 5px;
+}
+
+.points {
+  display: block;
+  background-color: #545776;
+  color: #ffffff;
+  padding: 5px 15px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.productScore .starIcons {
+  color: #1dbeb4;
+  font-weight: bold;
+}

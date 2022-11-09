@@ -1,0 +1,24 @@
+{
+  "gallery": [
+    {
+      "id": 1,
+      "image_url": "https://cf.bstatic.com/xdata/images/hotel/max1280x900/216257858.jpg?k=2508bd3cba9605d00a4437dd8f3cd7997733b50890b28627b97b8f9dbd623478&o=&hp=1"
+    },
+    {
+      "id": 2,
+      "image_url": "https://cf.bstatic.com/xdata/images/hotel/max1280x900/204576637.jpg?k=d31fd7bc19cf0bcd27ac96aecd738c496677b5cb78aec7403263b7058a49da28&o=&hp=1"
+    },
+    {
+      "id": 3,
+      "image_url": "https://cf.bstatic.com/xdata/images/hotel/max1280x900/216257110.jpg?k=6f169254b2cc9656634c6c00221ed49997615dc5eb948601ddb942190f2562e7&o=&hp=1"
+    },
+    {
+      "id": 4,
+      "image_url": "https://cf.bstatic.com/xdata/images/hotel/max1280x900/295509029.jpg?k=c54b0a7ab42798f85a4d4d71bcd5aecacf5b4122d58c824c6b8c603a8e34289d&o=&hp=1"
+    },
+    {
+      "id": 5,
+      "image_url": "https://cf.bstatic.com/xdata/images/hotel/max1280x900/223482004.jpg?k=a2b1b96b72facf85ebf551c6e824d26e008991ed1ec75e26c83da33ad925d19f&o=&hp=1"
+    }
+  ]
+}

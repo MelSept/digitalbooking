@@ -6,6 +6,8 @@ import {
   FaMapMarkerAlt,
   FaHeart,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { PRODUCT } from "../../router/routes";
 
 const RecomendationCard = ({
   id,
@@ -66,7 +68,9 @@ const RecomendationCard = ({
         </div>
 
         <p className={styles.description}>{parrafo}</p>
-        <button className={styles.detailBtn}>Ver detalle</button>
+        <Link to={PRODUCT}>
+          <button className={styles.detailBtn}>Ver detalle</button>
+        </Link>
       </div>
     </div>
   );
