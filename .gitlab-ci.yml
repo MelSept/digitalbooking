@@ -23,8 +23,6 @@ variables:
 npm_prod:
   extends: .npm_build
   stage: build
-  before_script:
-    - export APP_ENV="prod"
   only:
     refs:
       - develop
