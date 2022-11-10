@@ -1,7 +1,7 @@
 package com.digitalbooking.apilodgings.validation;
 
 import com.digitalbooking.apilodgings.entity.Category;
-import com.digitalbooking.apilodgings.exception.request.BadRequestException;
+import com.digitalbooking.apilodgings.exception.BadRequestException;
 import com.digitalbooking.apilodgings.response.ResponseError;
 
 import java.util.Objects;
