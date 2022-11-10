@@ -1,27 +1,28 @@
 import Logo from "../../assets/images/logoDb.png";
 import Menu from "../../assets/images/menu.png";
-import css from "./Header.module.css";
+import styles from "./Header.module.css";
+import { Link } from "react-router-dom";
 
-function Header() {
+const Header = () => {
   return (
-    <div className={css.header}>
-      <div className={css.izq}>
-        <button className={css.inicio}>
-          <a className="linkLogo" href="#">
-            <img src={Logo} className={css.logo} alt="logo" />
-          </a>
-        </button>
-        <a href="#"> Sentite como en tu hogar</a>
+    <div className={styles.header}>
+      <div className={styles.izq}>
+        <Link className={styles.inicio} to={"/"}>
+          <img src={Logo} className={styles.logo} alt="logo" />
+          <span className={styles.slogan}>Sentite como en tu hogar</span>
+        </Link>
       </div>
-      <div className={css.der}>
-        <button className={css.boton} onClick="">
+      <div className={styles.der}>
+        <Link className={styles.link} to={"/create"}>
           Crear cuenta
-        </button>
-        <button className={css.boton}>Iniciar sesion</button>
-        <img id={css.menu} src={Menu} alt="menu" />
+        </Link>
+        <Link className={styles.link} to={"/login"}>
+          Iniciar sesion
+        </Link>
+        <img className={styles.menu} src={Menu} alt="menu" />
       </div>
     </div>
   );
-}
+};
 
 export default Header;

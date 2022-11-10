@@ -1,0 +1,25 @@
+.containerGoBack {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #545776;
+  padding: 0 40px;
+  font-family: Roboto;
+}
+
+.categoryName {
+  color: #fff;
+}
+
+.name {
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.goBack {
+  color: #fff;
+  text-decoration: none;
+  font-size: 40px;
+  margin-top: 10px;
+}

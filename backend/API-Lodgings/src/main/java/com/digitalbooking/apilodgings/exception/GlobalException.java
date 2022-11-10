@@ -1,4 +1,4 @@
-package com.digitalbooking.apilodgings.exception.request;
+package com.digitalbooking.apilodgings.exception;
 
 import com.digitalbooking.apilodgings.response.Response;
 import com.digitalbooking.apilodgings.response.ResponseError;
