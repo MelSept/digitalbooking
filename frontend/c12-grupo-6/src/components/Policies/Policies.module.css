@@ -1,0 +1,28 @@
+.policiesContainer {
+  padding: 0 40px;
+  margin: 40px 0;
+  font-family: Roboto;
+  color: #545776;
+}
+
+.lineBottom {
+  border-bottom: solid 3px rgb(35, 172, 177);
+  width: 100%;
+  height: 10px;
+}
+
+.policiesContainer H3 {
+  color: #545776;
+  padding: 20px 0;
+}
+
+.policiesSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  gap: 10px;
+}
+
+.policiesContainer p {
+  margin: 5px 0;
+}

@@ -1,0 +1,17 @@
+.authFormContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e5e5e5;
+  font-family: Roboto;
+  color: #545776;
+}
+
+.authFormContainer h2 {
+  color: rgb(35, 172, 177);
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+}

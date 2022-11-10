@@ -13,7 +13,7 @@ const Header = () => {
         </Link>
       </div>
       <div className={styles.der}>
-        <Link className={styles.link} to={"/create"}>
+        <Link className={styles.link} to={"/register"}>
           Crear cuenta
         </Link>
         <Link className={styles.link} to={"/login"}>

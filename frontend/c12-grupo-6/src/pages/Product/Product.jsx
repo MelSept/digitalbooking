@@ -11,6 +11,9 @@ import img4 from "../../assets/images/imageGallery/img4.jpg";
 import img5 from "../../assets/images/imageGallery/img5.jpg";
 import ProductDescription from "../../components/ProductDescription/ProductDescription";
 import Features from "../../components/Features/Features";
+import Calendar from "../../components/Calendar/Calendar";
+import GoogleMap from "../../components/Map/GoogleMap";
+import Policies from "../../components/Policies/Policies";
 
 const Product = () => {
   /*const [product, setProduct] = useState();*/
@@ -50,6 +53,9 @@ const Product = () => {
       {showSlider && <Slider handleClose={handleClose} />}
       <ProductDescription />
       <Features />
+      <Calendar />
+      <GoogleMap />
+      <Policies />
     </div>
   );
 };
