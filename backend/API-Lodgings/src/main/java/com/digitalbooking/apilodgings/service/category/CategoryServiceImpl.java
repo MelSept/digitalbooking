@@ -2,8 +2,8 @@ package com.digitalbooking.apilodgings.service.category;
 
 import com.digitalbooking.apilodgings.dto.CategoryDTO;
 import com.digitalbooking.apilodgings.entity.Category;
-import com.digitalbooking.apilodgings.exception.request.BadRequestException;
-import com.digitalbooking.apilodgings.exception.request.NotFoundException;
+import com.digitalbooking.apilodgings.exception.BadRequestException;
+import com.digitalbooking.apilodgings.exception.NotFoundException;
 import com.digitalbooking.apilodgings.normalization.CategoryNormalization;
 import com.digitalbooking.apilodgings.repository.ICategoryRepository;
 import com.digitalbooking.apilodgings.response.category.ResponseCategoryList;
