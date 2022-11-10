@@ -1,8 +1,8 @@
 package com.digitalbooking.apilodgings.service.category;
 
 import com.digitalbooking.apilodgings.dto.CategoryDTO;
-import com.digitalbooking.apilodgings.exception.request.BadRequestException;
-import com.digitalbooking.apilodgings.exception.request.NotFoundException;
+import com.digitalbooking.apilodgings.exception.BadRequestException;
+import com.digitalbooking.apilodgings.exception.NotFoundException;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ class CategoryServiceImplTest {
         CategoryDTO actual = new CategoryDTO();
         actual.setTitle("Casa");
         actual.setDescription("Alojamiento y más");
-        actual.setImageUrl("https://images.unsplash.com/photo-1565629196891-2ddb37c9e9fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80");
+        actual.setImageUrl("https://images.unsplash.com/photo-1501183638710-841dd1904471");
         CategoryDTO expected = new CategoryDTO();
         // Act
         try {
