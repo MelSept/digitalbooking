@@ -17,7 +17,7 @@ variables:
     npm run build # Build command     
   artifacts:
     paths:
-      -./frontend/c12-grupo-6/build
+      - ./frontend/c12-grupo-6/build
       
 
 npm_prod:
