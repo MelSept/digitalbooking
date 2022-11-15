@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ApiLodgingsApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(ApiLodgingsApplication.class, args);
     }
 

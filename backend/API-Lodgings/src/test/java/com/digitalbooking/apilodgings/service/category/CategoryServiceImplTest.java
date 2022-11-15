@@ -1,6 +1,7 @@
 package com.digitalbooking.apilodgings.service.category;
 
-import com.digitalbooking.apilodgings.dto.CategoryDTO;
+import com.digitalbooking.apilodgings.dto.category.CategoryDTO;
+import com.digitalbooking.apilodgings.dto.category.CategoryResponse;
 import com.digitalbooking.apilodgings.exception.BadRequestException;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
 import org.junit.jupiter.api.MethodOrderer;
@@ -31,7 +32,7 @@ class CategoryServiceImplTest {
     public void createCategory__RecordNewCategory__MustBeReturnCategoryStoredInDB() {
         // Arrange
         CategoryDTO actual = new CategoryDTO();
-        actual.setTitle("Casa");
+        actual.setTitle("casas");
         actual.setDescription("Alojamiento y más");
         actual.setImageUrl("https://images.unsplash.com/photo-1501183638710-841dd1904471");
         CategoryDTO expected = new CategoryDTO();
@@ -50,9 +51,9 @@ class CategoryServiceImplTest {
     @Order(2)
     public void findAllCategories__WithStoredRecords__MustBeReturnGreaterThan0() {
         // Arrange
-        List<CategoryDTO> actual;
+        List<CategoryResponse> actual;
         // Act
-        actual = categoryService.findAllCategories().getCategories();
+        actual = categoryService.findAllCategories();
         // Message
         String message;
         // Assert
@@ -66,7 +67,7 @@ class CategoryServiceImplTest {
         CategoryDTO actual = null;
         // Act
         try {
-            actual = categoryService.findCategoryByTitle("casa");
+            actual = categoryService.findCategoryByTitle("casas");
         } catch (NotFoundException ignored) {
         }
         // Message
@@ -101,7 +102,9 @@ class CategoryServiceImplTest {
         try {
             actual = categoryService.findCategoryById(5);
             if (actual != null) {
+                actual.setTitle("casas");
                 actual.setDescription("Alojamiento");
+                actual.setImageUrl("image url");
                 expected = categoryService.updateCategory(actual);
             }
         } catch (NotFoundException | BadRequestException ignored) {

@@ -7,10 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service(value = "PlaceServiceImpl")
 public class PlaceServiceImpl implements IPlaceService {
 
     private final IPlaceRepository placeRepository;
+
 
     @Autowired
     public PlaceServiceImpl(IPlaceRepository placeRepository) {

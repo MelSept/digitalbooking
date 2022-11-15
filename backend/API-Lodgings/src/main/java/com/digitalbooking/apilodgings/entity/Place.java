@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Setter
@@ -49,6 +50,11 @@ public class Place {
     @NotBlank(message = "The 'length' field cannot be empty.")
     private float length;
 
+    @Column(name = "address", length = 260, nullable = false)
+    @NotNull(message = "The 'address' field cannot be null.")
+    @NotBlank(message = "The 'address' field cannot be empty.")
+    private String address;
+
     @Column(name = "deleted_flag")
     private boolean deleted;
 
@@ -56,7 +62,7 @@ public class Place {
 
     @OneToMany(mappedBy = "place")
     @JsonIgnore
-    Set<Product> products;
+    Set<Product> products = new LinkedHashSet<>();
 
     @ManyToOne()
     @JoinColumn(name = "category_id")

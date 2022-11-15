@@ -7,6 +7,7 @@ import java.util.List;
 public interface IPlaceService {
 
     List<Place> findAllPlaces();
+
     List<Place> findAllPlacesByCategoryTitle(String categoryTitle);
 
 }

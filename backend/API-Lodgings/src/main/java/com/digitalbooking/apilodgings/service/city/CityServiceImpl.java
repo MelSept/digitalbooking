@@ -17,6 +17,7 @@ public class CityServiceImpl implements ICityService{
     private final ICityRepository cityRepository;
     private final ObjectMapper mapper;
 
+
     @Autowired
     public CityServiceImpl(@Qualifier("ICityRepository") ICityRepository cityRepository) {
         this.cityRepository = cityRepository;

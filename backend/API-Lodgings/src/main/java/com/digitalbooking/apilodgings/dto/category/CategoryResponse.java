@@ -1,4 +1,4 @@
-package com.digitalbooking.apilodgings.dto;
+package com.digitalbooking.apilodgings.dto.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class CategoryDTO implements Serializable {
+public class CategoryResponse implements Serializable {
 
     @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
@@ -28,4 +28,6 @@ public class CategoryDTO implements Serializable {
 
     @NotNull(message = "The 'imageUrl' field cannot be null.")
     private String imageUrl;
+
+    private Integer productCount;
 }

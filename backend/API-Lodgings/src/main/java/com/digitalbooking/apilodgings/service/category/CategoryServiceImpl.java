@@ -1,12 +1,12 @@
 package com.digitalbooking.apilodgings.service.category;
 
-import com.digitalbooking.apilodgings.dto.CategoryDTO;
+import com.digitalbooking.apilodgings.dto.category.CategoryDTO;
+import com.digitalbooking.apilodgings.dto.category.CategoryResponse;
 import com.digitalbooking.apilodgings.entity.Category;
 import com.digitalbooking.apilodgings.exception.BadRequestException;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
-import com.digitalbooking.apilodgings.normalization.CategoryNormalization;
 import com.digitalbooking.apilodgings.repository.ICategoryRepository;
-import com.digitalbooking.apilodgings.response.category.ResponseCategoryList;
+import com.digitalbooking.apilodgings.repository.IProductRepository;
 import com.digitalbooking.apilodgings.response.Response;
 import com.digitalbooking.apilodgings.response.ResponseError;
 import com.digitalbooking.apilodgings.validation.CategoryValidation;
@@ -25,11 +25,13 @@ import java.util.Optional;
 public class CategoryServiceImpl implements ICategoryService {
 
     private final ICategoryRepository categoryRepository;
+    private final IProductRepository productRepository;
     private final ObjectMapper mapper;
 
     @Autowired
-    public CategoryServiceImpl(ICategoryRepository categoryRepository) {
+    public CategoryServiceImpl(ICategoryRepository categoryRepository, IProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
         mapper = new ObjectMapper();
     }
 
@@ -51,7 +53,7 @@ public class CategoryServiceImpl implements ICategoryService {
             categoryToSaved.setImageUrl(category.getImageUrl());
             categoryToSaved.setDeleted(false);
 
-            categoryToSaved = CategoryNormalization.Normalize(categoryToSaved);
+            categoryToSaved = Category.Normalize(categoryToSaved);
             categoryToSaved = categoryRepository.save(categoryToSaved);
 
             return mapper.convertValue(categoryToSaved, CategoryDTO.class);
@@ -62,7 +64,7 @@ public class CategoryServiceImpl implements ICategoryService {
         }
 
         if (categoryFound.isEmpty()) {
-            category = CategoryNormalization.Normalize(category);
+            category = Category.Normalize(category);
             categoryToSaved = categoryRepository.save(category);
         }
 
@@ -130,7 +132,7 @@ public class CategoryServiceImpl implements ICategoryService {
             categorySaved.setDescription(category.getDescription());
             categorySaved.setImageUrl(category.getImageUrl());
 
-            categorySaved = CategoryNormalization.Normalize(categorySaved);
+            categorySaved = Category.Normalize(categorySaved);
 
             categorySaved = categoryRepository.save(categorySaved);
 
@@ -139,7 +141,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
         CategoryValidation.cannotUpdateCategory(categoryFoundById, categoryFoundByTitle);
 
-        category = CategoryNormalization.Normalize(category);
+        category = Category.Normalize(category);
 
         categorySaved = categoryRepository.save(category);
 
@@ -170,16 +172,18 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public ResponseCategoryList findAllCategories() {
+    public List<CategoryResponse> findAllCategories() {
         List<Category> categoriesFound = categoryRepository.findAllByDeletedIsFalse();
-        int count = categoriesFound.size();
 
-        List<CategoryDTO> categoriesDTO = new ArrayList<>();
+        List<CategoryResponse> categoriesDTO = new ArrayList<>();
 
         for (Category categoryFound : categoriesFound) {
-            categoriesDTO.add(mapper.convertValue(categoryFound, CategoryDTO.class));
+            CategoryResponse categoryDTO = mapper.convertValue(categoryFound, CategoryResponse.class);
+            int productCount = productRepository.countByPlace_Category_TitleIgnoreCase(categoryDTO.getTitle());
+            categoryDTO.setProductCount(productCount);
+            categoriesDTO.add(categoryDTO);
         }
 
-        return new ResponseCategoryList(count, categoriesDTO);
+        return categoriesDTO;
     }
 }

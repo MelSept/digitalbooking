@@ -1,4 +1,4 @@
-package com.digitalbooking.apilodgings.dto;
+package com.digitalbooking.apilodgings.dto.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
@@ -9,13 +9,13 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * A DTO for the {@link com.digitalbooking.apilodgings.entity.Image} entity
+ * A DTO for the {@link com.digitalbooking.apilodgings.entity.Category} entity
  */
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class ImageDTO implements Serializable, Comparable<ImageDTO> {
+public class CategoryDTO implements Serializable {
 
     @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
@@ -23,15 +23,9 @@ public class ImageDTO implements Serializable, Comparable<ImageDTO> {
     @NotNull(message = "The 'title' field cannot be null.")
     private String title;
 
-    @NotNull(message = "The 'url' field cannot be null.")
-    private String url;
+    @NotNull(message = "The 'description' field cannot be null.")
+    private String description;
 
-
-    @Override
-    public int compareTo(ImageDTO o) {
-        int compareId = o.getId();
-
-        //  For Ascending order
-        return this.id - compareId;
-    }
+    @NotNull(message = "The 'imageUrl' field cannot be null.")
+    private String imageUrl;
 }

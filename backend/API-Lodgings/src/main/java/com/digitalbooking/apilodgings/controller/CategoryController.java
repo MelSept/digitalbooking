@@ -1,10 +1,10 @@
 package com.digitalbooking.apilodgings.controller;
 
-import com.digitalbooking.apilodgings.dto.CategoryDTO;
+import com.digitalbooking.apilodgings.dto.category.CategoryDTO;
+import com.digitalbooking.apilodgings.dto.category.CategoryResponse;
 import com.digitalbooking.apilodgings.exception.BadRequestException;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
 import com.digitalbooking.apilodgings.response.Response;
-import com.digitalbooking.apilodgings.response.category.ResponseCategoryList;
 import com.digitalbooking.apilodgings.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +12,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping(path = "/category")
@@ -36,7 +39,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryCreated, headers, HttpStatus.CREATED);
     }
 
-    @GetMapping("/name/{title}")
+    @GetMapping(path = "/title/{title}")
     public ResponseEntity<CategoryDTO> findCategoryByTitle(@PathVariable String title) throws NotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
@@ -46,7 +49,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryFound, headers, HttpStatus.OK);
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CategoryDTO> findCategoryById(@PathVariable Integer id) throws NotFoundException, BadRequestException {
 
         HttpHeaders headers = new HttpHeaders();
@@ -77,12 +80,12 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDeleted, headers, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"", " ", "/"})
-    public ResponseEntity<ResponseCategoryList> findAllCategories() {
+    @GetMapping(path = {"/"})
+    public ResponseEntity<List<CategoryResponse>> findAllCategories() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        ResponseCategoryList categoriesFound = categoryService.findAllCategories();
+        List<CategoryResponse> categoriesFound = categoryService.findAllCategories();
 
         return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
     }

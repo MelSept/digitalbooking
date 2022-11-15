@@ -1,6 +1,5 @@
 package com.digitalbooking.apilodgings.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Setter
@@ -26,7 +26,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
 
@@ -45,18 +45,29 @@ public class Product {
     @NotBlank(message = "The 'available' field cannot be empty.")
     private boolean available;
 
+    @Column(name = "thumbnail")
+    @NotNull(message = "The 'thumbnail' field cannot be null.")
+    @NotBlank(message = "The 'thumbnail' field cannot be empty.")
+    private String thumbnail;
+
     @Column(name = "deleted_flag")
     private boolean deleted;
 
     // Reference
 
-    @OneToMany(mappedBy = "product")
-    @JsonIgnore
-    Set<Image> images;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "product_id", nullable = false,
+            foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (product_id) REFERENCES product"))
+    private Set<Image> images = new HashSet<>();
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    @JsonIgnore
-    Set<ProductFeatures> features = new HashSet<>();
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            fetch = FetchType.LAZY)
+    @JoinTable(name = "products_features",
+            joinColumns = {@JoinColumn(name = "product_id")},
+            inverseJoinColumns = {@JoinColumn(name = "feature_id")},
+            foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (product_id) REFERENCES product"),
+            inverseForeignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (feature_id) REFERENCES feature"))
+    Set<Feature> features = new HashSet<>();
 
     @ManyToOne()
     @JoinColumn(name = "place_id")
@@ -72,5 +83,21 @@ public class Product {
     }
 
     public Product() {
+    }
+
+
+    public void addFeature(Feature feature) {
+        this.features.add(feature);
+        feature.getProducts().add(this);
+    }
+
+    public void removeFeature(Integer featureId) {
+        Feature feature = this.features.stream().
+                filter(f -> Objects.equals(f.getId(), featureId)).findFirst().orElse(null);
+
+        if (feature != null) {
+            this.features.remove(feature);
+            feature.getProducts().remove(this);
+        }
     }
 }

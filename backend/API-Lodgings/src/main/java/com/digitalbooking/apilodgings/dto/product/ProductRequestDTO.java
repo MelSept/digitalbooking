@@ -1,27 +1,23 @@
-package com.digitalbooking.apilodgings.dto;
+package com.digitalbooking.apilodgings.dto.product;
 
-import com.digitalbooking.apilodgings.entity.Place;
+import com.digitalbooking.apilodgings.dto.FeatureDTO;
+import com.digitalbooking.apilodgings.dto.ImageDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
-/**
- * A DTO for the {@link com.digitalbooking.apilodgings.entity.Product} entity
- */
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class ProductDTO implements Serializable {
-
-    @NotNull(message = "The 'id' field cannot be null.")
-    private Integer id;
+public class ProductRequestDTO implements Serializable {
 
     @NotNull(message = "The 'title' field cannot be null.")
     @NotBlank(message = "The 'title' field cannot be empty.")
@@ -35,15 +31,20 @@ public class ProductDTO implements Serializable {
     @NotBlank(message = "The 'available' field cannot be empty.")
     private boolean available;
 
+    @Column(name = "thumbnail")
+    @NotNull(message = "The 'thumbnail' field cannot be null.")
+    @NotBlank(message = "The 'thumbnail' field cannot be empty.")
+    private String thumbnail;
+
     @NotNull(message = "The 'place' field cannot be null.")
     @NotBlank(message = "The 'place' field cannot be empty.")
-    private Place place;
+    private Integer placeId;
 
     @NotNull(message = "The 'images' field cannot be null.")
     @NotBlank(message = "The 'images' field cannot be empty.")
-    private List<ImageDTO> images;
+    private Set<ImageDTO> images;
 
     @NotNull(message = "The 'features' field cannot be null.")
     @NotBlank(message = "The 'features' field cannot be empty.")
-    private List<FeatureDTO> features;
+    private Set<FeatureDTO> features;
 }
