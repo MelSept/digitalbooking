@@ -3,12 +3,9 @@ package com.digitalbooking.apilodgings.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
-import org.springframework.boot.env.SpringApplicationJsonEnvironmentPostProcessor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -63,5 +60,20 @@ public class Category {
 
     public Category() {
 
+    }
+
+
+
+
+    // TODO: Change method declaration to DTO class
+    public static Category Normalize(Category category) {
+
+        Category categoryNormalize = new Category();
+        categoryNormalize.setId(category.getId());
+        categoryNormalize.setTitle(category.getTitle().trim().toLowerCase());
+        categoryNormalize.setDescription(category.getDescription().trim().toLowerCase());
+        categoryNormalize.setImageUrl(category.getImageUrl().trim().toLowerCase());
+        categoryNormalize.setDeleted(category.isDeleted());
+        return categoryNormalize;
     }
 }
