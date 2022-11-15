@@ -168,8 +168,8 @@
       {
         "id": 1,
         "URLimg": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/184305239.jpg?k=2d22fe63ae1f8960e057238c98fb436f7bd9f65854e3a5e918607c5cfa1d0a52&o=&hp=1",
-        "category_name": "bedAndBreakfast",
-        "titulo": "bedAndBreakfast",
+        "category_name": "BedAndBreakfast",
+        "titulo": "BedAndBreakfast",
         "puntaje": 8,
         "calificacion": "Muy bueno",
         "ubicacion": "A 940 m del centro",
@@ -179,8 +179,8 @@
       {
         "id": 2,
         "URLimg": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/249506873.jpg?k=4fdb9a9503d49be10a0711346f31e216e606ab8126f97ba4b1690b8b345cd5ac&o=&hp=1",
-        "category_name": "bedAndBreakfast",
-        "titulo": "bedAndBreakfast",
+        "category_name": "BedAndBreakfast",
+        "titulo": "BedAndBreakfast",
         "puntaje": 9,
         "calificacion": "Muy bueno",
         "ubicacion": "A 940 m del centro",
@@ -190,8 +190,8 @@
       {
         "id": 3,
         "URLimg": "https://pesweb.azureedge.net/spimg/hotelbannerimages/4-star-hotel-buenos-aires-exterior.jpg?scale=downscaleonly&encoder=freeimage&progressive=true&quality=50&w=1440&h=780&mode=crop&anchor=bottomcenter",
-        "category_name": "bedAndBreakfast",
-        "titulo": "bedAndBreakfast",
+        "category_name": "BedAndBreakfast",
+        "titulo": "BedAndBreakfast",
         "puntaje": 10,
         "calificacion": "Muy bueno",
         "ubicacion": "A 940 m del centro",
@@ -201,8 +201,8 @@
       {
         "id": 4,
         "URLimg": "https://www.hotel-argentino.com.ar/wp-content/uploads/2019/04/carr04.jpg",
-        "category_name": "bedAndBreakfast",
-        "titulo": "bedAndBreakfast",
+        "category_name": "BedAndBreakfast",
+        "titulo": "BedAndBreakfast",
         "puntaje": 8,
         "calificacion": "Muy bueno",
         "ubicacion": "A 940 m del centro ",
