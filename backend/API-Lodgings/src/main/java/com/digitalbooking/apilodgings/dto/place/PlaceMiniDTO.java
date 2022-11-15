@@ -1,5 +1,7 @@
-package com.digitalbooking.apilodgings.dto;
+package com.digitalbooking.apilodgings.dto.place;
 
+import com.digitalbooking.apilodgings.dto.CityDTO;
+import com.digitalbooking.apilodgings.dto.category.CategoryMiniDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
@@ -10,13 +12,14 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * A DTO for the {@link com.digitalbooking.apilodgings.entity.Feature} entity
+ * A DTO for the {@link com.digitalbooking.apilodgings.entity.Place} entity
  */
+
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class FeatureDTO implements Serializable, Comparable<FeatureDTO> {
+public class PlaceMiniDTO implements Serializable {
 
     @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
@@ -25,12 +28,11 @@ public class FeatureDTO implements Serializable, Comparable<FeatureDTO> {
     @NotBlank(message = "The 'title' field cannot be empty.")
     private String title;
 
+    @NotNull(message = "The 'address' field cannot be null.")
+    @NotBlank(message = "The 'address' field cannot be empty.")
+    private String address;
 
-    @Override
-    public int compareTo(FeatureDTO o) {
-        int compareId = o.getId();
+    private CategoryMiniDTO category;
 
-        //  For Ascending order
-        return this.id - compareId;
-    }
+    private CityDTO city;
 }

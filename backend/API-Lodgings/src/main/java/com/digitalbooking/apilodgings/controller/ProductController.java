@@ -1,7 +1,7 @@
 package com.digitalbooking.apilodgings.controller;
 
-import com.digitalbooking.apilodgings.dto.ProductDTO;
-import com.digitalbooking.apilodgings.entity.Product;
+import com.digitalbooking.apilodgings.dto.product.ProductDTO;
+import com.digitalbooking.apilodgings.dto.product.ProductMiniDTO;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
 import com.digitalbooking.apilodgings.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,42 +24,63 @@ public class ProductController {
     }
 
 
-    @GetMapping(path = {"/id/{productId}"})
-    public ResponseEntity<ProductDTO> findProductById(@PathVariable Integer productId) throws NotFoundException {
+    @PostMapping
+    public ResponseEntity<ProductDTO> saveProduct(@RequestBody ProductDTO productRequestDTO) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        ProductDTO productFound = productService.findProductById(productId);
+        ProductDTO productFound = productService.createProduct(productRequestDTO);
 
         return new ResponseEntity<>(productFound, headers, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"/category/{categoryTitle}"})
-    public ResponseEntity<List<ProductDTO>> findAllProductsByCategoryTitle(@PathVariable String categoryTitle) {
+
+    @GetMapping(path = {"/{id}"})
+    public ResponseEntity<ProductDTO> findProductById(@PathVariable Integer id) throws NotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<ProductDTO> categoriesFound = productService.findAllProductsByCategoryTitle(categoryTitle);
+        ProductDTO productFound = productService.findProductById(id);
+
+        return new ResponseEntity<>(productFound, headers, HttpStatus.OK);
+    }
+
+    @GetMapping(path = {"/category/{title}"})
+    public ResponseEntity<List<ProductMiniDTO>> findAllProductsByCategoryTitle(@PathVariable String title) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+
+        List<ProductMiniDTO> categoriesFound = productService.findAllProductsByCategoryTitle(title);
 
         return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"/city/{cityName}"})
-    public ResponseEntity<List<ProductDTO>> findAllProductsByCityName(@PathVariable String cityName) {
+    @GetMapping(path = {"/city/{title}"})
+    public ResponseEntity<List<ProductMiniDTO>> findAllProductsByCityName(@PathVariable String title) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<ProductDTO> categoriesFound = productService.findAllProductsByCityTitle(cityName);
+        List<ProductMiniDTO> categoriesFound = productService.findAllProductsByCityTitle(title);
 
         return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"", " ", "/"})
-    public ResponseEntity<List<ProductDTO>> findAllProducts() {
+    @GetMapping(path = {"/"})
+    public ResponseEntity<List<ProductMiniDTO>> findAllProducts() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<ProductDTO> categoriesFound = productService.findAllProducts();
+        List<ProductMiniDTO> categoriesFound = productService.findAllProducts();
+
+        return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
+    }
+
+    @GetMapping(path = {"/random/"})
+    public ResponseEntity<List<ProductMiniDTO>> findAllRandomProducts(@RequestParam(required = false) Integer quantity) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+
+        List<ProductMiniDTO> categoriesFound = productService.findAllProductsRandom(quantity);
 
         return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
     }

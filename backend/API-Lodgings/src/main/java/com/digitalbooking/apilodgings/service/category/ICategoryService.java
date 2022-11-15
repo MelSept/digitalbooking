@@ -1,10 +1,12 @@
 package com.digitalbooking.apilodgings.service.category;
 
-import com.digitalbooking.apilodgings.dto.CategoryDTO;
+import com.digitalbooking.apilodgings.dto.category.CategoryDTO;
+import com.digitalbooking.apilodgings.dto.category.CategoryResponse;
 import com.digitalbooking.apilodgings.exception.BadRequestException;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
 import com.digitalbooking.apilodgings.response.Response;
-import com.digitalbooking.apilodgings.response.ResponseCategoryList;
+
+import java.util.List;
 
 public interface ICategoryService {
 
@@ -18,5 +20,5 @@ public interface ICategoryService {
 
     Response deleteCategoryById(Integer id) throws NotFoundException, BadRequestException;
 
-    ResponseCategoryList findAllCategories();
+    List<CategoryResponse> findAllCategories();
 }

@@ -1,4 +1,4 @@
-package com.digitalbooking.apilodgings.dto;
+package com.digitalbooking.apilodgings.dto.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

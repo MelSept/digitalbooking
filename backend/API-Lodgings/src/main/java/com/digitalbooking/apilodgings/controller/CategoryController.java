@@ -4,7 +4,7 @@ import com.digitalbooking.apilodgings.dto.CategoryDTO;
 import com.digitalbooking.apilodgings.exception.BadRequestException;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
 import com.digitalbooking.apilodgings.response.Response;
-import com.digitalbooking.apilodgings.response.ResponseCategoryList;
+import com.digitalbooking.apilodgings.response.category.ResponseCategoryList;
 import com.digitalbooking.apilodgings.service.category.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -36,7 +36,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryCreated, headers, HttpStatus.CREATED);
     }
 
-    @GetMapping("/type/{title}")
+    @GetMapping("/name/{title}")
     public ResponseEntity<CategoryDTO> findCategoryByTitle(@PathVariable String title) throws NotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
@@ -46,7 +46,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryFound, headers, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<CategoryDTO> findCategoryById(@PathVariable Integer id) throws NotFoundException, BadRequestException {
 
         HttpHeaders headers = new HttpHeaders();

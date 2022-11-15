@@ -25,18 +25,18 @@ public class PlaceController {
     }
 
 
-    @GetMapping(path = {"/category/{categoryTitle}"})
-    public ResponseEntity<List<Place>> findAllPlacesByCategoryTitle(@PathVariable String categoryTitle) {
+    @GetMapping(path = {"/category/{title}"})
+    public ResponseEntity<List<Place>> findAllPlacesByCategoryTitle(@PathVariable String title) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<Place> categoriesFound = placeService.findAllPlacesByCategoryTitle(categoryTitle);
+        List<Place> categoriesFound = placeService.findAllPlacesByCategoryTitle(title);
 
         return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
     }
 
 
-    @GetMapping(path = {"", " ", "/"})
+    @GetMapping(path = {"/"})
     public ResponseEntity<List<Place>> findAllPlaces() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");

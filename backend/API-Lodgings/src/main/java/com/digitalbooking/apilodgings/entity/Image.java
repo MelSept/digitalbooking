@@ -1,6 +1,5 @@
 package com.digitalbooking.apilodgings.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,11 +22,11 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
 
-    @Column(name = "title", nullable = false, length = 200)
+    @Column(name = "title", unique = true, nullable = false, length = 200)
     @NotNull(message = "The 'title' field cannot be null.")
     private String title;
 
@@ -35,15 +34,11 @@ public class Image {
     @NotNull(message = "The 'url' field cannot be null.")
     private String url;
 
-    @Column(name = "deleted_flag")
+    @Column(name = "deleted_flag", nullable = false)
     private boolean deleted;
 
 
     // Reference
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    Product product;
 
 
     public Image(Integer id, String title, String url, boolean deleted) {
