@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service(value = "FeatureServiceImpl")
 public class FeatureServiceImpl implements IFeatureService {
 
     IFeatureRepository featureRepository;

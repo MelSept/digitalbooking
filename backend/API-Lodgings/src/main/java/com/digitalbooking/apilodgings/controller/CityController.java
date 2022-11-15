@@ -1,8 +1,6 @@
 package com.digitalbooking.apilodgings.controller;
 
 import com.digitalbooking.apilodgings.dto.CityDTO;
-import com.digitalbooking.apilodgings.response.category.ResponseCategoryList;
-import com.digitalbooking.apilodgings.service.category.ICategoryService;
 import com.digitalbooking.apilodgings.service.city.ICityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,7 +26,7 @@ public class CityController {
     }
 
 
-    @GetMapping(path = {"", " ", "/"})
+    @GetMapping(path = {"/"})
     public ResponseEntity<List<CityDTO>> findAllCategories() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");

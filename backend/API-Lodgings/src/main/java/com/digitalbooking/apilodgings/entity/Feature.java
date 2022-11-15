@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Entity
 @Table(name = "feature")
-public class Feature {
+public class Feature implements Comparable<Feature> {
 
     // Dev - Env
     /*
@@ -30,7 +30,7 @@ public class Feature {
     @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
 
-    @Column(name = "title", length = 200, nullable = false)
+    @Column(name = "title", unique = true, nullable = false, length = 200)
     @NotNull(message = "The 'title' field cannot be null.")
     @NotBlank(message = "The 'title' field cannot be empty.")
     private String title;
@@ -40,9 +40,11 @@ public class Feature {
 
     // Reference
 
-    @OneToMany(mappedBy = "feature")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            fetch = FetchType.LAZY,
+    mappedBy = "features")
     @JsonIgnore
-    Set<ProductFeatures> products = new HashSet<>();
+    Set<Product> products = new HashSet<>();
 
 
     public Feature(Integer id, boolean deleted) {
@@ -53,4 +55,16 @@ public class Feature {
     public Feature() {
     }
 
+
+    @Override
+    public int compareTo(Feature o) {
+        int result = 0;
+        if (this.id > o.id) {
+            result = 1;
+        }
+        if (this.id < o.id) {
+            result = -1;
+        }
+        return result;
+    }
 }
