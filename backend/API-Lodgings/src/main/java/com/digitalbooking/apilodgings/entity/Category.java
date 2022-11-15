@@ -65,7 +65,6 @@ public class Category {
 
 
 
-    // TODO: Change method declaration to DTO class
     public static Category Normalize(Category category) {
 
         Category categoryNormalize = new Category();

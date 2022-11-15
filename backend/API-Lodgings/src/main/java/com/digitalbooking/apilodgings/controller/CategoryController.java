@@ -39,7 +39,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryCreated, headers, HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "/title/{title}")
+    @GetMapping("/name/{title}")
     public ResponseEntity<CategoryDTO> findCategoryByTitle(@PathVariable String title) throws NotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
@@ -49,7 +49,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryFound, headers, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<CategoryDTO> findCategoryById(@PathVariable Integer id) throws NotFoundException, BadRequestException {
 
         HttpHeaders headers = new HttpHeaders();
@@ -80,7 +80,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDeleted, headers, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"/"})
+    @GetMapping(path = {"", " ", "/"})
     public ResponseEntity<List<CategoryResponse>> findAllCategories() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
