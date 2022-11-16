@@ -4,10 +4,14 @@ import { RESERVATION } from "../../router/routes";
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const Calendar = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
+
+  const { width } = useWindowSize();
+
   const onChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
@@ -30,11 +34,14 @@ const Calendar = () => {
             selectsRange
             showDisabledMonthNavigation
             inline
-            monthsShown={2}
+            monthsShown={width > 700 ? 2 : 1}
           />
         </div>
         <div className={styles.reservationWindow}>
-          <h3>Agregá tus fechas de viaje para obtener precios exactos</h3>
+          <h3>
+            Agregá tus fechas de viaje para obtener precios <br />
+            exactos
+          </h3>
           <Link to={RESERVATION}>
             <button className={styles.reservationBtn}>Iniciar Reserva</button>
           </Link>

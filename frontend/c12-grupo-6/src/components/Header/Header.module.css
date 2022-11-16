@@ -54,20 +54,112 @@
   font-size: 16px;
   text-align: center;
 }
-#menu {
-  display: block;
+
+.menuMobile {
+  display: none;
 }
 
 @media (max-width: 700px) {
-  .link,
   .linkLogo,
   .tituloDb,
-  .slogan {
+  .slogan,
+  .menuDesktop {
     display: none;
+  }
+
+  .der {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .toggle {
+    background-color: #ffffff;
+    font-size: 30px;
+  }
+
+  .link {
+    color: black;
+    border: none;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
+  .menuTitle {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    background-color: #1dbeb4;
+    height: 200px;
+    padding: 10px;
+  }
+
+  .menuTitle p {
+    color: #ffff;
+    font-family: "Roboto";
+    font-weight: 600;
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+
+  .menuMobile {
+    background-color: #ffffff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 999;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .menuMobile .social {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    font-size: 20px;
+    color: #607d8b;
+  }
+
+  .social ul li {
+    display: inline-block;
+    padding-left: 10px;
+  }
+
+  .menuMobile hr {
+    width: 95%;
+  }
+
+  .menuMobile .close {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: larger;
+    background-color: transparent;
+  }
+
+  .isActive {
+    display: flex;
+  }
+
+  .isInactive {
+    display: none !important;
   }
 }
 @media (min-width: 700px) {
-  .menu {
+  .toggle {
+    display: none;
+  }
+
+  .menuTitle {
     display: none;
   }
 }

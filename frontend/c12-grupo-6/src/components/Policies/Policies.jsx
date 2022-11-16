@@ -29,8 +29,8 @@ const Policies = () => {
           <h3>Políticas de cancelación</h3>
           <div className={styles.safeChecks}>
             <p>
-              Agrega las fechas de tu viaje para obtener los detalles de
-              cancelacion de esta estadía.
+              Agrega las fechas de tu viaje para obtener los
+              <br /> detalles de cancelacion de esta estadía.
             </p>
           </div>
         </div>

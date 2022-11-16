@@ -13,6 +13,7 @@ function DateRangePicker({ onPickDates }) {
   const [value, setValue] = useState(null);
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
+  const [calendarDirection, setCalendarDirection] = useState("");
 
   useEffect(() => {
     setStart(dates[0] == null ? null : dates[0].toDate());
@@ -32,6 +33,14 @@ function DateRangePicker({ onPickDates }) {
       setHackValue(null);
     }
   };
+
+  window.addEventListener("resize", function () {
+    if (window.matchMedia("(min-width:786px)").matches) {
+      setCalendarDirection("horizontal");
+    } else {
+      setCalendarDirection("vertical");
+    }
+  });
   return (
     <RangePicker
       value={hackValue || value}
@@ -40,6 +49,7 @@ function DateRangePicker({ onPickDates }) {
       onOpenChange={onOpenChange}
       bordered={false}
       className={css.datePicker}
+      direction={calendarDirection}
     />
   );
 }

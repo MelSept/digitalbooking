@@ -8,7 +8,7 @@ const ProductGalery = ({ handleOpen, images }) => {
         <div className={style.shareIcon}>
           <FaShareAlt />
         </div>
-        <div className={style.heartIcon}>
+        <div className={style.heaIcon}>
           <FaRegHeart />
         </div>
       </div>
