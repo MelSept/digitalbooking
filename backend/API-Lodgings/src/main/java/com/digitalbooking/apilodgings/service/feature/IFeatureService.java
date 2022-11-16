@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface IFeatureService {
 
+    FeatureDTO createFeature(FeatureDTO feature);
     List<FeatureDTO> findFeaturesByProductId(Integer productId);
 }

@@ -11,7 +11,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 public class Category {
 
     // Dev - Env
@@ -50,11 +50,11 @@ public class Category {
     Set<Place> places;
 
 
-    public Category(String title, String description, String imageUrl) {
+    public Category(String title, String description, String imageUrl, boolean deleted) {
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
-        this.deleted = false;
+        this.deleted = deleted;
     }
 
 

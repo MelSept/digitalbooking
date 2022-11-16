@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
 
     // Dev - Env

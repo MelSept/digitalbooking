@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @Entity
-@Table(name = "image")
+@Table(name = "images")
 public class Image {
 
     // Dev - Env
