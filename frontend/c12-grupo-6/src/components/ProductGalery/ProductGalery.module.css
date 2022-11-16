@@ -42,3 +42,9 @@
   background-color: transparent;
   cursor: pointer;
 }
+
+@media (min-width: 420px) and (max-width: 1024px) {
+  .imageContainer {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

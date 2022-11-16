@@ -1,0 +1,12 @@
+.carouselContainer {
+  width: 100%;
+  position: relative;
+}
+
+.status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+}

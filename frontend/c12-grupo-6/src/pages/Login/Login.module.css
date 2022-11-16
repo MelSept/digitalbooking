@@ -29,7 +29,7 @@ input {
   size: 30px;
 }
 
-button {
+.loginForm button {
   border: none;
   background-color: #1dbeb4;
   padding: 9px;
@@ -37,6 +37,7 @@ button {
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
+  color: #ffff;
 }
 
 @media screen and (min-width: 600px) {
