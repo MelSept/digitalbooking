@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-@Table(name = "policy")
+@Table(name = "policies")
 public class Policy {
 
     // Dev - Env

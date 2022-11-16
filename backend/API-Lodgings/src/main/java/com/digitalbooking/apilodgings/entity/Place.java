@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-@Table(name = "place")
+@Table(name = "places")
 public class Place {
 
     // Dev - Env

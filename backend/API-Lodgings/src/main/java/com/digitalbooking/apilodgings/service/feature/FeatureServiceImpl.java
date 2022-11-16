@@ -21,9 +21,14 @@ public class FeatureServiceImpl implements IFeatureService {
         mapper = new ObjectMapper();
     }
 
+
+    @Override
+    public FeatureDTO createFeature(FeatureDTO feature) {
+        return null;
+    }
+
     @Override
     public List<FeatureDTO> findFeaturesByProductId(Integer productId) {
-
         return null;
     }
 }

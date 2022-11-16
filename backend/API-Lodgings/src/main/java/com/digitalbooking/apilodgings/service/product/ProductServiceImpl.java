@@ -41,11 +41,9 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ProductDTO createProduct(ProductDTO productRequestDTO) {
 
-        /* TODO:
-            Implement functionality
         Product productToSave = mapper.convertValue(productRequestDTO, Product.class);
         Product productSaved = productRepository.save(productToSave);
-        */
+
 
         return null;
     }

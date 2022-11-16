@@ -13,7 +13,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Entity
-@Table(name = "feature")
+@Table(name = "features")
 public class Feature implements Comparable<Feature> {
 
     // Dev - Env
