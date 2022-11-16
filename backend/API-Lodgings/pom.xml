@@ -97,6 +97,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>api-lodgings</finalName>
     </build>
 
 </project>
