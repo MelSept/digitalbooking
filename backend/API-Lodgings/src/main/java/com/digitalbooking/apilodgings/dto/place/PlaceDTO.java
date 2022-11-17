@@ -34,9 +34,9 @@ public class PlaceDTO implements Serializable {
     @NotBlank(message = "The 'latitude' field cannot be empty.")
     private float latitude;
 
-    @NotNull(message = "The 'length' field cannot be null.")
-    @NotBlank(message = "The 'length' field cannot be empty.")
-    private float length;
+    @NotNull(message = "The 'longitude' field cannot be null.")
+    @NotBlank(message = "The 'longitude' field cannot be empty.")
+    private float longitude;
 
     @NotNull(message = "The 'address' field cannot be null.")
     @NotBlank(message = "The 'address' field cannot be empty.")
