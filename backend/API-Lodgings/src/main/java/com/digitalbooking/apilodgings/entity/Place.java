@@ -45,10 +45,10 @@ public class Place {
     @NotBlank(message = "The 'latitude' field cannot be empty.")
     private float latitude;
 
-    @Column(name = "length", nullable = false)
+    @Column(name = "longitude", nullable = false)
     @NotNull(message = "The 'length' field cannot be null.")
     @NotBlank(message = "The 'length' field cannot be empty.")
-    private float length;
+    private float longitude;
 
     @Column(name = "address", length = 260, nullable = false)
     @NotNull(message = "The 'address' field cannot be null.")
@@ -77,12 +77,12 @@ public class Place {
     Policy policy;
 
 
-    public Place(Integer id, String title, String description, float latitude, float length, boolean deleted) {
+    public Place(Integer id, String title, String description, float latitude, float longitude, boolean deleted) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.latitude = latitude;
-        this.length = length;
+        this.longitude = longitude;
         this.deleted = deleted;
     }
 
