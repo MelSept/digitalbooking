@@ -69,7 +69,7 @@ public class Product {
             inverseForeignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (feature_id) REFERENCES feature"))
     Set<Feature> features = new HashSet<>();
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "place_id")
     Place place;
 
