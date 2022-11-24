@@ -1,6 +1,5 @@
 package com.digitalbooking.apilodgings.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -50,7 +49,6 @@ public class User {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
-    @JsonIgnore
     private Role role;
 
 

@@ -1,6 +1,5 @@
 package com.digitalbooking.apilodgings.dto.user;
 
-import com.digitalbooking.apilodgings.dto.role.RoleDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
@@ -19,17 +18,15 @@ import java.io.Serializable;
 public class UserDTO implements Serializable {
 
     @NotNull(message = "The 'id' field cannot be null.")
-    private final Integer id;
+    private Integer id;
 
-    private final String firstName;
+    private String firstName;
 
-    private final String lastName;
+    private String lastName;
 
-    private final String username;
+    private String username;
 
-    private final String email;
+    private String email;
 
-    private final String city;
-
-    private final RoleDTO role;
+    private String city;
 }

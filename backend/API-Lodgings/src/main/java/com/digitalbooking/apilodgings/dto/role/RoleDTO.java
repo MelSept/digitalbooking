@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class RoleDTO implements Serializable {
 
     @NotNull(message = "The 'id' field cannot be null.")
-    private final Integer id;
+    private Integer id;
 
-    private final ERole title;
+    private ERole title;
 }

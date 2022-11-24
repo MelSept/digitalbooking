@@ -18,4 +18,19 @@ public class CorsConfiguration implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
+
+    // TODO: Move to class Spring Security
+    /*
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource sources = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.setAllowCredentials(true);
+        corsConfig.setAllowedOriginPatterns(List.of("*"));
+        corsConfig.setAllowedHeaders(List.of("*"));
+        corsConfig.addAllowedMethod("*");
+        sources.registerCorsConfiguration("/**", corsConfig);
+        return new CorsFilter(sources);
+    }
+     */
 }
