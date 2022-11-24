@@ -8,7 +8,11 @@ const CategoryCard = ({
   handleCategory,
 }) => {
   return (
-    <button onClick={() => handleCategory(id)} className={styles.card} key={id}>
+    <button
+      onClick={() => handleCategory(category_name)}
+      className={styles.card}
+      key={id}
+    >
       <img src={image_url} alt={category_name} />
       <div className={styles.cardInfo}>
         <p className={styles.category}>{category_name}</p>

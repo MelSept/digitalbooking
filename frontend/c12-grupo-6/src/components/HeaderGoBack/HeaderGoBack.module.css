@@ -12,6 +12,10 @@
   color: #fff;
 }
 
+.category {
+  text-transform: uppercase;
+}
+
 .name {
   font-size: 23px;
   font-weight: 500;

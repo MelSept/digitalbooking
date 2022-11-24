@@ -8,10 +8,12 @@
   font-family: Roboto;
   font-weight: bold;
   color: #545776;
+  text-transform: capitalize;
 }
 
 .adress {
   margin-left: 14px;
+  text-transform: capitalize;
 }
 
 .productScore {

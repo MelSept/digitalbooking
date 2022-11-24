@@ -11,19 +11,19 @@ import { PRODUCT } from "../../router/routes";
 
 const RecomendationCard = ({
   id,
-  URLimg,
-  titulo,
+  thumbnail,
+  title,
   category_name,
-  puntaje,
+  score,
   calificacion,
-  ubicacion,
+  place,
   ver_mapa,
-  parrafo,
+  description,
 }) => {
   return (
     <div className={styles.card} key={id}>
       <div className={styles.hotelImg}>
-        <img src={URLimg} alt={titulo} />
+        <img src={thumbnail} alt={title} />
         <span>
           <FaHeart />
         </span>
@@ -41,10 +41,11 @@ const RecomendationCard = ({
                 <FaStar />
               </span>
             </div>
-            <h3 className={styles.title}>{titulo}</h3>
+            <h3 className={styles.title}>{place?.title}</h3>
+            <p>{title}</p>
           </div>
           <div className={styles.score}>
-            <span className={styles.points}>{puntaje}</span>
+            <span className={styles.points}>{score}</span>
             <p className={styles.calification}>{calificacion}</p>
           </div>
         </div>
@@ -54,7 +55,7 @@ const RecomendationCard = ({
             <span className={styles.addrIcon}>
               <FaMapMarkerAlt />
             </span>
-            <p className={styles.address}>{ubicacion}</p>
+            <p className={styles.address}>{place?.address}</p>
             <a href="#">{ver_mapa}</a>
           </div>
           <div className={styles.benefits}>
@@ -67,9 +68,9 @@ const RecomendationCard = ({
           </div>
         </div>
 
-        <p className={styles.description}>{parrafo}</p>
-        <Link to={PRODUCT}>
-          <button className={styles.detailBtn}>Ver detalle</button>
+        <p className={styles.description}>{description}</p>
+        <Link to={PRODUCT.replace(":id", id)} className={styles.detailBtn}>
+          Ver detalle
         </Link>
       </div>
     </div>

@@ -1,0 +1,70 @@
+{
+  "id": 1,
+  "title": "Product mock",
+  "available": true,
+  "description": "Description mock",
+  "place": {
+    "id": 3,
+    "title": "Altos del Bosque",
+    "description": "descripción del lugar",
+    "latitude": 32.3932,
+    "longitude": 65.4832,
+    "address": "dirección",
+    "category": {
+      "id": 3,
+      "title": "apartamento",
+      "description": "descripción apartamentos",
+      "imageUrl": "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg"
+    },
+    "city": {
+      "id": 3,
+      "title": "cordoba, arg"
+    },
+    "policy": {
+      "id": 1,
+      "norm": "norm 1, norm 2",
+      "security": "security 1, security 2",
+      "cancellation": "cancellation 1, cancellation 2"
+    }
+  },
+  "images": [
+    "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg",
+    "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg",
+    "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg",
+    "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg",
+    "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg",
+    "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg",
+    "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg",
+    "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg"
+  ],
+  "features": [
+    {
+      "id": 1,
+      "title": "cocina"
+    },
+    {
+      "id": 2,
+      "title": "tv"
+    },
+    {
+      "id": 3,
+      "title": "aire acondicionado"
+    },
+    {
+      "id": 4,
+      "title": "pileta"
+    },
+    {
+      "id": 5,
+      "title": "estacionamiento gratutito"
+    },
+    {
+      "id": 6,
+      "title": "wifi"
+    },
+    {
+      "id": 7,
+      "title": "apto mascotas"
+    }
+  ]
+}

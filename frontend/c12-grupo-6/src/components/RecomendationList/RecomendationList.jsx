@@ -10,24 +10,25 @@ const RecomendationList = ({ recomendations }) => {
           {recomendations.map(
             ({
               id,
-              URLimg,
+              description,
+              thumbnail,
               category_name,
               calificacion,
-              parrafo,
               puntaje,
-              titulo,
-              ubicacion,
+              title,
+              place,
               ver_mapa,
             }) => (
               <RecomendationCard
+                key={id}
                 id={id}
-                URLimg={URLimg}
+                thumbnail={thumbnail}
                 category_name={category_name}
                 calificacion={calificacion}
-                parrafo={parrafo}
-                puntaje={puntaje}
-                titulo={titulo}
-                ubicacion={ubicacion}
+                description={description}
+                score={9}
+                title={title}
+                place={place}
                 ver_mapa={ver_mapa}
               />
             )

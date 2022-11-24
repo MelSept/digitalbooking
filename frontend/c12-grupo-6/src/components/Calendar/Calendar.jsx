@@ -1,51 +1,62 @@
 import styles from "./Calendar.module.css";
-import { useState } from "react";
-import { RESERVATION } from "../../router/routes";
+import { useContext } from "react";
+import { LOGIN, RESERVATION } from "../../router/routes";
 import { Link } from "react-router-dom";
+import { addDays } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useWindowSize from "../../hooks/useWindowSize";
+import UserContext from "../../context/UserContext";
 
-const Calendar = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
-
+const Calendar = ({
+  productId,
+  showDisabledMonthNavigation = false,
+  selectsRange = false,
+  showInitReservation = false,
+  title,
+  startDate = null,
+  endDate = null,
+  className = "",
+  onChange,
+}) => {
   const { width } = useWindowSize();
-
-  const onChange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-  };
+  const { user } = useContext(UserContext);
 
   return (
-    <div className={styles.calendarContainer}>
-      <h2>Fechas disponibles</h2>
+    <div className={`${styles.calendarContainer} ${className}`}>
+      <h2>{title}</h2>
       <div className={styles.reservationSection}>
         <div className={styles.secondCalendar}>
           <DatePicker
             className={styles.datePicker}
-            selected={startDate}
-            onChange={onChange}
             startDate={startDate}
             endDate={endDate}
             minDate={new Date()}
-            /*excludeDates={[addDays(new Date(), 1), addDays(new Date(), 5)]}*/
-            selectsRange
-            showDisabledMonthNavigation
+            onChange={onChange}
+            excludeDates={[addDays(new Date(), 1), addDays(new Date(), 5)]}
+            selectsRange={selectsRange}
+            showDisabledMonthNavigation={showDisabledMonthNavigation}
             inline
             monthsShown={width > 700 ? 2 : 1}
           />
         </div>
-        <div className={styles.reservationWindow}>
-          <h3>
-            Agregá tus fechas de viaje para obtener precios <br />
-            exactos
-          </h3>
-          <Link to={RESERVATION}>
-            <button className={styles.reservationBtn}>Iniciar Reserva</button>
-          </Link>
-        </div>
+        {showInitReservation && (
+          <div className={styles.reservationWindow}>
+            <h3>
+              Agregá tus fechas de viaje para obtener precios <br />
+              exactos
+            </h3>
+            <Link
+              to={
+                user
+                  ? RESERVATION.replace(":id", productId)
+                  : `${LOGIN}?product=true`
+              }
+            >
+              <button className={styles.reservationBtn}>Iniciar Reserva</button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import style from "./ProductGalery.module.css";
 import { FaShareAlt, FaRegHeart } from "react-icons/fa";
 
-const ProductGalery = ({ handleOpen, images }) => {
+const ProductGalery = ({ handleOpen, images, mainImage }) => {
   return (
     <div className={style.gallery}>
       <div className={style.topIcons}>
@@ -13,9 +13,12 @@ const ProductGalery = ({ handleOpen, images }) => {
         </div>
       </div>
       <div className={style.imageContainer}>
-        {images.map((image) => (
-          <div key={image}>
-            <img src={image} alt="" />
+        <div>
+          <img src={mainImage} alt="" />
+        </div>
+        {images.map((image, index) => (
+          <div key={index}>
+            <img src={image.url} alt="" />
           </div>
         ))}
         <button className={style.seeMore} onClick={handleOpen}>

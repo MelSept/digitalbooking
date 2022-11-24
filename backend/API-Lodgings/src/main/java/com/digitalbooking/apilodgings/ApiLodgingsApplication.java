@@ -11,4 +11,6 @@ public class ApiLodgingsApplication {
         SpringApplication.run(ApiLodgingsApplication.class, args);
     }
 
+
+
 }

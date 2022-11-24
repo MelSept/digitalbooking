@@ -1,0 +1,10 @@
+.ReservationCalendarContainer {
+  margin-left: 40px;
+  font-family: Roboto;
+  margin-top: 30px;
+  width: 60%;
+}
+
+.ReservationCalendarContainer h2 {
+  color: #000;
+}

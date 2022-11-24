@@ -1,0 +1,12 @@
+.reservation {
+  background-color: #e5e5e5;
+  color: #000;
+}
+
+.calendar {
+  padding: 0;
+}
+
+.calendar > div {
+  justify-content: center;
+}

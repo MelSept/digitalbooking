@@ -1,44 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "./Home.module.css";
+import useFetch from "../../hooks/useFetch";
+import { PRODUCTS_BY_CATEGORY } from "../../constants/endpoints";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import CategoryList from "../../components/CategoryList/CategoryList";
 import RecomendationList from "../../components/RecomendationList/RecomendationList";
-import data from "../../assets/json/dataCategorias.json";
-
-const recomendationsByCategory = {
-  1: "hoteles",
-  2: "hostels",
-  3: "departamentos",
-  4: "bedAndBreakfast",
-};
 
 const Home = () => {
-  const [category, setCategory] = useState(1);
-  //const [recomendations, setRecomendations] = useState([]);
+  const [category, setCategory] = useState("hotel");
 
-  useEffect(() => {
-    //fetch a la api, con el valor default ("hoteles")
-    //const getRecomendationsByCategoryId = () async => {
-    //  const result = await fetch(`http://localhost:3000/api/${category}`);
-    //  const parsedResult = await result.json();
-    //  setRecomendations(parsedResult);
-    //}
-    //getRecomendationsByCategoryId();
-  }, [category]);
+  const { data: recomendations, isLoading } = useFetch(
+    `${PRODUCTS_BY_CATEGORY}${category}`
+  );
 
-  const handleCategory = (id) => {
-    setCategory(id);
+  const handleCategory = (category_name) => {
+    setCategory(category_name);
   };
+
+  if (isLoading || !recomendations) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.home}>
       <SearchBar />
       <CategoryList handleCategory={handleCategory} />
-      <RecomendationList
-        recomendations={
-          data.recomendaciones[recomendationsByCategory[category]]
-        }
-      />
+      <RecomendationList recomendations={recomendations} />
     </div>
   );
 };

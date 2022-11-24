@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import UserContext from "../../context/UserContext";
 import styles from "./Login.module.css";
 
 const Login = () => {
@@ -8,38 +9,37 @@ const Login = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
-  const user = {
+  /*const user = {
     email: "grupo6@grupo6.com",
     password: "123456",
-  };
+  };*/
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const isFromProduct = searchParams.get("product");
+
+  const navigate = useNavigate();
+  const { user, connectUser } = useContext(UserContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const isLogin = () => {
+    connectUser({
+      email: formValues.email,
+      nombre: formValues.email.split("@")[0],
+    });
+    navigate("/");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    if (
-      formValues.email === user.email &&
-      formValues.password === user.password
-    ) {
-      setIsSubmit(true);
-    } else {
-      console.log("No esta Loggueado");
-    }
+    setIsSubmit(true);
   };
 
   //Validation
-
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-    }
-  });
-
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -56,41 +56,56 @@ const Login = () => {
     return errors;
   };
 
-  return (
-    <div className={styles.authFormContainer}>
-      <h2>Iniciar Sesion</h2>
-      <form className={styles.loginForm} onSubmit={handleSubmit}>
-        <label htmlFor="email">Correo Electronico</label>
-        <input
-          size="32"
-          id="email"
-          name="email"
-          type="email"
-          placeholder=""
-          value={formValues.email}
-          onChange={handleChange}
-        />
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      isLogin();
+    }
+  }, [formErrors]);
 
-        <p>{formErrors.email}</p>
+  if (user) {
+    return <Navigate to={"/"} />;
+  } else
+    return (
+      <div className={styles.authFormContainer}>
+        {isFromProduct && (
+          <div className="error">
+            Para realizar una reserva necesitas estar logeado
+          </div>
+        )}
 
-        <label htmlFor="password">Contraseña</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          placeholder=""
-          value={formValues.password}
-          onChange={handleChange}
-        />
+        <h2>Iniciar Sesion</h2>
+        <form className={styles.loginForm} onSubmit={handleSubmit}>
+          <label htmlFor="email">Correo Electronico</label>
+          <input
+            size="32"
+            id="email"
+            name="email"
+            type="email"
+            placeholder=""
+            value={formValues.email}
+            onChange={handleChange}
+          />
 
-        <p>{formErrors.password}</p>
-        <button type="submit">Ingresar</button>
-      </form>
-      <p>
-        ¿Aun no tienes Cuenta? <Link to="/register">Registrate</Link>
-      </p>
-    </div>
-  );
+          <p>{formErrors.email}</p>
+
+          <label htmlFor="password">Contraseña</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder=""
+            value={formValues.password}
+            onChange={handleChange}
+          />
+
+          <p>{formErrors.password}</p>
+          <button type="submit">Ingresar</button>
+        </form>
+        <p>
+          ¿Aun no tienes Cuenta? <Link to="/register">Registrate</Link>
+        </p>
+      </div>
+    );
 };
 
 export default Login;

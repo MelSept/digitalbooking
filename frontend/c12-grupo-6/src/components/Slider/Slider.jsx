@@ -18,9 +18,9 @@ const Slider = ({ handleClose, images }) => {
           statusFormatter={(current, total) => setStatus(`${current}/${total}`)}
           className={styles.carousel}
         >
-          {images.map((image) => (
-            <div key={image}>
-              <img src={image} />
+          {images.map((image, index) => (
+            <div key={index}>
+              <img src={image.url} alt="" />
             </div>
           ))}
         </Carousel>
