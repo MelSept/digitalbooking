@@ -9,54 +9,31 @@ import {
   FaWifi,
 } from "react-icons/fa";
 
-const Features = () => {
+const iconsMapper = {
+  cocina: { title: "Cocina", icon: <FaIcons /> },
+  tv: { title: "Televisor", icon: <FaTv /> },
+  "aire acondicionado": { title: "Aire Acondicionado", icon: <FaSnowflake /> },
+  pileta: { title: "Pileta", icon: <FaSwimmer /> },
+  "estacionamiento gratutito": {
+    title: "Estacionamiento Gratuito",
+    icon: <FaCar />,
+  },
+  wifi: { title: "WiFi", icon: <FaWifi /> },
+  "apto mascotas": { title: "Apto Mascota", icon: <FaPaw /> },
+};
+
+const Features = ({ features }) => {
   return (
     <div className={styles.featuresContainer}>
       <h2>¿Qué ofrece este lugar?</h2>
       <div className={styles.lineBottom}></div>
       <div className={styles.featureIcons}>
-        <div className={styles.cocinaIcon}>
-          <span>
-            <FaIcons />
-          </span>
-          Cocina
-        </div>
-        <div className={styles.cocinaIcon}>
-          <span>
-            <FaTv />
-          </span>
-          Televisor
-        </div>
-        <div className={styles.cocinaIcon}>
-          <span>
-            <FaSnowflake />
-          </span>
-          Aire Acondicionado
-        </div>
-        <div className={styles.cocinaIcon}>
-          <span>
-            <FaPaw />
-          </span>
-          Apto Mascotas
-        </div>
-        <div className={styles.cocinaIcon}>
-          <span>
-            <FaCar />
-          </span>
-          Estacionamiento Gratuito
-        </div>
-        <div className={styles.cocinaIcon}>
-          <span>
-            <FaSwimmer />
-          </span>
-          Pileta
-        </div>
-        <div className={styles.cocinaIcon}>
-          <span>
-            <FaWifi />
-          </span>
-          Wifi
-        </div>
+        {features.map(({ title, id }) => (
+          <div className={styles.cocinaIcon} key={id}>
+            <span>{iconsMapper[title].icon}</span>
+            {iconsMapper[title].title}
+          </div>
+        ))}
       </div>
     </div>
   );

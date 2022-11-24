@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
-
 import "antd/dist/antd.css";
 import css from "../SearchBar.module.css";
+import useWindowSize from "../../../hooks/useWindowSize";
 
 const { RangePicker } = DatePicker;
 
@@ -13,7 +13,8 @@ function DateRangePicker({ onPickDates }) {
   const [value, setValue] = useState(null);
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
-  const [calendarDirection, setCalendarDirection] = useState("");
+
+  const { width } = useWindowSize();
 
   useEffect(() => {
     setStart(dates[0] == null ? null : dates[0].toDate());
@@ -34,13 +35,6 @@ function DateRangePicker({ onPickDates }) {
     }
   };
 
-  window.addEventListener("resize", function () {
-    if (window.matchMedia("(min-width:786px)").matches) {
-      setCalendarDirection("horizontal");
-    } else {
-      setCalendarDirection("vertical");
-    }
-  });
   return (
     <RangePicker
       value={hackValue || value}
@@ -49,7 +43,7 @@ function DateRangePicker({ onPickDates }) {
       onOpenChange={onOpenChange}
       bordered={false}
       className={css.datePicker}
-      direction={calendarDirection}
+      monthsShown={width > 700 ? 2 : 1}
     />
   );
 }

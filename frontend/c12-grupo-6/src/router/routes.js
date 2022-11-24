@@ -1,6 +1,7 @@
 export const HOME = "/";
-export const PRODUCT = "/product/:id";
+export const PRODUCT = `/product/:id`;
 export const LOGIN = "/login";
 export const REGISTER = "/register";
-export const RESERVATION = "/reservation";
+export const RESERVATION = `${PRODUCT}/reservation`;
+export const SUCCESS = "/success";
 //export const PRODUCT_DETAIL = `${PRODUCT}/details`;

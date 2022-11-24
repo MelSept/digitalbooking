@@ -23,9 +23,9 @@ const CustomCarousel = ({
         statusFormatter={(current, total) => setStatus(`${current}/${total}`)}
         className={styles.carousel}
       >
-        {images.map((image) => (
-          <div>
-            <img src={image} alt="" />
+        {images.map((image, index) => (
+          <div key={index}>
+            <img src={image.url} alt="" />
           </div>
         ))}
         <p className={styles.status}>{status}</p>

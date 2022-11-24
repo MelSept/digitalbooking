@@ -40,7 +40,7 @@
   color: #545776;
 }
 
-.link {
+.menuDesktop .link {
   margin: 5px 10px;
   width: 206px;
   padding: 10px;
@@ -57,6 +57,47 @@
 
 .menuMobile {
   display: none;
+}
+.userInfo {
+  height: 46px;
+  width: 180px;
+  padding-left: 20px;
+
+  align-items: space-between;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+}
+
+.greeting {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.userName {
+  color: #000000;
+  font-weight: 700;
+}
+
+.avatar {
+  position: relative;
+  background-color: #383b58;
+  color: var(--negro);
+  border-radius: 50%;
+  height: 37px;
+  width: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.avatar-letters {
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 1px;
+  padding-left: 1px;
 }
 
 @media (max-width: 700px) {

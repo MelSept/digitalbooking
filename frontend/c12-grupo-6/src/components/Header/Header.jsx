@@ -8,8 +8,9 @@ import {
   FaTwitter,
   FaInstagram,
 } from "react-icons/fa";
-import { useState } from "react";
-import { useEffect } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import { useContext, useState, useEffect } from "react";
+import UserContext from "../../context/UserContext";
 
 const Header = () => {
   const [menu, setMenu] = useState(false);
@@ -18,6 +19,9 @@ const Header = () => {
   const toggleMenu = () => {
     setMenu(!menu);
   };
+
+  //implementar context
+  const { user, disconnectUser } = useContext(UserContext);
 
   useEffect(() => {
     setMenu(false);
@@ -31,57 +35,81 @@ const Header = () => {
           <span className={styles.slogan}>Sentite como en tu hogar</span>
         </Link>
       </div>
-      <div className={styles.der}>
-        <button onClick={toggleMenu} className={styles.toggle}>
-          <FaBars />
-        </button>
-
-        <div className={styles.menuDesktop}>
-          <Link className={styles.link} to={"/register"}>
-            Crear cuenta
-          </Link>
-          <Link className={styles.link} to={"/login"}>
-            Iniciar sesion
-          </Link>
+      {user ? (
+        <div className={styles.der}>
+          <div className={styles.avatar} round size="70px" color="#383b58">
+            <span className={styles.avatarLetters}>
+              {user.nombre.charAt(0).toUpperCase()}
+            </span>
+          </div>
+          {/*<Avatar ClassName={styles.avatarIcon}  name={user.nombre} round size="40px" color="#000000" />*/}
+          <div className={styles.userInfo}>
+            <div className={styles.greeting}>
+              Hola,
+              <AiOutlineClose
+                style={{ cursor: "pointer" }}
+                onClick={disconnectUser}
+              />
+            </div>
+            <div className={styles.userName}>{user.nombre}</div>
+          </div>
         </div>
-
-        <div
-          className={`${styles.menuMobile} ${
-            menu ? styles.isActive : styles.isInactive
-          }`}
-        >
-          <button className={styles.close} onClick={toggleMenu}>
-            X
+      ) : (
+        <div className={styles.der}>
+          <button onClick={toggleMenu} className={styles.toggle}>
+            <FaBars />
           </button>
-          <div className={styles.menuTitle}>
-            <p>Menú</p>
+          <div className={styles.menuDesktop}>
+            {location !== "/register" ? (
+              <Link className={styles.link} to={"/register"}>
+                Crear cuenta
+              </Link>
+            ) : null}
+            {location !== "/login" ? (
+              <Link className={styles.link} to={"/login"}>
+                Iniciar sesion
+              </Link>
+            ) : null}
           </div>
-          <Link className={styles.link} to={"/register"}>
-            Crear cuenta
-          </Link>
-          <hr />
-          <Link className={styles.link} to={"/login"}>
-            Iniciar sesion
-          </Link>
 
-          <div className={styles.social}>
-            <ul>
-              <li>
-                <FaFacebook />
-              </li>
-              <li>
-                <FaLinkedinIn />
-              </li>
-              <li>
-                <FaTwitter />
-              </li>
-              <li>
-                <FaInstagram />
-              </li>
-            </ul>
+          <div
+            className={`${styles.menuMobile} ${
+              menu ? styles.isActive : styles.isInactive
+            }`}
+          >
+            <button className={styles.close} onClick={toggleMenu}>
+              X
+            </button>
+            <div className={styles.menuTitle}>
+              <p>Menú</p>
+            </div>
+            <Link className={styles.link} to={"/register"}>
+              Crear cuenta
+            </Link>
+            <hr />
+            <Link className={styles.link} to={"/login"}>
+              Iniciar sesion
+            </Link>
+
+            <div className={styles.social}>
+              <ul>
+                <li>
+                  <FaFacebook />
+                </li>
+                <li>
+                  <FaLinkedinIn />
+                </li>
+                <li>
+                  <FaTwitter />
+                </li>
+                <li>
+                  <FaInstagram />
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

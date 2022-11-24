@@ -1,0 +1,113 @@
+.reservationFormContainer {
+  width: 63%;
+  margin: 0;
+  margin-left: 40px;
+  margin-top: 30px;
+  font-family: Roboto;
+  position: relative;
+}
+
+.reservationFormContainer h2 {
+  color: rgb(0, 0, 0);
+}
+
+.formSection {
+  width: 100%;
+  height: 200px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: #fff;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px;
+  justify-items: center;
+}
+
+.formSection label {
+  color: #000;
+  font-weight: 600;
+  display: flex;
+}
+
+.formSection input {
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  margin: 0.5rem 0;
+  width: 400px;
+}
+
+@media (min-width: 1240px) and (max-width: 1460px) {
+  .reservationFormContainer {
+    width: 60%;
+  }
+
+  .formSection input {
+    width: 300px;
+  }
+}
+
+@media (min-width: 980px) and (max-width: 1240px) {
+  .reservationFormContainer {
+    width: 92%;
+    margin-right: 40px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .reservationFormContainer {
+    width: 85%;
+    margin-right: 40px;
+  }
+
+  .formSection input {
+    width: 250px;
+  }
+}
+
+@media (min-width: 425px) and (max-width: 600px) {
+  .reservationFormContainer {
+    width: 85%;
+    margin-right: 40px;
+  }
+
+  .formSection {
+    width: 100%;
+    height: 390px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 20px;
+    justify-items: center;
+  }
+
+  .formSection input {
+    width: 250px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 424px) {
+  .reservationFormContainer {
+    width: 78%;
+    margin-right: 40px;
+  }
+  .formSection {
+    width: 100%;
+    height: 390px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 20px;
+    justify-items: center;
+  }
+
+  .formSection input {
+    width: 200px;
+  }
+}
