@@ -1,10 +1,12 @@
 package com.digitalbooking.apilodgings.dto.place;
 
-import com.digitalbooking.apilodgings.dto.category.CategoryDTO;
 import com.digitalbooking.apilodgings.dto.CityDTO;
 import com.digitalbooking.apilodgings.dto.PolicyDTO;
+import com.digitalbooking.apilodgings.dto.category.CategoryDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

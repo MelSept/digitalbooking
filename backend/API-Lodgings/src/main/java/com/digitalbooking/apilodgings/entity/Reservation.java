@@ -1,13 +1,13 @@
 package com.digitalbooking.apilodgings.entity;
 
 import com.digitalbooking.apilodgings.enums.EStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalTime;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -26,7 +26,6 @@ public class Reservation {
 
     @Id
     @Column(name = "id")
-    @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
 
     @Column(name = "check_in", nullable = false)
@@ -36,10 +35,7 @@ public class Reservation {
     public Date checkOut;
 
     @Column(name = "start_time", nullable = false)
-    public Time startTime;
-
-    @Column(name = "finish_time", nullable = false)
-    public Time finishTime;
+    public LocalTime startTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 100)
@@ -47,19 +43,20 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnore
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
 
-    public Reservation(Integer id, Date checkIn, Date checkOut, Time startTime, Time finishTime, EStatus status) {
+    public Reservation(Integer id, Date checkIn, Date checkOut, LocalTime startTime, EStatus status) {
         this.id = id;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.startTime = startTime;
-        this.finishTime = finishTime;
         this.status = status;
     }
 
