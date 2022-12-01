@@ -53,7 +53,7 @@ public class Product {
     @Column(name = "deleted_flag")
     private boolean deleted;
 
-    // Reference
+    // Relations
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "product_id", nullable = false,
@@ -72,6 +72,10 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "place_id")
     Place place;
+
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true,
+    mappedBy = "product")
+    Set<Reservation> reservations = new HashSet<>();
 
 
     public Product(Integer id, String title, String description, boolean available, boolean deleted) {

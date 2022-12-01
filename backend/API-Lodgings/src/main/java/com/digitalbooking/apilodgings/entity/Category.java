@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+
 @Setter
 @Getter
 @Entity
@@ -63,9 +64,6 @@ public class Category {
     }
 
 
-
-
-    // TODO: Change method declaration to DTO class
     public static Category Normalize(Category category) {
 
         Category categoryNormalize = new Category();

@@ -6,6 +6,8 @@ import com.digitalbooking.apilodgings.exception.BadRequestException;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
 import com.digitalbooking.apilodgings.response.Response;
 import com.digitalbooking.apilodgings.service.category.ICategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +25,7 @@ import java.util.List;
 })
 @RestController
 @RequestMapping(path = "/category")
+@Tag(name = "Category", description = "Endpoint to management categories")
 public class CategoryController {
 
     private final ICategoryService categoryService;
@@ -85,7 +88,9 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDeleted, headers, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"/"})
+
+    @GetMapping(name = "Find All Categories", path = {"/"})
+    @Operation(method = "GET", summary = "Get All Categories")
     public ResponseEntity<List<CategoryResponse>> findAllCategories() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");

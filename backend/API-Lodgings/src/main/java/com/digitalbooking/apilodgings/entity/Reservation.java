@@ -1,6 +1,7 @@
 package com.digitalbooking.apilodgings.entity;
 
 import com.digitalbooking.apilodgings.enums.EStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;

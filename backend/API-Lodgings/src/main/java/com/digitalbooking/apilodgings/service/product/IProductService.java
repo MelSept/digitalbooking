@@ -4,6 +4,7 @@ import com.digitalbooking.apilodgings.dto.product.ProductDTO;
 import com.digitalbooking.apilodgings.dto.product.ProductMiniDTO;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IProductService {
@@ -21,5 +22,7 @@ public interface IProductService {
     List<ProductMiniDTO> findAllProductsByCategoryTitle(String categoryTitle);
 
     List<ProductMiniDTO> findAllProductsByCityTitle(String cityTitle);
+
+    List<ProductMiniDTO> findAllProductsByCityTitleAndReservationDate(String cityTitle, Date checkIn, Date checkOut);
 
 }
