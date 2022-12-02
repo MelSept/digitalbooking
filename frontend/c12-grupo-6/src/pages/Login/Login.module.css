@@ -40,6 +40,21 @@ input {
   color: #ffff;
 }
 
+.error {
+  color: red;
+  width: 400px;
+  height: 50px;
+  margin-bottom: 15px;
+  background-color: rgb(249 161 161 / 43%);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 15px;
+}
+
 @media screen and (min-width: 600px) {
   .authFormContainer {
     width: 100%;

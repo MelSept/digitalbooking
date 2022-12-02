@@ -5,7 +5,7 @@ import Policies from "../../components/Policies/Policies";
 import styles from "./Reservation.module.css";
 import ArrivalSchedule from "../../components/ArrivalSchedule/ArrivalSchedule";
 import ReservationDetail from "../../components/ReservationDetail/ReservationDetail";
-/*import useWindowSize from "../../hooks/useWindowSize";*/
+
 import { Navigate, useParams } from "react-router-dom";
 import { PRODUCTS_BY_ID } from "../../constants/endpoints";
 import { HOME, PRODUCT } from "../../router/routes";
@@ -14,7 +14,7 @@ import useFetch from "../../hooks/useFetch";
 
 const Reservation = () => {
   const { id } = useParams();
-  /* const { width } = useWindowSize();*/
+
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState(null);
   const [schedule, setSchedule] = useState(null);

@@ -5,6 +5,9 @@ import Product from "../../pages/Product/Product";
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
 import Reservation from "../../pages/Reservation/Reservation";
+import Administration from "../../pages/Administration/Administration";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import SuccessReservation from "../../pages/Success/SuccessReservation";
 import {
   HOME,
   LOGIN,
@@ -12,9 +15,8 @@ import {
   REGISTER,
   RESERVATION,
   SUCCESS,
+  ADMINISTRATION,
 } from "../../router/routes";
-import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import SuccessReservation from "../../pages/Success/SuccessReservation";
 
 const Router = () => {
   return (
@@ -34,6 +36,7 @@ const Router = () => {
           }
         />
         <Route exact path={SUCCESS} element={<SuccessReservation />} />
+        <Route exact path={ADMINISTRATION} element={<Administration />} />
       </Routes>
     </div>
   );

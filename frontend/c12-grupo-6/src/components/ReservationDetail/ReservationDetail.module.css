@@ -101,6 +101,18 @@
   margin-top: 50px;
 }
 
+@media (min-width: 1301px) and (max-width: 1430px) {
+  .reservationDetailContainer {
+    left: 900px;
+  }
+}
+
+@media (min-width: 1240px) and (max-width: 1300px) {
+  .reservationDetailContainer {
+    left: 850px;
+  }
+}
+
 @media (min-width: 980px) and (max-width: 1240px) {
   .reservationDetailContainer {
     position: relative;

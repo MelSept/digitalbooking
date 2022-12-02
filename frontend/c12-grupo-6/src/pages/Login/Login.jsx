@@ -68,7 +68,7 @@ const Login = () => {
     return (
       <div className={styles.authFormContainer}>
         {isFromProduct && (
-          <div className="error">
+          <div className={styles.error}>
             Para realizar una reserva necesitas estar logeado
           </div>
         )}
