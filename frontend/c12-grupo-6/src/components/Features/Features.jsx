@@ -14,7 +14,7 @@ const iconsMapper = {
   tv: { title: "Televisor", icon: <FaTv /> },
   "aire acondicionado": { title: "Aire Acondicionado", icon: <FaSnowflake /> },
   pileta: { title: "Pileta", icon: <FaSwimmer /> },
-  "estacionamiento gratutito": {
+  "estacionamiento gratuito": {
     title: "Estacionamiento Gratuito",
     icon: <FaCar />,
   },

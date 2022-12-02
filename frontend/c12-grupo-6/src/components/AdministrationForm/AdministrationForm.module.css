@@ -1,0 +1,32 @@
+.administrationFormContainer {
+  margin: 0 40px;
+  margin-top: 40px;
+  padding-bottom: 40px;
+  font-family: Roboto;
+}
+
+.formSection {
+  background-color: #ffff;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.formSection label {
+  color: #000;
+  font-weight: 600;
+  display: flex;
+}
+
+.formSection input {
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  margin: 0.5rem 0;
+  width: 600px;
+}
+
+.principalData {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
