@@ -29,7 +29,7 @@ npm_prod:
 
 .deploy_aws:
   image: python:latest
-  #when: manual
+  #when: manual 
   script: |
     cd frontend/c12-grupo-6
     pip install awscli #Install awscli tools
