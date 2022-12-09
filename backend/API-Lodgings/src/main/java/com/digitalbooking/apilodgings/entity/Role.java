@@ -1,11 +1,13 @@
 package com.digitalbooking.apilodgings.entity;
 
 import com.digitalbooking.apilodgings.enums.ERole;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
+@Hidden
 
 @Setter
 @Getter
@@ -24,7 +26,6 @@ public class Role {
 
     @Id
     @Column(name = "id")
-    @NotNull(message = "The 'id' field cannot be null.")
     public Integer id;
 
     @Enumerated(EnumType.STRING)

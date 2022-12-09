@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.service.image;
 
-import com.digitalbooking.apilodgings.dto.ImageDTO;
+import com.digitalbooking.apilodgings.dto.Image.ImageDTO;
 import com.digitalbooking.apilodgings.repository.IImageRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,7 @@ public class ImageServiceImpl implements IImageService {
         this.imageRepository = imageRepository;
         mapper = new ObjectMapper();
     }
+
 
     @Override
     public List<ImageDTO> findAllImages() {

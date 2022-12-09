@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.service.policy;
 
-import com.digitalbooking.apilodgings.dto.PolicyDTO;
+import com.digitalbooking.apilodgings.dto.policy.PolicyDTO;
 
 import java.util.List;
 

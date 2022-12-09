@@ -1,8 +1,11 @@
 package com.digitalbooking.apilodgings.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,10 +13,16 @@ import javax.validation.constraints.NotNull;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Hidden
+
 @Setter
 @Getter
 @Entity
 @Table(name = "places")
+@SQLDelete(sql = """
+UPDATE products SET deleted_flag = true WHERE id=?;
+""")
+@Where(clause = "deleted_flag=false")
 public class Place {
 
     // Dev - Env
@@ -27,7 +36,6 @@ public class Place {
 
     @Id
     @Column(name = "id")
-    @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
 
     @Column(name = "title", length = 200, nullable = false)
@@ -42,13 +50,11 @@ public class Place {
 
     @Column(name = "latitude", nullable = false)
     @NotNull(message = "The 'latitude' field cannot be null.")
-    @NotBlank(message = "The 'latitude' field cannot be empty.")
-    private float latitude;
+    private float latitude = 0;
 
     @Column(name = "longitude", nullable = false)
     @NotNull(message = "The 'length' field cannot be null.")
-    @NotBlank(message = "The 'length' field cannot be empty.")
-    private float longitude;
+    private float longitude = 0;
 
     @Column(name = "address", length = 260, nullable = false)
     @NotNull(message = "The 'address' field cannot be null.")

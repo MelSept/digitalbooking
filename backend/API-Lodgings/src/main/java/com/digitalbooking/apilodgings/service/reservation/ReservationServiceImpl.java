@@ -11,7 +11,6 @@ import com.digitalbooking.apilodgings.exception.NotFoundException;
 import com.digitalbooking.apilodgings.repository.IProductRepository;
 import com.digitalbooking.apilodgings.repository.IReservationRepository;
 import com.digitalbooking.apilodgings.repository.IUserRepository;
-import com.digitalbooking.apilodgings.response.Response;
 import com.digitalbooking.apilodgings.response.ResponseError;
 import com.digitalbooking.apilodgings.utility.DateUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,17 +59,17 @@ public class ReservationServiceImpl implements IReservationService {
         Date checkIn = DateUtils.asDate(reservationDTO.getCheckIn());
         Date checkOut = DateUtils.asDate(reservationDTO.getCheckOut());
 
-        Product productFound = productRepository.findByIdAndDeletedIsFalse(productId).orElse(null);
+        Product productFound = productRepository.findBy_Id(productId).orElse(null);
         User userFound = userRepository.findById(userId).orElse(null);
         Reservation reservationFound =
-                reservationRepository.findByProduct_IdAndCheckOutIsBetween(productId, checkIn, checkOut);
+                reservationRepository.findBy_ProductId_And_CheckIn_Or_CheckOut_IsBetween(productId, checkIn, checkOut);
 
         if (productFound == null) {
-            Response response = new Response(String.format("Product with id: %s not found", productId));
+            ResponseError response = new ResponseError(String.format("Product with id: %s not found", productId));
             throw new NotFoundException(response);
         }
         if (userFound == null) {
-            Response response = new Response(String.format("User with id: %s not found", userId));
+            ResponseError response = new ResponseError(String.format("User with id: %s not found", userId));
             throw new NotFoundException(response);
         }
 
@@ -107,7 +106,21 @@ public class ReservationServiceImpl implements IReservationService {
     @Override
     public List<ReservationDTO> findAllReservationsByProductId(Integer productId) {
 
-        List<Reservation> reservationsFound = reservationRepository.findAllByProductId(productId);
+        List<Reservation> reservationsFound = reservationRepository.findAllBy_ProductId(productId);
+        List<ReservationDTO> reservationsDTOFound = new ArrayList<>();
+
+        for (Reservation reservation : reservationsFound) {
+
+            ReservationDTO reservationDTO = mapper.convertValue(reservation, ReservationDTO.class);
+            reservationsDTOFound.add(reservationDTO);
+        }
+
+        return reservationsDTOFound;
+    }
+
+    @Override
+    public List<ReservationDTO> findAllReservationsByUserId(Integer userId) {
+        List<Reservation> reservationsFound = reservationRepository.findAllBy_UserId(userId);
         List<ReservationDTO> reservationsDTOFound = new ArrayList<>();
 
         for (Reservation reservation : reservationsFound) {

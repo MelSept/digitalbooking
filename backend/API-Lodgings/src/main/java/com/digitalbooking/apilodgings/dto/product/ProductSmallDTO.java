@@ -1,7 +1,6 @@
 package com.digitalbooking.apilodgings.dto.product;
 
-import com.digitalbooking.apilodgings.dto.FeatureDTO;
-import com.digitalbooking.apilodgings.dto.ImageDTO;
+import com.digitalbooking.apilodgings.dto.place.PlaceMiniDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
@@ -11,13 +10,18 @@ import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Set;
 
+/**
+ * A DTO for the {@link com.digitalbooking.apilodgings.entity.Product} entity
+ */
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class ProductRequestDTO implements Serializable {
+public class ProductSmallDTO implements Serializable {
+
+    @NotNull(message = "The 'id' field cannot be null.")
+    private Integer id;
 
     @NotNull(message = "The 'title' field cannot be null.")
     @NotBlank(message = "The 'title' field cannot be empty.")
@@ -38,13 +42,5 @@ public class ProductRequestDTO implements Serializable {
 
     @NotNull(message = "The 'place' field cannot be null.")
     @NotBlank(message = "The 'place' field cannot be empty.")
-    private Integer placeId;
-
-    @NotNull(message = "The 'images' field cannot be null.")
-    @NotBlank(message = "The 'images' field cannot be empty.")
-    private Set<ImageDTO> images;
-
-    @NotNull(message = "The 'features' field cannot be null.")
-    @NotBlank(message = "The 'features' field cannot be empty.")
-    private Set<FeatureDTO> features;
+    private PlaceMiniDTO place;
 }

@@ -6,11 +6,16 @@ import com.digitalbooking.apilodgings.exception.BadRequestException;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
 import com.digitalbooking.apilodgings.response.Response;
 import com.digitalbooking.apilodgings.service.category.ICategoryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +23,13 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(path = "/category")
+@Tag(name = "Category", description = "Endpoint to management categories")
+@SecurityScheme(
+        name = "Bearer Authentication",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        scheme = "bearer"
+)
 public class CategoryController {
 
     private final ICategoryService categoryService;
@@ -28,6 +40,8 @@ public class CategoryController {
     }
 
 
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO requestCategory) throws BadRequestException {
         HttpHeaders headers = new HttpHeaders();
@@ -60,6 +74,8 @@ public class CategoryController {
         return new ResponseEntity<>(categoryFound, headers, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     @PutMapping
     public ResponseEntity<CategoryDTO> updateCategoryById(@RequestBody CategoryDTO requestCategory) throws BadRequestException, NotFoundException {
         HttpHeaders headers = new HttpHeaders();
@@ -70,6 +86,9 @@ public class CategoryController {
         return new ResponseEntity<>(categoryUpdated, headers, HttpStatus.OK);
     }
 
+
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize(value = "hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Response> deleteCategoryById(@PathVariable Integer id) throws BadRequestException, NotFoundException {
         HttpHeaders headers = new HttpHeaders();
@@ -80,7 +99,9 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDeleted, headers, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"/"})
+
+    @GetMapping(name = "Find All Categories", path = {"/"})
+    @Operation(summary = "Get All Categories")
     public ResponseEntity<List<CategoryResponse>> findAllCategories() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");

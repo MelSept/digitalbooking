@@ -11,4 +11,6 @@ public interface IReservationService {
 
     ReservationDTO createReservation(CreateReservationDTO reservationDTO) throws NotFoundException, BadRequestException;
     List<ReservationDTO> findAllReservationsByProductId(Integer productId);
+
+    List<ReservationDTO> findAllReservationsByUserId(Integer userId);
 }

@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.service.feature;
 
-import com.digitalbooking.apilodgings.dto.FeatureDTO;
+import com.digitalbooking.apilodgings.dto.feature.FeatureDTO;
 
 import java.util.List;
 

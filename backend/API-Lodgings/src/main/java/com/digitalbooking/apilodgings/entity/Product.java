@@ -2,6 +2,8 @@ package com.digitalbooking.apilodgings.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,10 +12,15 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+
 @Setter
 @Getter
 @Entity
 @Table(name = "products")
+@SQLDelete(sql = """
+UPDATE products SET deleted_flag = true WHERE id=?;
+""")
+@Where(clause = "deleted_flag=false")
 public class Product {
 
     // Dev - Env
@@ -26,8 +33,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Id
-    @Column(name = "id", nullable = false)
-    @NotNull(message = "The 'id' field cannot be null.")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "title", length = 200, nullable = false)
@@ -40,10 +46,6 @@ public class Product {
     @NotBlank(message = "The 'description' field cannot be empty.")
     private String description;
 
-    @Column(name = "available")
-    @NotNull(message = "The 'available' field cannot be null.")
-    @NotBlank(message = "The 'available' field cannot be empty.")
-    private boolean available;
 
     @Column(name = "thumbnail")
     @NotNull(message = "The 'thumbnail' field cannot be null.")
@@ -53,7 +55,7 @@ public class Product {
     @Column(name = "deleted_flag")
     private boolean deleted;
 
-    // Reference
+    // Relations
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "product_id", nullable = false,
@@ -73,18 +75,26 @@ public class Product {
     @JoinColumn(name = "place_id")
     Place place;
 
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true,
+            mappedBy = "product")
+    Set<Reservation> reservations = new HashSet<>();
 
-    public Product(Integer id, String title, String description, boolean available, boolean deleted) {
+
+    public Product(Integer id, String title, String description, boolean deleted) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.available = available;
         this.deleted = deleted;
     }
 
     public Product() {
     }
 
+    @PostLoad
+    void PostLoad() {
+        this.features.removeIf(Feature::isDeleted);
+        this.images.removeIf(Image::isDeleted);
+    }
 
     public void addFeature(Feature feature) {
         this.features.add(feature);
