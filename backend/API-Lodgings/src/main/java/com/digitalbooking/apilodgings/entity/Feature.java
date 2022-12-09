@@ -1,8 +1,11 @@
 package com.digitalbooking.apilodgings.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,11 +13,17 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+@Hidden
+
 @Setter
 @Getter
 @Entity
 @Table(name = "features")
-public class Feature implements Comparable<Feature> {
+@SQLDelete(sql = """
+        UPDATE features SET deleted_flag = true WHERE id=?;
+        """)
+@Where(clause = "deleted_flag=false")
+public class Feature {
 
     // Dev - Env
     /*
@@ -27,7 +36,6 @@ public class Feature implements Comparable<Feature> {
 
     @Id
     @Column(name = "id")
-    @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
 
     @Column(name = "title", unique = true, nullable = false, length = 200)
@@ -35,14 +43,19 @@ public class Feature implements Comparable<Feature> {
     @NotBlank(message = "The 'title' field cannot be empty.")
     private String title;
 
+    @Column(name = "icon", nullable = false, length = 40)
+    @NotNull(message = "The 'title' field cannot be null.")
+    @NotBlank(message = "The 'title' field cannot be empty.")
+    private String icon;
+
     @Column(name = "deleted_flag")
-    private boolean deleted;
+    private boolean deleted = Boolean.FALSE;
 
     // Reference
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             fetch = FetchType.LAZY,
-    mappedBy = "features")
+            mappedBy = "features")
     @JsonIgnore
     Set<Product> products = new HashSet<>();
 
@@ -55,16 +68,8 @@ public class Feature implements Comparable<Feature> {
     public Feature() {
     }
 
-
-    @Override
-    public int compareTo(Feature o) {
-        int result = 0;
-        if (this.id > o.id) {
-            result = 1;
-        }
-        if (this.id < o.id) {
-            result = -1;
-        }
-        return result;
+    @PrePersist
+    private void prePersist() {
+        setTitle(this.title.toLowerCase());
     }
 }

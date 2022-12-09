@@ -1,22 +1,38 @@
 package com.digitalbooking.apilodgings.controller;
 
+import com.digitalbooking.apilodgings.dto.product.CreateProductDTO;
 import com.digitalbooking.apilodgings.dto.product.ProductDTO;
-import com.digitalbooking.apilodgings.dto.product.ProductMiniDTO;
+import com.digitalbooking.apilodgings.dto.product.ProductSmallDTO;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
+import com.digitalbooking.apilodgings.response.Response;
 import com.digitalbooking.apilodgings.service.product.IProductService;
 import com.digitalbooking.apilodgings.utility.DateUtils;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/product")
+@Tag(name = "Product", description = "Endpoint to management products")
+@SecurityScheme(
+        type = SecuritySchemeType.HTTP,
+        name = "Bearer Authentication",
+        description = "Use JWT for authenticate",
+        scheme = "bearer",
+        bearerFormat = "JWT"
+)
 public class ProductController {
 
     private final IProductService productService;
@@ -26,13 +42,15 @@ public class ProductController {
         this.productService = productService;
     }
 
-    // TODO: Finish implementation
+
     @PostMapping
-    public ResponseEntity<ProductDTO> saveProduct(@RequestBody ProductDTO productRequestDTO) {
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize(value = "hasRole('ADMIN')")
+    public ResponseEntity<ProductDTO> saveProduct(@Valid @RequestBody CreateProductDTO createProductDTO) throws NotFoundException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        ProductDTO productFound = productService.createProduct(productRequestDTO);
+        ProductDTO productFound = productService.createProduct(createProductDTO);
 
         return new ResponseEntity<>(productFound, headers, HttpStatus.OK);
     }
@@ -49,11 +67,11 @@ public class ProductController {
     }
 
     @GetMapping(path = {"/category/{title}"})
-    public ResponseEntity<List<ProductMiniDTO>> findAllProductsByCategoryTitle(@PathVariable String title) {
+    public ResponseEntity<List<ProductSmallDTO>> findAllProductsByCategoryTitle(@PathVariable String title) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<ProductMiniDTO> response = productService.findAllProductsByCategoryTitle(title);
+        List<ProductSmallDTO> response = productService.findAllProductsByCategoryTitle(title);
 
         HttpStatus status = response.size() > 0 ? HttpStatus.OK : HttpStatus.NO_CONTENT;
 
@@ -61,21 +79,21 @@ public class ProductController {
     }
 
     @GetMapping(path = {"/city/{title}"})
-    public ResponseEntity<List<ProductMiniDTO>> findAllProductsByCityName(@PathVariable String title) {
+    public ResponseEntity<List<ProductSmallDTO>> findAllProductsByCityName(@PathVariable String title) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<ProductMiniDTO> categoriesFound = productService.findAllProductsByCityTitle(title);
+        List<ProductSmallDTO> categoriesFound = productService.findAllProductsByCityTitle(title);
 
         return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"/"})
-    public ResponseEntity<List<ProductMiniDTO>> findAllProducts() {
+    @GetMapping(path = {"", "/"})
+    public ResponseEntity<List<ProductSmallDTO>> findAllProducts() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<ProductMiniDTO> categoriesFound = productService.findAllProducts();
+        List<ProductSmallDTO> categoriesFound = productService.findAllProducts();
 
         HttpStatus status = categoriesFound.size() > 0 ? HttpStatus.OK : HttpStatus.NO_CONTENT;
 
@@ -83,17 +101,17 @@ public class ProductController {
     }
 
     @GetMapping(path = {"/random/"})
-    public ResponseEntity<List<ProductMiniDTO>> findAllRandomProducts(@RequestParam(required = false) Integer quantity) {
+    public ResponseEntity<List<ProductSmallDTO>> findAllRandomProducts(@RequestParam(required = false) Integer quantity) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<ProductMiniDTO> categoriesFound = productService.findAllProductsRandom(quantity);
+        List<ProductSmallDTO> categoriesFound = productService.findAllProductsRandom(quantity);
 
         return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
     }
 
     @GetMapping(path = {"/filter"})
-    public ResponseEntity<List<ProductMiniDTO>> findAllProductsByCityTitleAndReservationDate(
+    public ResponseEntity<List<ProductSmallDTO>> findAllProductsByCityTitleAndReservationDate(
             @RequestParam String city,
             @RequestParam String checkIn,
             @RequestParam String checkOut) {
@@ -103,10 +121,21 @@ public class ProductController {
         var checkInParse = DateUtils.asDate(LocalDate.parse(checkIn, DateTimeFormatter.ISO_DATE));
         var checkOutParse = DateUtils.asDate(LocalDate.parse(checkOut, DateTimeFormatter.ISO_DATE));
 
-        List<ProductMiniDTO> categoriesFound =
+        List<ProductSmallDTO> categoriesFound =
                 productService.findAllProductsByCityTitleAndReservationDate(city, checkInParse, checkOutParse);
 
         return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = {"/{id}"})
+    public ResponseEntity<Response> deleteById(@PathVariable Integer id) throws NotFoundException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+
+        productService.deleteById(id);
+        Response response = new Response(String.format("Product with id: %s was deleted", id));
+
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
 }

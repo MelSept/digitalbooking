@@ -83,7 +83,7 @@ public class CategoryServiceImpl implements ICategoryService {
         Optional<Category> categoryFound = categoryRepository.findById(id);
 
         if (categoryFound.isEmpty() || categoryFound.get().isDeleted()) {
-            Response responseException = new Response(String.format("Not found category with id: '%s'", id));
+            ResponseError responseException = new ResponseError(String.format("Not found category with id: '%s'", id));
             throw new NotFoundException(responseException);
         }
 
@@ -96,7 +96,7 @@ public class CategoryServiceImpl implements ICategoryService {
         Optional<Category> categoryFound = categoryRepository.findByTitleIgnoreCase(title);
 
         if (categoryFound.isEmpty() || categoryFound.get().isDeleted()) {
-            Response responseException = new Response(String.format("Not found category with title: '%s'", title));
+            ResponseError responseException = new ResponseError(String.format("Not found category with title: '%s'", title));
             throw new NotFoundException(responseException);
         }
 
@@ -122,7 +122,7 @@ public class CategoryServiceImpl implements ICategoryService {
         Category categorySaved = new Category();
 
         if (categoryFoundById == null || categoryFoundById.isDeleted()) {
-            Response responseException = new Response(String.format("Not found category with id: '%s'", category.getId()));
+            ResponseError responseException = new ResponseError(String.format("Not found category with id: '%s'", category.getId()));
             throw new NotFoundException(responseException);
         }
 
@@ -160,7 +160,7 @@ public class CategoryServiceImpl implements ICategoryService {
         Optional<Category> categoryFound = categoryRepository.findById(id);
 
         if (categoryFound.isEmpty() || categoryFound.get().isDeleted()) {
-            Response responseException = new Response(String.format("Not found category with id: '%s'", id));
+            ResponseError responseException = new ResponseError(String.format("Not found category with id: '%s'", id));
             throw new NotFoundException(responseException);
         } else {
             Category categoryToDelete = categoryFound.get();

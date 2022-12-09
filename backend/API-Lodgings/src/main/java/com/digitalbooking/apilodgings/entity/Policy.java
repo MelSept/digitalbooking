@@ -1,6 +1,7 @@
 package com.digitalbooking.apilodgings.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
+
+@Hidden
 
 @Setter
 @Getter
@@ -26,7 +29,6 @@ public class Policy {
 
     @Id
     @Column(name = "id")
-    @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
 
     @Column(name = "norm", length = 400, nullable = false)

@@ -1,15 +1,21 @@
 package com.digitalbooking.apilodgings.entity;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
+@Hidden
 
 @Setter
 @Getter
 @Entity
 @Table(name = "users")
+@SQLDelete(sql = "UPDATE users SET deleted_flag = true WHERE id=?")
+@Where(clause = "deleted_flag=false")
 public class User {
 
     // Dev - Env
@@ -20,10 +26,8 @@ public class User {
 
     // Prod - Env
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Id
     @Column(name = "id")
-    @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
 
     @Column(name = "first_name", nullable = false, length = 80)
@@ -45,12 +49,11 @@ public class User {
     public String city;
 
     @Column(name = "deleted_flag", nullable = false)
-    private boolean deleted;
+    private boolean deleted = Boolean.FALSE;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne()
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
-
 
 
     public User(Integer id, String firstName, String lastName, String email, String password, String city, boolean deleted) {

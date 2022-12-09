@@ -1,7 +1,9 @@
 package com.digitalbooking.apilodgings.response;
 
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class Response {
 
@@ -9,5 +11,9 @@ public class Response {
 
     public Response(String message) {
         this.message = message;
+    }
+
+    public Response() {
+        message = "";
     }
 }

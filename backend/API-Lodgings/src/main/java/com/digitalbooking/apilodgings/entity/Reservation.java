@@ -1,14 +1,16 @@
 package com.digitalbooking.apilodgings.entity;
 
 import com.digitalbooking.apilodgings.enums.EStatus;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.Date;
+
+@Hidden
 
 @Setter
 @Getter

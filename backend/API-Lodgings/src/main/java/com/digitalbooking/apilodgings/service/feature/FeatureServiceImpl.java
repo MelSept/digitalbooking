@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.service.feature;
 
-import com.digitalbooking.apilodgings.dto.FeatureDTO;
+import com.digitalbooking.apilodgings.dto.feature.FeatureDTO;
 import com.digitalbooking.apilodgings.repository.IFeatureRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

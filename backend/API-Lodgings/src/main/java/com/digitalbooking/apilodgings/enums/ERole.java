@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.enums;
 
 public enum ERole {
-    ADMIN,
-    USER
+    ROLE_ADMIN,
+    ROLE_USER
 }

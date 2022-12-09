@@ -11,7 +11,6 @@ import com.digitalbooking.apilodgings.exception.NotFoundException;
 import com.digitalbooking.apilodgings.repository.IProductRepository;
 import com.digitalbooking.apilodgings.repository.IReservationRepository;
 import com.digitalbooking.apilodgings.repository.IUserRepository;
-import com.digitalbooking.apilodgings.response.Response;
 import com.digitalbooking.apilodgings.response.ResponseError;
 import com.digitalbooking.apilodgings.utility.DateUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,14 +62,14 @@ public class ReservationServiceImpl implements IReservationService {
         Product productFound = productRepository.findBy_Id(productId).orElse(null);
         User userFound = userRepository.findById(userId).orElse(null);
         Reservation reservationFound =
-                reservationRepository.findBy_ProductId_And_CheckIn_Or_CheckOut_IsBetween(productId, checkIn, checkOut, checkIn, checkOut);
+                reservationRepository.findBy_ProductId_And_CheckIn_Or_CheckOut_IsBetween(productId, checkIn, checkOut);
 
         if (productFound == null) {
-            Response response = new Response(String.format("Product with id: %s not found", productId));
+            ResponseError response = new ResponseError(String.format("Product with id: %s not found", productId));
             throw new NotFoundException(response);
         }
         if (userFound == null) {
-            Response response = new Response(String.format("User with id: %s not found", userId));
+            ResponseError response = new ResponseError(String.format("User with id: %s not found", userId));
             throw new NotFoundException(response);
         }
 

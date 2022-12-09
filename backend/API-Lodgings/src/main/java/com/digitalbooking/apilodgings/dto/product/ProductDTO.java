@@ -1,7 +1,7 @@
 package com.digitalbooking.apilodgings.dto.product;
 
-import com.digitalbooking.apilodgings.dto.FeatureDTO;
-import com.digitalbooking.apilodgings.dto.ImageDTO;
+import com.digitalbooking.apilodgings.dto.feature.FeatureDTO;
+import com.digitalbooking.apilodgings.dto.Image.ImageDTO;
 import com.digitalbooking.apilodgings.dto.place.PlaceDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

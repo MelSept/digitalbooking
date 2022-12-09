@@ -5,11 +5,16 @@ import com.digitalbooking.apilodgings.dto.reservation.ReservationDTO;
 import com.digitalbooking.apilodgings.exception.BadRequestException;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
 import com.digitalbooking.apilodgings.service.reservation.IReservationService;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,6 +22,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/reservation")
+@Tag(name = "Reservation", description = "Endpoint to management reservations")
+@SecurityScheme(
+        name = "Bearer Authentication / Add to Request Header 'Key: Authorization - Value: Bearer <your token>'",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        scheme = "bearer"
+)
 public class ReservationController {
 
     private final IReservationService reservationService;
@@ -28,6 +40,8 @@ public class ReservationController {
 
 
     @PostMapping
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PreAuthorize(value = "hasRole('ADMIN') or hasRole('USER')")
     public ResponseEntity<ReservationDTO> createReservation(@Valid @RequestBody CreateReservationDTO createReservationDTO) throws NotFoundException, BadRequestException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");

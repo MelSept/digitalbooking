@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -17,16 +16,10 @@ import java.io.Serializable;
 @Data
 public class UserDTO implements Serializable {
 
-    @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
-
     private String firstName;
-
     private String lastName;
-
     private String username;
-
     private String email;
-
     private String city;
 }

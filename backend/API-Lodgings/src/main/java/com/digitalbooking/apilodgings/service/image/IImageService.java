@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.service.image;
 
-import com.digitalbooking.apilodgings.dto.ImageDTO;
+import com.digitalbooking.apilodgings.dto.Image.ImageDTO;
 
 import java.util.List;
 

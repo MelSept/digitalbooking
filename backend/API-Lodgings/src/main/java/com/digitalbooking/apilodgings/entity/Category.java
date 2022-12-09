@@ -1,18 +1,26 @@
 package com.digitalbooking.apilodgings.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+@Hidden
 
 @Setter
 @Getter
 @Entity
 @Table(name = "categories")
+@SQLDelete(sql = """
+UPDATE categories SET deleted_flag = true WHERE id=?;
+""")
+@Where(clause = "deleted_flag=false")
 public class Category {
 
     // Dev - Env
@@ -26,7 +34,6 @@ public class Category {
 
     @Id
     @Column(name = "id")
-    @NotNull(message = "The 'id' field cannot be null.")
     private Integer id;
 
     @Column(name = "title", nullable = false, unique = true, length = 200)
