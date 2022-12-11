@@ -1,38 +1,44 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { addDays, format } from "date-fns";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import {
+  PRODUCTS_BY_ID,
+  RESERVATIONS_BY_PRODUCT_ID,
+} from "../../constants/endpoints";
+import { HOME, PRODUCT, SUCCESS } from "../../router/routes";
+import { postReservation } from "../../service/reservation/reservation";
+import useGet from "../../hooks/requests/useGet";
 import HeaderGoBack from "../../components/HeaderGoBack/HeaderGoBack";
 import ReservationForm from "../../components/ReservationForm/ReservationForm";
 import Policies from "../../components/Policies/Policies";
 import styles from "./Reservation.module.css";
 import ArrivalSchedule from "../../components/ArrivalSchedule/ArrivalSchedule";
 import ReservationDetail from "../../components/ReservationDetail/ReservationDetail";
-
-import { Navigate, useParams } from "react-router-dom";
-import { PRODUCTS_BY_ID } from "../../constants/endpoints";
-import { HOME, PRODUCT } from "../../router/routes";
 import Calendar from "../../components/Calendar/Calendar";
-import useFetch from "../../hooks/useFetch";
+import UserContext from "../../context/UserContext";
 
 const Reservation = () => {
   const { id } = useParams();
-
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState(null);
   const [schedule, setSchedule] = useState(null);
-  const [data, setData] = useState({
-    nombre: "",
-    apellido: "",
-    email: "",
-    ciudad: "",
-  });
+  const [errors, setErrors] = useState(null);
 
   const {
     data: product,
-    isLoading,
-    error,
-  } = useFetch(PRODUCTS_BY_ID.replace(":id", id));
+    isLoading: isLoadingProduct,
+    error: errorProduct,
+  } = useGet(PRODUCTS_BY_ID.replace(":id", id), true);
+
+  const { data: reservation } = useGet(
+    RESERVATIONS_BY_PRODUCT_ID.replace(":id", id),
+    true
+  );
 
   const formChange = (event) => {
-    setData({ ...data, [event.target.name]: event.target.value });
+    //setData({ ...data, [event.target.name]: event.target.value });
   };
 
   const calendarOnChange = (dates) => {
@@ -45,28 +51,49 @@ const Reservation = () => {
     setSchedule(e.target.value);
   };
 
-  const submitFormData = (e) => {
-    e.preventDefault();
-    console.log("ENVIANDO DATOS");
-    //1- llamo al POST de la API para guardar la reserva
-    /* const dataAEnviar = {
-       nombre: data.name,
-       apellido: data.apellido,
-       email: data.email,
-       ciudad: data.ciudad,
-       startDate: startDate,
-       endDate: endDate,
-       schedule: schedule,
-    }*/
-    //2- Si está OK, redirijo al usuario a la pantalla de confirmacion con el paso 3.
-    //3- Usamos useNavigate así: navigate(CONFIRMATION);
+  const validate = () => {
+    const errors = {};
+    if (!startDate) {
+      errors.startDate = "Fecha de inicio requerida.";
+    } else if (!endDate) {
+      errors.endDate = "Fecha de fin requerida.";
+    } else if (!schedule) {
+      errors.schedule = "Selecciona un horario.";
+    }
+    return errors;
   };
 
-  if (isLoading || !product) {
+  const submitFormData = async (e) => {
+    e.preventDefault();
+    const errors = validate();
+    setErrors(errors);
+
+    if (Object.keys(errors).length === 0) {
+      const resData = {
+        checkIn: startDate && format(startDate, "yyyy-MM-dd"),
+        checkOut: endDate && format(endDate, "yyyy-MM-dd"),
+        startTime: `${schedule}:00`,
+        userId: user.id,
+        productId: parseInt(id),
+      };
+
+      const created = await postReservation({
+        data: resData,
+        tokenType: user.tokenType,
+        accessToken: user.accessToken,
+      });
+
+      if (created) {
+        navigate(SUCCESS);
+      }
+    }
+  };
+
+  if (isLoadingProduct || !product) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (errorProduct) {
     return <Navigate to={HOME} />;
   }
 
@@ -85,23 +112,33 @@ const Reservation = () => {
         placeTitle={placeTitle}
         path={PRODUCT.replace(":id", id)}
       />
-      <ReservationForm onChange={formChange} submitData={submitFormData}>
+      <ReservationForm
+        user={user}
+        onChange={formChange}
+        submitData={submitFormData}
+      >
         <Calendar
           productId={id}
           className={styles.calendar}
           showDisabledMonthNavigation={true}
           selectsRange={true}
+          excludeDateIntervals={reservation?.map((res) => ({
+            start: new Date(res.checkIn),
+            end: addDays(new Date(res.checkOut), 1),
+          }))}
           title={"Selecciona tu fecha de reserva"}
           startDate={startDate}
           endDate={endDate}
           onChange={calendarOnChange}
         />
-        <ArrivalSchedule onChange={scheduleOnChange} />
+        <ArrivalSchedule onChange={scheduleOnChange} schedule={schedule} />
         <ReservationDetail
           mainImage={imageUrl}
           category={categoryTitle}
           placeTitle={placeTitle}
           address={address}
+          checkIn={startDate && format(startDate, "dd/MM/yyyy")}
+          checkOut={endDate && format(endDate, "dd/MM/yyyy")}
         />
       </ReservationForm>
       <Policies />

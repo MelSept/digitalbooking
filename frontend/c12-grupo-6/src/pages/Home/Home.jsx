@@ -1,14 +1,16 @@
-import { useState } from "react";
-import styles from "./Home.module.css";
-import useFetch from "../../hooks/useFetch";
+import { useState, useEffect } from "react";
+import { format } from "date-fns";
 import {
+  CITIES,
   PRODUCTS_BY_CATEGORY,
   PRODUCTS_FILTER,
 } from "../../constants/endpoints";
+import { BASE_API_URL } from "../../constants/baseApi";
+import useGet from "../../hooks/requests/useGet";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import CategoryList from "../../components/CategoryList/CategoryList";
 import RecomendationList from "../../components/RecomendationList/RecomendationList";
-import { useEffect } from "react";
+import styles from "./Home.module.css";
 
 const Home = () => {
   const [category, setCategory] = useState("hotel");
@@ -17,9 +19,12 @@ const Home = () => {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
 
-  const { data: recomendations, isLoading } = useFetch(
-    `${PRODUCTS_BY_CATEGORY}${category}`
+  const { data: recomendations, isLoading } = useGet(
+    `${PRODUCTS_BY_CATEGORY}${category}`,
+    true
   );
+
+  const { data: cities } = useGet(CITIES, true);
 
   useEffect(() => {
     if (recomendations) {
@@ -46,20 +51,19 @@ const Home = () => {
 
     try {
       const data = await fetch(
-        `${PRODUCTS_FILTER}?city=${selectedCity}&checkin=${startDate}&checkOut=${endDate}`
+        `${BASE_API_URL}${PRODUCTS_FILTER}?city=${selectedCity}&checkIn=${format(
+          startDate,
+          "yyyy-MM-dd"
+        )}&checkOut=${format(endDate, "yyyy-MM-dd")}`
       );
       const parsedData = await data.json();
+
       if (parsedData && parsedData.length) {
         setRecommend(parsedData);
       }
     } catch (error) {
       console.error(error);
     }
-
-    //let msg = `Ciudad Seleccionada: ${selectedCity}`;
-    //msg += `\nCheck in: ${startDate}`;
-    //msg += `\nCheck out: ${endDate}`;
-    //console.log(msg);
   };
 
   if (isLoading || !recomendations) {
@@ -72,6 +76,9 @@ const Home = () => {
         handleSubmit={handleSubmit}
         handleChangeCity={handleChangeCity}
         handleDatesChange={handleDatesChange}
+        cities={cities}
+        startDate={startDate}
+        endDate={endDate}
       />
       <CategoryList handleCategory={handleCategory} />
       <RecomendationList recomendations={recommend} />

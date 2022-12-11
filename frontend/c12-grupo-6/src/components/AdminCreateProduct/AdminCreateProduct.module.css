@@ -1,0 +1,39 @@
+.adminContainer {
+  margin: 0 40px;
+}
+
+.propertySection {
+  text-align: center;
+  padding: 248px 0;
+}
+
+.notCreation {
+  margin-bottom: 20px;
+}
+
+.backToHome {
+  width: 200px;
+  margin-right: 10px;
+  border: none;
+  padding: 10px 0;
+  border-radius: 5px;
+  background-color: #1dbeb4;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.goToAdministration {
+  width: 200px;
+  border: none;
+  padding: 10px 0;
+  border-radius: 5px;
+  background-color: #1dbeb4;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}

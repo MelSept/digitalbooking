@@ -3,7 +3,14 @@ import { FaStar, FaMapMarkerAlt } from "react-icons/fa";
 import { SUCCESS } from "../../router/routes";
 import { Link } from "react-router-dom";
 
-const ReservationDetail = ({ mainImage, category, placeTitle, address }) => {
+const ReservationDetail = ({
+  mainImage,
+  category,
+  placeTitle,
+  address,
+  checkIn,
+  checkOut,
+}) => {
   return (
     <div className={styles.reservationDetailContainer}>
       <div className={styles.imgCardDetail}>
@@ -39,21 +46,19 @@ const ReservationDetail = ({ mainImage, category, placeTitle, address }) => {
 
             <div className={styles.checks}>
               <p>Check in</p>
-              <span>23/11/2022</span>
+              <span>{checkIn}</span>
             </div>
             <div className={styles.lineBottom}></div>
 
             <div className={styles.checks}>
               <p>Check out</p>
-              <span>27/11/2022</span>
+              <span>{checkOut}</span>
             </div>
             <div className={styles.lineBottom}></div>
           </div>
         </div>
 
-        <Link to={SUCCESS}>
-          <button className={styles.successful}>Confirmar Reserva</button>
-        </Link>
+        <button className={styles.successful}>Confirmar Reserva</button>
       </div>
     </div>
   );

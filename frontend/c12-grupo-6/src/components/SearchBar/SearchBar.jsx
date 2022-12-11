@@ -2,9 +2,16 @@ import css from "./SearchBar.module.css";
 import DateRangePicker from "./DatePicker/DateRangePicker";
 
 // Cities ared loaded from static file
-import cities from "../../assets/json/cities.json";
+//import cities from "../../assets/json/cities.json";
 
-const SearchBar = ({ handleChangeCity, handleDatesChange, handleSubmit }) => {
+const SearchBar = ({
+  handleChangeCity,
+  handleDatesChange,
+  handleSubmit,
+  cities,
+  startDate,
+  endDate,
+}) => {
   return (
     <div className={css.searchBar}>
       <h1>Busca ofertas en hoteles, casas y mucho más:</h1>
@@ -19,13 +26,15 @@ const SearchBar = ({ handleChangeCity, handleDatesChange, handleSubmit }) => {
             ¿A dónde vamos?
           </option>
           {cities.map((city) => (
-            <option key={city.id}>
-              {city.name}, {city.country}
-            </option>
+            <option key={city.id}>{city.title}</option>
           ))}
         </select>
         <div className={css.inputField}>
-          <DateRangePicker onPickDates={handleDatesChange} />
+          <DateRangePicker
+            onPickDates={handleDatesChange}
+            startDate={startDate}
+            endDate={endDate}
+          />
         </div>
 
         <button className={css.submit} onClick={handleSubmit}>

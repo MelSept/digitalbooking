@@ -1,25 +1,11 @@
+import React from "react";
 import styles from "./Features.module.css";
-import {
-  FaIcons,
-  FaTv,
-  FaSnowflake,
-  FaPaw,
-  FaCar,
-  FaSwimmer,
-  FaWifi,
-} from "react-icons/fa";
+import * as FontAwesome from "react-icons/fa";
 
-const iconsMapper = {
-  cocina: { title: "Cocina", icon: <FaIcons /> },
-  tv: { title: "Televisor", icon: <FaTv /> },
-  "aire acondicionado": { title: "Aire Acondicionado", icon: <FaSnowflake /> },
-  pileta: { title: "Pileta", icon: <FaSwimmer /> },
-  "estacionamiento gratuito": {
-    title: "Estacionamiento Gratuito",
-    icon: <FaCar />,
-  },
-  wifi: { title: "WiFi", icon: <FaWifi /> },
-  "apto mascotas": { title: "Apto Mascota", icon: <FaPaw /> },
+const Icon = (props) => {
+  const { iconName, size, color } = props;
+  const icon = React.createElement(FontAwesome[iconName]);
+  return <div style={{ fontSize: size, color: color }}>{icon}</div>;
 };
 
 const Features = ({ features }) => {
@@ -28,10 +14,12 @@ const Features = ({ features }) => {
       <h2>¿Qué ofrece este lugar?</h2>
       <div className={styles.lineBottom}></div>
       <div className={styles.featureIcons}>
-        {features.map(({ title, id }) => (
-          <div className={styles.cocinaIcon} key={id}>
-            <span>{iconsMapper[title].icon}</span>
-            {iconsMapper[title].title}
+        {features.map(({ title, icon, id }) => (
+          <div className={styles.feature} key={id}>
+            <span>
+              <Icon iconName={icon} />
+            </span>
+            {title[0].toUpperCase() + title.slice(1).toLowerCase()}
           </div>
         ))}
       </div>

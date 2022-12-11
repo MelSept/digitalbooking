@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import { login } from "../../service/auth/auth";
+import { HOME } from "../../router/routes";
 import UserContext from "../../context/UserContext";
 import styles from "./Login.module.css";
 
@@ -9,12 +11,7 @@ const Login = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
-  /*const user = {
-    email: "grupo6@grupo6.com",
-    password: "123456",
-  };*/
-
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _] = useSearchParams(); //Como no uso el setSearchParams, lo nombramos _.
   const isFromProduct = searchParams.get("product");
 
   const navigate = useNavigate();
@@ -25,12 +22,18 @@ const Login = () => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const isLogin = () => {
-    connectUser({
-      email: formValues.email,
-      nombre: formValues.email.split("@")[0],
+  const isLogin = async () => {
+    const user = await login({
+      data: {
+        username: formValues.email,
+        password: formValues.password,
+      },
     });
-    navigate("/");
+
+    if (user) {
+      connectUser({ ...user });
+      navigate(HOME);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -39,7 +42,6 @@ const Login = () => {
     setIsSubmit(true);
   };
 
-  //Validation
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -63,49 +65,50 @@ const Login = () => {
   }, [formErrors]);
 
   if (user) {
-    return <Navigate to={"/"} />;
-  } else
-    return (
-      <div className={styles.authFormContainer}>
-        {isFromProduct && (
-          <div className={styles.error}>
-            Para realizar una reserva necesitas estar logeado
-          </div>
-        )}
+    return <Navigate to={HOME} />;
+  }
 
-        <h2>Iniciar Sesion</h2>
-        <form className={styles.loginForm} onSubmit={handleSubmit}>
-          <label htmlFor="email">Correo Electronico</label>
-          <input
-            size="32"
-            id="email"
-            name="email"
-            type="email"
-            placeholder=""
-            value={formValues.email}
-            onChange={handleChange}
-          />
+  return (
+    <div className={styles.authFormContainer}>
+      {isFromProduct && (
+        <div className={styles.error}>
+          Para realizar una reserva necesitas estar logeado
+        </div>
+      )}
 
-          <p>{formErrors.email}</p>
+      <h2>Iniciar Sesion</h2>
+      <form className={styles.loginForm} onSubmit={handleSubmit}>
+        <label htmlFor="email">Correo Electronico</label>
+        <input
+          size="32"
+          id="email"
+          name="email"
+          type="email"
+          placeholder=""
+          value={formValues.email}
+          onChange={handleChange}
+        />
 
-          <label htmlFor="password">Contraseña</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder=""
-            value={formValues.password}
-            onChange={handleChange}
-          />
+        <p>{formErrors.email}</p>
 
-          <p>{formErrors.password}</p>
-          <button type="submit">Ingresar</button>
-        </form>
-        <p>
-          ¿Aun no tienes Cuenta? <Link to="/register">Registrate</Link>
-        </p>
-      </div>
-    );
+        <label htmlFor="password">Contraseña</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          placeholder=""
+          value={formValues.password}
+          onChange={handleChange}
+        />
+
+        <p>{formErrors.password}</p>
+        <button type="submit">Ingresar</button>
+      </form>
+      <p>
+        ¿Aun no tienes Cuenta? <Link to="/register">Registrate</Link>
+      </p>
+    </div>
+  );
 };
 
 export default Login;

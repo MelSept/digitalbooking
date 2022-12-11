@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
+import { PRODUCTS_BY_ID } from "../../constants/endpoints";
+import { HOME } from "../../router/routes";
 import HeaderGoBack from "../../components/HeaderGoBack/HeaderGoBack";
 import LocationData from "../../components/LocationData/LocationData";
 import ProductGalery from "../../components/ProductGalery/ProductGalery";
@@ -11,9 +13,7 @@ import Calendar from "../../components/Calendar/Calendar";
 import GoogleMap from "../../components/Map/GoogleMap";
 import Policies from "../../components/Policies/Policies";
 import useWindowSize from "../../hooks/useWindowSize";
-import useFetch from "../../hooks/useFetch";
-import { PRODUCTS_BY_ID } from "../../constants/endpoints";
-import { HOME } from "../../router/routes";
+import useGet from "../../hooks/requests/useGet";
 
 const Product = () => {
   const { id } = useParams();
@@ -24,7 +24,7 @@ const Product = () => {
     data: product,
     isLoading,
     error,
-  } = useFetch(PRODUCTS_BY_ID.replace(":id", id));
+  } = useGet(PRODUCTS_BY_ID.replace(":id", id), true);
 
   const handleClose = () => {
     setShowSlider(false);

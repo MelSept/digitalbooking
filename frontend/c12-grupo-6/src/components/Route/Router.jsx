@@ -8,6 +8,7 @@ import Reservation from "../../pages/Reservation/Reservation";
 import Administration from "../../pages/Administration/Administration";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import SuccessReservation from "../../pages/Success/SuccessReservation";
+import Create from "../../pages/Create/Create";
 import {
   HOME,
   LOGIN,
@@ -16,7 +17,13 @@ import {
   RESERVATION,
   SUCCESS,
   ADMINISTRATION,
+  CREATE,
+  USERPROFILE,
+  ADMINPROFILE,
 } from "../../router/routes";
+import UserProfile from "../../pages/UserProfile/UserProfile";
+import AdminProfile from "../../pages/AdminProfile/AdminProfile";
+import OnlyAdminRoute from "../OnlyAdminRoute/OnlyAdminRoute";
 
 const Router = () => {
   return (
@@ -37,6 +44,17 @@ const Router = () => {
         />
         <Route exact path={SUCCESS} element={<SuccessReservation />} />
         <Route exact path={ADMINISTRATION} element={<Administration />} />
+        <Route exact path={CREATE} element={<Create />} />
+        <Route exact path={USERPROFILE} element={<UserProfile />} />
+        <Route
+          exact
+          path={ADMINPROFILE}
+          element={
+            <OnlyAdminRoute>
+              <AdminProfile />
+            </OnlyAdminRoute>
+          }
+        />
       </Routes>
     </div>
   );
