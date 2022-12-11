@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.models.annotations.OpenAPI31;
+import org.springdoc.core.GroupedOpenApi;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -23,4 +25,23 @@ import org.springframework.context.annotation.Configuration;
 @OpenAPI31
 public class CustomOpenAPI {
 
+    @Bean
+    GroupedOpenApi usersGroup() {
+        return GroupedOpenApi.builder()
+                .group("Users")
+                .displayName("Users")
+                .pathsToMatch("/auth/signIn", "/auth/signUp",
+                        "/reservation", "/reservation/**")
+                .build();
+    }
+
+    @Bean
+    GroupedOpenApi adminsGroup() {
+        return GroupedOpenApi.builder()
+                .group("Admins")
+                .displayName("Admins")
+                .pathsToMatch("/auth/signIn",
+                        "/auth/signUp/admin")
+                .build();
+    }
 }

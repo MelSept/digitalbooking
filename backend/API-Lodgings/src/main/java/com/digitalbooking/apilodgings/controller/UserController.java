@@ -72,6 +72,11 @@ public class UserController {
         this.jwtUtils = jwtUtils;
     }
 
+
+    @Operation(summary = "Endpoint to authenticate user or admin", description = "Authenticate user or admin to website access.")
+    @ApiResponses(value = {
+            @ApiResponse(description = "Successful user creation.", responseCode = "201", content = {@Content(schema = @Schema(implementation = Response.class))})
+    })
     @PostMapping(path = "/signIn")
     public ResponseEntity<JwtResponse> authenticateUser(@RequestBody SignInRequest signIn) throws BadRequestException, NotFoundException {
 
@@ -127,7 +132,7 @@ public class UserController {
     }
 
 
-    @Operation(summary = "Endpoint to register a new user", description = "Description")
+    @Operation(summary = "Endpoint to register a new admin user", description = "Description")
     @ApiResponses(value = {
             @ApiResponse(description = "Successful user creation.", responseCode = "201", content = {@Content(schema = @Schema(implementation = Response.class))})
     })
@@ -156,8 +161,7 @@ public class UserController {
         user.setEmail(createUserAdminDTO.getEmail());
         user.setPassword(passwordEncoder.encode(createUserAdminDTO.getPassword()));
         user.setCity(createUserAdminDTO.getCity());
-        Role role = new Role();
-        role.setTitle(createUserAdminDTO.getRole());
+        Role role = roleRepository.findByTitle(ERole.ROLE_ADMIN).orElse(null);
         user.setRole(role);
 
         userRepository.save(user);
@@ -168,6 +172,7 @@ public class UserController {
     }
 
 
+    // TODO: Return 201
     @Operation(summary = "Endpoint to register a new user", description = "Description")
     @ApiResponses(value = {
             @ApiResponse(description = "Successful user creation.", responseCode = "201", content = {@Content(schema = @Schema(implementation = Response.class))})

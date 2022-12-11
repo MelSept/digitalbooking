@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.controller;
 
-import com.digitalbooking.apilodgings.dto.CityDTO;
+import com.digitalbooking.apilodgings.dto.city.CityDTO;
 import com.digitalbooking.apilodgings.service.city.ICityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

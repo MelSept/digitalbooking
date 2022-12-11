@@ -33,7 +33,7 @@ public class Role {
     public ERole title;
 
     @Column(name = "deleted_flag", nullable = false)
-    public boolean deleted;
+    public boolean deleted = Boolean.FALSE;
 
 
     public Role(Integer id, ERole title, boolean deleted) {

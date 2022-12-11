@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.service.city;
 
-import com.digitalbooking.apilodgings.dto.CityDTO;
+import com.digitalbooking.apilodgings.dto.city.CityDTO;
 import com.digitalbooking.apilodgings.entity.City;
 import com.digitalbooking.apilodgings.repository.ICityRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;

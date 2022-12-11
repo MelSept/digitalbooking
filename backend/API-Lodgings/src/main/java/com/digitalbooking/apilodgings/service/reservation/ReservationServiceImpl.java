@@ -59,19 +59,18 @@ public class ReservationServiceImpl implements IReservationService {
         Date checkIn = DateUtils.asDate(reservationDTO.getCheckIn());
         Date checkOut = DateUtils.asDate(reservationDTO.getCheckOut());
 
-        Product productFound = productRepository.findBy_Id(productId).orElse(null);
-        User userFound = userRepository.findById(userId).orElse(null);
-        Reservation reservationFound =
-                reservationRepository.findBy_ProductId_And_CheckIn_Or_CheckOut_IsBetween(productId, checkIn, checkOut);
+        Product productFound = productRepository.findBy_Id(productId).orElseThrow(() -> {
+            ResponseError responseError = new ResponseError(String.format("Product with id: %s not found", productId));
+            return new NotFoundException(responseError);
+        });
 
-        if (productFound == null) {
-            ResponseError response = new ResponseError(String.format("Product with id: %s not found", productId));
-            throw new NotFoundException(response);
-        }
-        if (userFound == null) {
-            ResponseError response = new ResponseError(String.format("User with id: %s not found", userId));
-            throw new NotFoundException(response);
-        }
+        User userFound = userRepository.findById(userId).orElseThrow(() -> {
+            ResponseError responseError = new ResponseError(String.format("User with id: %s not found", userId));
+            return new NotFoundException(responseError);
+        });
+
+        List<Reservation> reservationsFound =
+                reservationRepository.findBy_ProductId_And_CheckIn_Or_CheckOut_IsBetween(productId, checkIn, checkOut);
 
         if (checkOut.before(checkIn)){
             ResponseError response = new ResponseError("The 'CheckOut' cannot precede the 'CheckIn'");
@@ -83,10 +82,11 @@ public class ReservationServiceImpl implements IReservationService {
             throw new BadRequestException(response);
         }
 
-        if (reservationFound != null)
+        if (reservationsFound.size() > 0)
         {
             ResponseError response = new ResponseError("Reservation cannot be created");
-            response.addHint("Reservation Exist");
+            response.addHint("Reservation exist.");
+            response.addHint("Reservation date is in between other reservations.");
             throw new BadRequestException(response);
         }
 

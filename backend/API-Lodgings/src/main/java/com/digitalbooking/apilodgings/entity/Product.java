@@ -47,13 +47,13 @@ public class Product {
     private String description;
 
 
-    @Column(name = "thumbnail")
+    @Column(name = "thumbnail", nullable = false, length = 260)
     @NotNull(message = "The 'thumbnail' field cannot be null.")
     @NotBlank(message = "The 'thumbnail' field cannot be empty.")
     private String thumbnail;
 
     @Column(name = "deleted_flag")
-    private boolean deleted;
+    private boolean deleted = Boolean.FALSE;
 
     // Relations
 
@@ -67,8 +67,8 @@ public class Product {
     @JoinTable(name = "products_features",
             joinColumns = {@JoinColumn(name = "product_id")},
             inverseJoinColumns = {@JoinColumn(name = "feature_id")},
-            foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (product_id) REFERENCES product"),
-            inverseForeignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (feature_id) REFERENCES feature"))
+            foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (product_id) REFERENCES products"),
+            inverseForeignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (feature_id) REFERENCES features"))
     Set<Feature> features = new HashSet<>();
 
     @ManyToOne

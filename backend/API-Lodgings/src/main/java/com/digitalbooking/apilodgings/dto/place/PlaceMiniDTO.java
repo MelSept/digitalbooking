@@ -1,7 +1,7 @@
 package com.digitalbooking.apilodgings.dto.place;
 
-import com.digitalbooking.apilodgings.dto.CityDTO;
 import com.digitalbooking.apilodgings.dto.category.CategoryMiniDTO;
+import com.digitalbooking.apilodgings.dto.city.CityDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;

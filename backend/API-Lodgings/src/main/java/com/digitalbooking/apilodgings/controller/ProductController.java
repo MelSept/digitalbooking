@@ -113,19 +113,32 @@ public class ProductController {
 
     @GetMapping(path = {"/filter"})
     public ResponseEntity<List<ProductSmallDTO>> findAllProductsByCityTitleAndReservationDate(
-            @RequestParam String city,
-            @RequestParam String checkIn,
-            @RequestParam String checkOut) {
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String checkIn,
+            @RequestParam(required = false) String checkOut) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        var checkInParse = DateUtils.asDate(LocalDate.parse(checkIn, DateTimeFormatter.ISO_DATE));
-        var checkOutParse = DateUtils.asDate(LocalDate.parse(checkOut, DateTimeFormatter.ISO_DATE));
+        List<ProductSmallDTO> productSmallDTOS;
 
-        List<ProductSmallDTO> categoriesFound =
-                productService.findAllProductsByCityTitleAndReservationDate(city, checkInParse, checkOutParse);
+        if (city != null && checkIn != null && checkOut != null)
+        {
+            var checkInParse = DateUtils.asDate(LocalDate.parse(checkIn, DateTimeFormatter.ISO_DATE));
+            var checkOutParse = DateUtils.asDate(LocalDate.parse(checkOut, DateTimeFormatter.ISO_DATE));
 
-        return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
+            productSmallDTOS = productService.findAllProductsByCityTitleAndReservationDate(city, checkInParse, checkOutParse);
+            return new ResponseEntity<>(productSmallDTOS, headers, HttpStatus.OK);
+        }
+
+        if (city != null)
+        {
+            productSmallDTOS = productService.findAllProductsByCityTitle(city);
+            return new ResponseEntity<>(productSmallDTOS, headers, HttpStatus.OK);
+        }
+
+        productSmallDTOS = productService.findAllProducts();
+
+        return new ResponseEntity<>(productSmallDTOS, headers, HttpStatus.OK);
     }
 
     @DeleteMapping(path = {"/{id}"})
