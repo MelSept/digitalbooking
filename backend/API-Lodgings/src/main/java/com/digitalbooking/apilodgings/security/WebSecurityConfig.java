@@ -5,7 +5,6 @@ import com.digitalbooking.apilodgings.jwt.AuthEntryPointJwt;
 import com.digitalbooking.apilodgings.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,9 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
-
-    @Value("${server.servlet.context-path}")
-    private String path;
 
     private final UserDetailsService userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
@@ -80,7 +76,8 @@ public class WebSecurityConfig {
                 .antMatchers("swagger-ui/**").permitAll()
                 .antMatchers("swagger-ui**").permitAll()
                 .antMatchers("/api-docs/**").permitAll()
-                .antMatchers("/api-docs**", "/v3/api-docs/**").permitAll()
+                .antMatchers("/api-docs**").permitAll()
+                .antMatchers("/v3/api-docs/**").permitAll()
 
                 // Allowed EndPoints
                 // Auth Users EndPoint

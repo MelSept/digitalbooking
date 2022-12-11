@@ -33,17 +33,11 @@ public interface IProductRepository extends JpaRepository<Product, Integer> {
     @Query("""
             select p from Product p inner join p.reservations r
             where upper(p.place.city.title) = upper(?1) and
-            r.checkIn <= ?2 and r.checkIn >= ?3
+            (r.checkIn >= ?2 and r.checkIn <= ?3
             or
             r.checkOut >= ?2 and r.checkOut <= ?3
             or
-            r.checkIn >= ?2 and r.checkIn <= ?3
-            or
-            r.checkOut <= ?2 and r.checkOut >= ?3
-            or
-            r.checkIn <= ?2 and r.checkIn <= ?3
-            or
-            r.checkOut <= ?2 and r.checkOut <= ?3
+            r.checkIn <= ?2 and r.checkOut >= ?3)
             and
             p.deleted = false
             """)

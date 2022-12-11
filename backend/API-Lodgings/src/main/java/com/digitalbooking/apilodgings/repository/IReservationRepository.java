@@ -17,19 +17,13 @@ public interface IReservationRepository extends JpaRepository<Reservation, Integ
     @Query("""
             select r from Reservation r
             where r.product.id = ?1 and
-            (r.checkIn <= ?2 and r.checkIn >= ?3
+            (r.checkIn >= ?2 and r.checkIn <= ?3
             or
             r.checkOut >= ?2 and r.checkOut <= ?3
             or
-            r.checkIn >= ?2 and r.checkIn <= ?3
-            or
-            r.checkOut <= ?2 and r.checkOut >= ?3
-            or
-            r.checkIn <= ?2 and r.checkIn <= ?3
-            or
-            r.checkOut <= ?2 and r.checkOut <= ?3)
+            r.checkIn <= ?2 and r.checkOut >= ?3)
             """)
-    Reservation findBy_ProductId_And_CheckIn_Or_CheckOut_IsBetween(Integer productId, Date checkIn, Date checkOut);
+    List<Reservation> findBy_ProductId_And_CheckIn_Or_CheckOut_IsBetween(Integer productId, Date checkIn, Date checkOut);
 
     @Query("select r from Reservation r where r.user.id = ?1")
     List<Reservation> findAllBy_UserId(Integer userId);

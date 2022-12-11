@@ -62,6 +62,7 @@ public class ReservationController {
         return new ResponseEntity<>(categoriesFound, headers, HttpStatus.OK);
     }
 
+
     @GetMapping(path = {"/userId/{id}"})
     public ResponseEntity<List<ReservationDTO>> findAllReservationsByUserId(@PathVariable Integer id) {
         HttpHeaders headers = new HttpHeaders();

@@ -74,6 +74,13 @@ public class GlobalException {
         return new ResponseEntity<>(responseError, HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(ServletException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ResponseEntity<ResponseError> notImplemented(ServletException exception){
+        System.out.println(exception.getMessage());
+        return null;
+    }
+
 
     // Authentication Exceptions
 

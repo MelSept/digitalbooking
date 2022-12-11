@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,10 +15,6 @@ import java.util.Set;
 @Getter
 @Entity
 @Table(name = "categories")
-@SQLDelete(sql = """
-UPDATE categories SET deleted_flag = true WHERE id=?;
-""")
-@Where(clause = "deleted_flag=false")
 public class Category {
 
     // Dev - Env
@@ -49,7 +43,7 @@ public class Category {
     private String imageUrl;
 
     @Column(name = "deleted_flag")
-    private boolean deleted;
+    private boolean deleted = Boolean.FALSE;
 
     // Reference
 

@@ -3,8 +3,6 @@ package com.digitalbooking.apilodgings.entity;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -14,8 +12,6 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "users")
-@SQLDelete(sql = "UPDATE users SET deleted_flag = true WHERE id=?")
-@Where(clause = "deleted_flag=false")
 public class User {
 
     // Dev - Env

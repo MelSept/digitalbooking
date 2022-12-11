@@ -36,18 +36,18 @@ public class Policy {
     @NotBlank(message = "The 'norm' field cannot be empty.")
     private String norm;
 
-    @Column(name = "security", length = 200, nullable = false)
+    @Column(name = "security", length = 400, nullable = false)
     @NotNull(message = "The 'security' field cannot be null.")
     @NotBlank(message = "The 'security' field cannot be empty.")
     private String security;
 
-    @Column(name = "cancellation", length = 200, nullable = false)
+    @Column(name = "cancellation", length = 400, nullable = false)
     @NotNull(message = "The 'cancellation' field cannot be null.")
     @NotBlank(message = "The 'cancellation' field cannot be empty.")
     private String cancellation;
 
     @Column(name = "deleted_flag")
-    private boolean deleted;
+    private boolean deleted = Boolean.FALSE;
 
 
     // Reference

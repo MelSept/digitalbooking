@@ -53,7 +53,7 @@ public class Place {
     private float latitude = 0;
 
     @Column(name = "longitude", nullable = false)
-    @NotNull(message = "The 'length' field cannot be null.")
+    @NotNull(message = "The 'longitude' field cannot be null.")
     private float longitude = 0;
 
     @Column(name = "address", length = 260, nullable = false)
@@ -62,7 +62,7 @@ public class Place {
     private String address;
 
     @Column(name = "deleted_flag")
-    private boolean deleted;
+    private boolean deleted = Boolean.FALSE;
 
     // Reference
 

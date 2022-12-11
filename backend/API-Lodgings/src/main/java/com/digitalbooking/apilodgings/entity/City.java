@@ -37,7 +37,7 @@ public class City {
     private String title;
 
     @Column(name = "deleted_flag")
-    private boolean deleted;
+    private boolean deleted = Boolean.FALSE;
 
     // Reference
     @OneToMany(mappedBy = "city")

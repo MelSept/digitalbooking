@@ -1,6 +1,5 @@
 package com.digitalbooking.apilodgings.dto.user;
 
-import com.digitalbooking.apilodgings.enums.ERole;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -41,7 +39,4 @@ public class CreateUserAdminDTO implements Serializable {
     @NotEmpty(message = "Field cannot be null or empty.")
     @Size(message = "Length field must be between min: 2 and max: 60. in length", min = 2, max = 80)
     private String city;
-
-    @NotNull(message = "Field cannot be null or empty.")
-    private ERole role;
 }

@@ -1,8 +1,8 @@
 package com.digitalbooking.apilodgings.dto.place;
 
-import com.digitalbooking.apilodgings.dto.CityDTO;
-import com.digitalbooking.apilodgings.dto.policy.PolicyDTO;
 import com.digitalbooking.apilodgings.dto.category.CategoryDTO;
+import com.digitalbooking.apilodgings.dto.city.CityDTO;
+import com.digitalbooking.apilodgings.dto.policy.PolicyDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
