@@ -5,4 +5,7 @@ export const REGISTER = "/register";
 export const RESERVATION = `${PRODUCT}/reservation`;
 export const SUCCESS = "/success";
 export const ADMINISTRATION = "/administration";
+export const CREATE = "/create";
+export const USERPROFILE = "/user";
+export const ADMINPROFILE = "/admin";
 //export const PRODUCT_DETAIL = `${PRODUCT}/details`;

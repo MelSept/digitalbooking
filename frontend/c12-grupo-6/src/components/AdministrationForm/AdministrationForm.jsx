@@ -1,11 +1,24 @@
 import styles from "./AdministrationForm.module.css";
-import { FaPlusSquare, FaMinusSquare } from "react-icons/fa";
+import AdministrationAttributes from "../AdministrationAttributes/AdministrationAttributes";
+import AdministrationLink from "../AdministrationLink/AdministrationLink";
 
-const AdministrationForm = ({ category, location, onChange }) => {
+const AdministrationForm = ({
+  category,
+  location,
+  attributes,
+  links,
+  onChange,
+  handleSubmit,
+  handleAddAttr,
+  handleDeleteAttr,
+  handleAddLink,
+  handleDeleteLink,
+  errors,
+}) => {
   return (
     <div className={styles.administrationFormContainer}>
       <h2>Crear propiedad</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className={styles.formSection}>
           <div className={styles.principalData}>
             <div className={styles.property}>
@@ -15,7 +28,11 @@ const AdministrationForm = ({ category, location, onChange }) => {
                 placeholder="Nombre de la propiedad"
                 name="property"
                 onChange={onChange}
+                autoComplete="off"
               />
+              {errors.property && (
+                <div className={styles.error}>{errors.property}</div>
+              )}
             </div>
             <div className={styles.category}>
               <label htmlFor="category">Categoria</label>
@@ -34,7 +51,11 @@ const AdministrationForm = ({ category, location, onChange }) => {
                 placeholder="direccion"
                 name="address"
                 onChange={onChange}
+                autoComplete="off"
               />
+              {errors.address && (
+                <div className={styles.error}>{errors.address}</div>
+              )}
             </div>
             <div className={styles.city}>
               <label htmlFor="city">Ciudad</label>
@@ -46,6 +67,8 @@ const AdministrationForm = ({ category, location, onChange }) => {
                 ))}
               </select>
             </div>
+          </div>
+          <div className={styles.descriptionSection}>
             <div className={styles.description}>
               <label htmlFor="description">Descripción</label>
               <textarea
@@ -54,39 +77,21 @@ const AdministrationForm = ({ category, location, onChange }) => {
                 placeholder="Descripcion del producto"
                 name="description"
                 onChange={onChange}
+                autoComplete="off"
               />
+              {errors.description && (
+                <div className={styles.error}>{errors.description}</div>
+              )}
             </div>
           </div>
 
-          <div className={styles.attributesSection}>
-            <h3>Agregar Atributos</h3>
-            <div className={styles.iconSection}>
-              <div className={styles.attributesName}>
-                <label htmlFor="attribute">Nombre</label>
-                <input
-                  type="text"
-                  placeholder="Nombre atributo"
-                  name="attribute"
-                  onChange={onChange}
-                />
-              </div>
-              <div className={styles.attributesName}>
-                <label htmlFor="icon">Icono</label>
-                <input
-                  type="text"
-                  placeholder="icono"
-                  name="icon"
-                  onChange={onChange}
-                />
-                <button>
-                  <FaPlusSquare />
-                </button>
-                <button>
-                  <FaMinusSquare />
-                </button>
-              </div>
-            </div>
-          </div>
+          <AdministrationAttributes
+            attributes={attributes}
+            handleAddAttr={handleAddAttr}
+            handleDeleteAttr={handleDeleteAttr}
+            errors={errors}
+          />
+
           <div className={styles.policiesSection}>
             <h3>Políticas del producto</h3>
             <div className={styles.policies}>
@@ -99,7 +104,11 @@ const AdministrationForm = ({ category, location, onChange }) => {
                   placeholder="Escribir aquí..."
                   name="rules"
                   onChange={onChange}
+                  autoComplete="off"
                 />
+                {errors.rules && (
+                  <div className={styles.error}>{errors.rules}</div>
+                )}
               </div>
               <div className={styles.safeSecurityHome}>
                 <p className={styles.policiesSubtitle}>Salud y seguridad</p>
@@ -110,7 +119,11 @@ const AdministrationForm = ({ category, location, onChange }) => {
                   placeholder="Escribir aquí..."
                   name="safeSecurity"
                   onChange={onChange}
+                  autoComplete="off"
                 />
+                {errors.safeSecurity && (
+                  <div className={styles.error}>{errors.safeSecurity}</div>
+                )}
               </div>
               <div className={styles.cancellationHome}>
                 <p className={styles.policiesSubtitle}>
@@ -123,26 +136,26 @@ const AdministrationForm = ({ category, location, onChange }) => {
                   placeholder="Escribir aquí..."
                   name="cancellation"
                   onChange={onChange}
+                  autoComplete="off"
                 />
+                {errors.cancellation && (
+                  <div className={styles.error}>{errors.cancellation}</div>
+                )}
               </div>
             </div>
           </div>
-          <div className={styles.imagesUpload}>
-            <h3>Cargar imágenes</h3>
-            <div className={styles.inputImage}>
-              <input
-                type="text"
-                placeholder="Insertar https://"
-                name="icon"
-                onChange={onChange}
-              />
-              <button>
-                <FaPlusSquare />
-              </button>
-              <button>
-                <FaMinusSquare />
-              </button>
-            </div>
+
+          <AdministrationLink
+            links={links}
+            handleAddLink={handleAddLink}
+            handleDeleteLink={handleDeleteLink}
+            errors={errors}
+          />
+
+          <div className={styles.createContainer}>
+            <button type="submit" className={styles.create}>
+              Crear
+            </button>
           </div>
         </div>
       </form>

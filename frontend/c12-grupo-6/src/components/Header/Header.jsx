@@ -39,7 +39,7 @@ const Header = () => {
         <div className={styles.der}>
           <div className={styles.avatar} round size="70px" color="#383b58">
             <span className={styles.avatarLetters}>
-              {user.nombre.charAt(0).toUpperCase()}
+              {user?.username?.charAt(0).toUpperCase()}
             </span>
           </div>
           {/*<Avatar ClassName={styles.avatarIcon}  name={user.nombre} round size="40px" color="#000000" />*/}
@@ -51,7 +51,7 @@ const Header = () => {
                 onClick={disconnectUser}
               />
             </div>
-            <div className={styles.userName}>{user.nombre}</div>
+            <div className={styles.userName}>{user?.username}</div>
           </div>
         </div>
       ) : (

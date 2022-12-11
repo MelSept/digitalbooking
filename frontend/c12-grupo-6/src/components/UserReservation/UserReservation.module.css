@@ -1,0 +1,25 @@
+.userContainer {
+  margin: 0 40px;
+}
+
+.reservationSection {
+  text-align: center;
+  padding: 248px 0;
+}
+
+.notReservation {
+  margin-bottom: 20px;
+}
+
+.backHome {
+  width: 200px;
+  border: none;
+  padding: 10px 0;
+  border-radius: 5px;
+  background-color: #1dbeb4;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}

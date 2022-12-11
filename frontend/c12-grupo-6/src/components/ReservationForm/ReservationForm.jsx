@@ -1,6 +1,6 @@
 import styles from "./ReservationForm.module.css";
 
-const ReservationForm = ({ children, onChange, submitData }) => {
+const ReservationForm = ({ children, onChange, submitData, user }) => {
   return (
     <div className={styles.reservationFormContainer}>
       <h2>Completá tus Datos</h2>
@@ -12,6 +12,7 @@ const ReservationForm = ({ children, onChange, submitData }) => {
               type="text"
               placeholder="Ingrese su/s Nombre/s"
               name="nombre"
+              value={user?.firstName}
               onChange={onChange}
             />
           </div>
@@ -21,6 +22,7 @@ const ReservationForm = ({ children, onChange, submitData }) => {
               type="text"
               placeholder="Ingrese su/s Apellido/s"
               name="apellido"
+              value={user?.lastName}
               onChange={onChange}
             />
           </div>
@@ -30,6 +32,7 @@ const ReservationForm = ({ children, onChange, submitData }) => {
               type="email"
               placeholder="Ingrese su e-mail"
               name="email"
+              value={user?.email}
               onChange={onChange}
             />
           </div>
@@ -39,6 +42,7 @@ const ReservationForm = ({ children, onChange, submitData }) => {
               type="text"
               placeholder="Ingrese su ciudad"
               name="ciudad"
+              value={user?.city}
               onChange={onChange}
             />
           </div>

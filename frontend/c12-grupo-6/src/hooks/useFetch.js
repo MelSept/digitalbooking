@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { BASE_API_URL } from "../constants/baseApi";
 
-const useFetch = (url, options) => {
+const useFetch = (url, options, start) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
+    //console.log("url", url, "options", options, "start", start);
+    if (!start) return;
+
     let suscribed = false;
 
     const fetchData = async () => {
@@ -20,6 +24,7 @@ const useFetch = (url, options) => {
         const result = await fetch(`${BASE_API_URL}${url}`, { ...options });
         const parsedResult = await result.json();
         if (!suscribed) {
+          setStatus(result.status);
           setData(parsedResult);
         }
       } catch (error) {
@@ -35,9 +40,9 @@ const useFetch = (url, options) => {
     return () => {
       suscribed = true;
     };
-  }, [url]);
+  }, [start, url]);
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, status };
 };
 
 export default useFetch;

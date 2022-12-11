@@ -13,6 +13,7 @@ const Calendar = ({
   showDisabledMonthNavigation = false,
   selectsRange = false,
   showInitReservation = false,
+  excludeDateIntervals = [],
   title,
   startDate = null,
   endDate = null,
@@ -33,7 +34,7 @@ const Calendar = ({
             endDate={endDate}
             minDate={new Date()}
             onChange={onChange}
-            excludeDates={[addDays(new Date(), 1), addDays(new Date(), 5)]}
+            excludeDateIntervals={excludeDateIntervals}
             selectsRange={selectsRange}
             showDisabledMonthNavigation={showDisabledMonthNavigation}
             inline

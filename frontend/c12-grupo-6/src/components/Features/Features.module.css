@@ -24,6 +24,10 @@
   font-size: 18px;
 }
 
+.featureIcons .feature {
+  display: flex;
+}
+
 @media (min-width: 320px) and (max-width: 769px) {
   .featureIcons {
     display: grid;
