@@ -59,6 +59,6 @@ public class GlobalException {
             responseError.addHint(hint);
         });
 
-        return new ResponseEntity<>(responseError, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(responseError, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }

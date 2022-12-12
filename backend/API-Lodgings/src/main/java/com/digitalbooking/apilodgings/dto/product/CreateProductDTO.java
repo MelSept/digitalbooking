@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -34,7 +35,7 @@ public class CreateProductDTO implements Serializable {
 
     @NotNull(message = "The 'images' field cannot be null.")
     @Size(min = 5, max = 25, message = "There must be at least 5 elements in the array.")
-    private Set<CreateImageDTO> images;
+    private List<CreateImageDTO> images;
 
     @NotNull(message = "The 'features' field cannot be null.")
     @Size(min = 5, max = 25, message = "There must be at least 5 elements in the array.")
