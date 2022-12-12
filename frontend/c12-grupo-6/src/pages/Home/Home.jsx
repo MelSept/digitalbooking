@@ -41,7 +41,6 @@ const Home = () => {
   };
 
   const handleDatesChange = ({ start, end }) => {
-    console.log(start);
     setStartDate(start);
     setEndDate(end);
   };
@@ -66,22 +65,20 @@ const Home = () => {
     }
   };
 
-  if (isLoading || !recomendations) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className={styles.home}>
       <SearchBar
         handleSubmit={handleSubmit}
         handleChangeCity={handleChangeCity}
         handleDatesChange={handleDatesChange}
-        cities={cities}
-        startDate={startDate}
-        endDate={endDate}
+        cities={cities ?? []}
       />
       <CategoryList handleCategory={handleCategory} />
-      <RecomendationList recomendations={recommend} />
+      {isLoading || !recomendations ? (
+        <div>Loading...</div>
+      ) : (
+        <RecomendationList recomendations={recommend} />
+      )}
     </div>
   );
 };

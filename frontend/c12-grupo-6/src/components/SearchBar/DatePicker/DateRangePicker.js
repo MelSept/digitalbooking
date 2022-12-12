@@ -17,8 +17,8 @@ function DateRangePicker({ onPickDates }) {
   const { width } = useWindowSize();
 
   useEffect(() => {
-    setStart(dates[0] == null ? null : dates[0].toDate());
-    setEnd(dates[1] == null ? null : dates[1].toDate());
+    setStart(dates?.[0] == null ? null : dates[0].toDate());
+    setEnd(dates?.[1] == null ? null : dates[1].toDate());
   }, [dates]);
 
   useEffect(() => {

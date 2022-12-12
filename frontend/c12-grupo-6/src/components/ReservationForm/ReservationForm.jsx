@@ -14,6 +14,7 @@ const ReservationForm = ({ children, onChange, submitData, user }) => {
               name="nombre"
               value={user?.firstName}
               onChange={onChange}
+              disabled
             />
           </div>
           <div className={styles.surName}>
@@ -24,6 +25,7 @@ const ReservationForm = ({ children, onChange, submitData, user }) => {
               name="apellido"
               value={user?.lastName}
               onChange={onChange}
+              disabled
             />
           </div>
           <div className={styles.mail}>
@@ -34,6 +36,7 @@ const ReservationForm = ({ children, onChange, submitData, user }) => {
               name="email"
               value={user?.email}
               onChange={onChange}
+              disabled
             />
           </div>
           <div className={styles.city}>

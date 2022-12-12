@@ -11,11 +11,11 @@ import useGet from "../../hooks/requests/useGet";
 import HeaderGoBack from "../../components/HeaderGoBack/HeaderGoBack";
 import ReservationForm from "../../components/ReservationForm/ReservationForm";
 import Policies from "../../components/Policies/Policies";
-import styles from "./Reservation.module.css";
 import ArrivalSchedule from "../../components/ArrivalSchedule/ArrivalSchedule";
 import ReservationDetail from "../../components/ReservationDetail/ReservationDetail";
 import Calendar from "../../components/Calendar/Calendar";
 import UserContext from "../../context/UserContext";
+import styles from "./Reservation.module.css";
 
 const Reservation = () => {
   const { id } = useParams();
@@ -38,6 +38,7 @@ const Reservation = () => {
   );
 
   const formChange = (event) => {
+    //setData({ ...data, [event.target.name]: event.target.value });
     //setData({ ...data, [event.target.name]: event.target.value });
   };
 
@@ -130,8 +131,13 @@ const Reservation = () => {
           startDate={startDate}
           endDate={endDate}
           onChange={calendarOnChange}
+          errors={errors}
         />
-        <ArrivalSchedule onChange={scheduleOnChange} schedule={schedule} />
+        <ArrivalSchedule
+          onChange={scheduleOnChange}
+          schedule={schedule}
+          errors={errors}
+        />
         <ReservationDetail
           mainImage={imageUrl}
           category={categoryTitle}

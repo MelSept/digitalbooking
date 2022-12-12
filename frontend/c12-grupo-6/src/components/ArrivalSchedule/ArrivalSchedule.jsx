@@ -2,7 +2,7 @@ import styles from "./ArrivalSchedule.module.css";
 import hours from "../../assets/json/hours.json";
 import { FaCheckCircle } from "react-icons/fa";
 
-const ArrivalSchedule = ({ onChange, schedule }) => {
+const ArrivalSchedule = ({ onChange, schedule, errors }) => {
   const schedulePlusOne = parseInt(schedule) + 1;
 
   return (
@@ -15,7 +15,7 @@ const ArrivalSchedule = ({ onChange, schedule }) => {
             entre las{" "}
             {schedule < 10
               ? `0${schedule}`
-              : schedule == "24:00"
+              : schedule === "24:00"
               ? "00:00"
               : schedule}{" "}
             Y LAS{" "}

@@ -10,6 +10,6 @@ export const createProduct = async ({ data, tokenType, accessToken }) => {
     },
     body: JSON.stringify(data),
   });
-
+  console.log("res", response);
   return response.ok;
 };

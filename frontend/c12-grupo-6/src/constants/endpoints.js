@@ -8,3 +8,4 @@ export const CREATE_RESERVATION = "/reservation";
 export const SIGN_IN = "/auth/signIn";
 export const SIGN_UP = "/auth/signUp";
 export const CREATE_PRODUCT = "/product";
+export const FEATURES = "/feature";
