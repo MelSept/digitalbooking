@@ -91,7 +91,14 @@ const Reservation = () => {
   };
 
   if (isLoadingProduct || !product) {
-    return <div>Loading...</div>;
+    return (
+      <div className={styles.loading}>
+        <div className={styles.one}></div>
+        <div className={styles.two}></div>
+        <div className={styles.three}></div>
+        <div className={styles.four}></div>
+      </div>
+    );
   }
 
   if (errorProduct) {

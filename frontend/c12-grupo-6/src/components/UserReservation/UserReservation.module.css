@@ -2,6 +2,10 @@
   margin: 0 40px;
 }
 
+.userContainer h2 {
+  text-align: center;
+}
+
 .reservationSection {
   text-align: center;
   padding: 248px 0;

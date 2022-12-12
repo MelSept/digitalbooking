@@ -1,3 +1,50 @@
 .body {
   background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.loading .one,
+.two,
+.three,
+.four {
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  position: absolute;
+  animation: load 2s infinite;
+}
+.one {
+  background: rgb(211, 225, 7);
+  animation-delay: -2s;
+}
+.two {
+  background: rgb(7, 225, 18);
+  animation-delay: -1.5s;
+}
+.three {
+  background: rgb(163, 7, 225);
+  animation-delay: -1s;
+}
+.four {
+  background: rgb(255, 12, 105);
+  animation-delay: -0.5s;
+}
+
+@keyframes load {
+  0% {
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(180%);
+  }
+  50% {
+    transform: translate(180%, 180%);
+  }
+  75% {
+    transform: translate(0, 180%);
+  }
 }
