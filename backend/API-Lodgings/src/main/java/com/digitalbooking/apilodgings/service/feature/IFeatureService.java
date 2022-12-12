@@ -8,4 +8,6 @@ public interface IFeatureService {
 
     FeatureDTO createFeature(FeatureDTO feature);
     List<FeatureDTO> findFeaturesByProductId(Integer productId);
+
+    List<FeatureDTO> findAll();
 }

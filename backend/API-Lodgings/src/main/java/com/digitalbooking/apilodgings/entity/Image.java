@@ -1,5 +1,6 @@
 package com.digitalbooking.apilodgings.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,6 +49,9 @@ public class Image {
 
 
     // Reference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Product product;
 
 
     public Image(Integer id, String title, String url, boolean deleted) {
@@ -58,5 +62,16 @@ public class Image {
     }
 
     public Image() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Image )) return false;
+        return id != null && id.equals(((Image) o).getId());
+    }
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

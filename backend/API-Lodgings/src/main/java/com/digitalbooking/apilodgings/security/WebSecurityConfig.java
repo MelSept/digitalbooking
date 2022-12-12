@@ -83,7 +83,8 @@ public class WebSecurityConfig {
                 // Auth Users EndPoint
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/product/**").permitAll()
-                .antMatchers("/category/").permitAll()
+                .antMatchers("/feature/**").permitAll()
+                .antMatchers("/category/**").permitAll()
                 .antMatchers("/category/title/").permitAll()
                 .antMatchers("/city/**").permitAll()
                 .antMatchers("/place/**").permitAll()

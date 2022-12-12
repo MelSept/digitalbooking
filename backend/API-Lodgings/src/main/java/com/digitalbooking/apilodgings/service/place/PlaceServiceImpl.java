@@ -76,6 +76,8 @@ public class PlaceServiceImpl implements IPlaceService {
 
         Place placeSaved = placeRepository.save(placeToSave);
 
+
+
         return mapper.convertValue(placeSaved, PlaceDTO.class);
     }
 

@@ -44,8 +44,8 @@ public class Feature {
     private String title;
 
     @Column(name = "icon", nullable = false, length = 40)
-    @NotNull(message = "The 'title' field cannot be null.")
-    @NotBlank(message = "The 'title' field cannot be empty.")
+    @NotNull(message = "The 'icon' field cannot be null.")
+    @NotBlank(message = "The 'icon' field cannot be empty.")
     private String icon;
 
     @Column(name = "deleted_flag")
@@ -53,7 +53,7 @@ public class Feature {
 
     // Reference
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+    @ManyToMany(cascade = {CascadeType.PERSIST},
             fetch = FetchType.LAZY,
             mappedBy = "features")
     @JsonIgnore
@@ -68,8 +68,4 @@ public class Feature {
     public Feature() {
     }
 
-    @PrePersist
-    private void prePersist() {
-        setTitle(this.title.toLowerCase());
-    }
 }

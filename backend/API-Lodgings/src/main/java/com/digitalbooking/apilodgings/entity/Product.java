@@ -57,9 +57,7 @@ public class Product {
 
     // Relations
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "product_id", nullable = false,
-            foreignKey = @ForeignKey(foreignKeyDefinition = "FOREIGN KEY (product_id) REFERENCES product"))
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product", orphanRemoval = true)
     private Set<Image> images = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
@@ -94,6 +92,16 @@ public class Product {
     void PostLoad() {
         this.features.removeIf(Feature::isDeleted);
         this.images.removeIf(Image::isDeleted);
+    }
+
+
+    public void addImage(Image image){
+        images.add(image);
+        image.setProduct(this);
+    }
+    public void removeImage(Image image){
+        images.remove(image);
+        image.setProduct(null);
     }
 
     public void addFeature(Feature feature) {

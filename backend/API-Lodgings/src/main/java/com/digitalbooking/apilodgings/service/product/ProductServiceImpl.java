@@ -1,10 +1,14 @@
 package com.digitalbooking.apilodgings.service.product;
 
+import com.digitalbooking.apilodgings.dto.Image.CreateImageDTO;
+import com.digitalbooking.apilodgings.dto.feature.CreateFeatureDTO;
 import com.digitalbooking.apilodgings.dto.place.CreatePlaceDTO;
 import com.digitalbooking.apilodgings.dto.place.PlaceDTO;
 import com.digitalbooking.apilodgings.dto.product.CreateProductDTO;
 import com.digitalbooking.apilodgings.dto.product.ProductDTO;
 import com.digitalbooking.apilodgings.dto.product.ProductSmallDTO;
+import com.digitalbooking.apilodgings.entity.Feature;
+import com.digitalbooking.apilodgings.entity.Image;
 import com.digitalbooking.apilodgings.entity.Place;
 import com.digitalbooking.apilodgings.entity.Product;
 import com.digitalbooking.apilodgings.exception.NotFoundException;
@@ -28,7 +32,6 @@ public class ProductServiceImpl implements IProductService {
     private final IProductRepository productRepository;
     private final PlaceServiceImpl placeService;
     private final IFeatureRepository featureRepository;
-    private final IImageRepository imageRepository;
     private final ObjectMapper mapper;
 
 
@@ -40,15 +43,11 @@ public class ProductServiceImpl implements IProductService {
         this.productRepository = productRepository;
         this.placeService = placeService;
         this.featureRepository = featureRepository;
-        this.imageRepository = imageRepository;
         this.mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
     }
 
 
-    /* TODO:
-        Logic for Create and Update product
-     */
     @Override
     public ProductDTO createProduct(CreateProductDTO createProductDTO) throws NotFoundException {
 
@@ -69,7 +68,35 @@ public class ProductServiceImpl implements IProductService {
 
         Product productSaved = productRepository.save(productToSave);
 
-        return mapper.convertValue(productSaved, ProductDTO.class);
+        for (CreateImageDTO createImageDTO : createProductDTO.getImages())
+        {
+            Image image = new Image();
+            image.setTitle(String.format("p-%s", productSaved.getId()));
+            image.setUrl(createImageDTO.getUrl());
+            productSaved.addImage(image);
+        }
+
+        productSaved = productRepository.save(productSaved);
+
+        for (CreateFeatureDTO createFeatureDTO : createProductDTO.getFeatures()){
+            try {
+                Feature featureFound =
+                        featureRepository.findByTitleIgnoreCase(createFeatureDTO.getTitle())
+                                .orElseThrow(() -> new NotFoundException(String.format("Feature with name: %s", createFeatureDTO.getTitle())));
+                productSaved.addFeature(featureFound);
+
+            } catch (NotFoundException ignored) {
+            }
+        }
+
+        productSaved = productRepository.save(productSaved);
+
+        ProductDTO productDTO = mapper.convertValue(productSaved, ProductDTO.class);
+
+        Collections.sort(productDTO.getImages());
+        Collections.sort(productDTO.getFeatures());
+
+        return productDTO;
     }
 
     @Override
@@ -197,12 +224,4 @@ public class ProductServiceImpl implements IProductService {
         return productsDTOFound;
     }
 
-    private List<ProductSmallDTO> mapProductList(List<Product> products) {
-        List<ProductSmallDTO> productSmallDTOS = new ArrayList<>();
-
-        for (Product product : products)
-            productSmallDTOS.add(mapper.convertValue(product, ProductSmallDTO.class));
-
-        return productSmallDTOS;
-    }
 }

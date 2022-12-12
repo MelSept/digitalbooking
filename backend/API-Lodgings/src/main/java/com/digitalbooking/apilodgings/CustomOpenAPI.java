@@ -31,7 +31,8 @@ public class CustomOpenAPI {
                 .group("Users")
                 .displayName("Users")
                 .pathsToMatch("/auth/signIn", "/auth/signUp",
-                        "/reservation", "/reservation/**")
+                        "/reservation", "/reservation/**",
+                        "/product", "/product/**")
                 .build();
     }
 
