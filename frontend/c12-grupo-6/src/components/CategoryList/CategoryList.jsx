@@ -7,7 +7,14 @@ const CategoryList = ({ handleCategory }) => {
   const { data: categories, isLoading } = useGet(CATEGORY, true);
 
   if (isLoading || !categories) {
-    return <div>Loading...</div>;
+    return (
+      <div className={styles.loading}>
+        <div className={styles.one}></div>
+        <div className={styles.two}></div>
+        <div className={styles.three}></div>
+        <div className={styles.four}></div>
+      </div>
+    );
   }
 
   return (

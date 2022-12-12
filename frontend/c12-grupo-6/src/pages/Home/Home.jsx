@@ -75,7 +75,12 @@ const Home = () => {
       />
       <CategoryList handleCategory={handleCategory} />
       {isLoading || !recomendations ? (
-        <div>Loading...</div>
+        <div className={styles.loading}>
+          <div className={styles.one}></div>
+          <div className={styles.two}></div>
+          <div className={styles.three}></div>
+          <div className={styles.four}></div>
+        </div>
       ) : (
         <RecomendationList recomendations={recommend} />
       )}

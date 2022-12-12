@@ -1,7 +1,9 @@
 .footer {
+  width: 100%;
   background-color: #1dbeb4;
   display: flex;
   justify-content: space-between;
+  margin-top: auto;
 }
 
 .footerName {

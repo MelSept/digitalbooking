@@ -14,6 +14,7 @@ import GoogleMap from "../../components/Map/GoogleMap";
 import Policies from "../../components/Policies/Policies";
 import useWindowSize from "../../hooks/useWindowSize";
 import useGet from "../../hooks/requests/useGet";
+import styles from "./Product.module.css";
 
 const Product = () => {
   const { id } = useParams();
@@ -35,7 +36,14 @@ const Product = () => {
   };
 
   if (isLoading || !product) {
-    return <div>Loading...</div>;
+    return (
+      <div className={styles.loading}>
+        <div className={styles.one}></div>
+        <div className={styles.two}></div>
+        <div className={styles.three}></div>
+        <div className={styles.four}></div>
+      </div>
+    );
   }
 
   if (error) {
