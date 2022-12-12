@@ -1,101 +1,110 @@
-import { useState } from "react";
-import { v4 as uuid } from "uuid";
-import { FaPlusSquare, FaMinusSquare } from "react-icons/fa";
+import React, { useState } from "react";
+import * as FontAwesome from "react-icons/fa";
+import { FEATURES } from "../../constants/endpoints";
+import useGet from "../../hooks/requests/useGet";
 import styles from "./AdministrationAttributes.module.css";
+import { useEffect } from "react";
+
+const Icon = (props) => {
+  const { iconName, size, color } = props;
+  const icon = React.createElement(FontAwesome[iconName]);
+  return <div style={{ fontSize: size, color: color }}>{icon}</div>;
+};
 
 const AdministrationAttributes = ({
-  handleAddAttr,
-  handleDeleteAttr,
-  attributes,
+  handleAddFeature,
+  handleDeleteFeature,
+  features,
   errors,
 }) => {
-  const [name, setName] = useState("");
-  const [icon, setIcon] = useState("");
+  const [feature, setFeature] = useState({
+    id: null,
+    title: "",
+    icon: "",
+  });
   const [err, setErr] = useState({});
 
-  const createNewAttr = () => {
-    let fieldErr = {};
-    if (!name) {
-      fieldErr.name = "El nombre es obligatorio";
-    }
+  const {
+    data: featureList,
+    isLoading: isLoadingFeatures,
+    error: featureError,
+  } = useGet(FEATURES, true);
 
-    if (!icon) {
-      fieldErr.icon = "El ícono es obligatorio";
+  useEffect(() => {
+    if (featureList) {
+      setFeature(featureList[0]);
+    }
+  }, [featureList]);
+
+  const handleChange = (e) => {
+    const id = parseInt(e.target.value);
+    const ft = featureList.find((f) => f.id === id);
+    setFeature(ft);
+  };
+
+  const createNewFeature = () => {
+    let fieldErr = {};
+    if (!feature.title) {
+      fieldErr.name = "El nombre es obligatorio";
     }
 
     setErr(fieldErr);
 
     if (Object.keys(fieldErr).length === 0) {
-      const newAttr = { id: uuid(), name, icon };
-      handleAddAttr(newAttr);
-      setName("");
-      setIcon("");
+      handleAddFeature(feature);
     }
   };
 
-  const deleteAttr = (id) => {
-    handleDeleteAttr(id);
+  const deleteFeature = (id) => {
+    handleDeleteFeature(id);
   };
 
   return (
     <div className={styles.attributesSection}>
       <h3>Agregar Atributos</h3>
       <div className={styles.iconSection}>
-        {attributes.map(({ id, name, icon }) => (
+        {features.map(({ id, title, icon }) => (
           <div className={styles.iconForm} key={id}>
             <div className={styles.attributesName}>
               <label htmlFor="attribute">Nombre</label>
               <input
                 className={styles.icon}
                 type="text"
-                value={name}
+                value={title}
                 disabled
               />
             </div>
             <div className={styles.attributesName}>
               <label htmlFor="icon">Icono</label>
-              <input
-                className={styles.icon}
-                type="text"
-                value={icon}
-                disabled
-              />
+              <Icon iconName={icon} size={28} />
             </div>
-            <button onClick={() => deleteAttr(id)}>
-              <FaMinusSquare />
+            <button onClick={() => deleteFeature(id)}>
+              <Icon iconName={"FaMinusSquare"} />
             </button>
           </div>
         ))}
 
         <div className={styles.iconForm}>
           <div className={styles.attributesName}>
-            <label htmlFor="attribute">Nombre</label>
-            <input
-              className={styles.icon}
-              type="text"
-              placeholder="Nombre atributo"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              autoComplete="off"
-            />
-            {err.name && <div className={styles.error}>{err.name}</div>}
+            <label htmlFor="featureName">Nombre</label>
+            <select name="featureName" onChange={handleChange}>
+              {featureList &&
+                featureList.map((ft) => (
+                  <option key={ft.id} value={ft.id}>
+                    {ft.title}
+                  </option>
+                ))}
+            </select>
+            {err.title && <div className={styles.error}>{err.title}</div>}
           </div>
+
           <div className={styles.attributesName}>
             <label htmlFor="icon">Icono</label>
-            <input
-              className={styles.icon}
-              type="text"
-              placeholder="icono"
-              name="icon"
-              value={icon}
-              onChange={(e) => setIcon(e.target.value)}
-              autoComplete="off"
-            />
+            {feature.icon && <Icon iconName={feature.icon} size={28} />}
             {err.icon && <div className={styles.error}>{err.icon}</div>}
           </div>
-          <button type="button" onClick={createNewAttr}>
-            <FaPlusSquare />
+          <button type="button" onClick={createNewFeature}>
+            <Icon iconName={"FaPlusSquare"} />
           </button>
         </div>
       </div>

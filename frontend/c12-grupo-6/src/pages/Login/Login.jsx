@@ -11,6 +11,10 @@ const Login = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
 
+  //ADMIN
+  //pass: adming6c12
+  //mail: admin@dh.com
+
   const [searchParams, _] = useSearchParams(); //Como no uso el setSearchParams, lo nombramos _.
   const isFromProduct = searchParams.get("product");
 

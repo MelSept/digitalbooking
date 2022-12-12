@@ -5,14 +5,14 @@ import AdministrationLink from "../AdministrationLink/AdministrationLink";
 const AdministrationForm = ({
   category,
   location,
-  attributes,
-  links,
+  features,
+  images,
   onChange,
   handleSubmit,
-  handleAddAttr,
-  handleDeleteAttr,
-  handleAddLink,
-  handleDeleteLink,
+  handleAddFeature,
+  handleDeleteFeature,
+  handleAddImage,
+  handleDeleteImage,
   errors,
 }) => {
   return (
@@ -22,21 +22,21 @@ const AdministrationForm = ({
         <div className={styles.formSection}>
           <div className={styles.principalData}>
             <div className={styles.property}>
-              <label htmlFor="property">Nombre de la propiedad</label>
+              <label htmlFor="title">Nombre de la propiedad</label>
               <input
                 type="text"
                 placeholder="Nombre de la propiedad"
-                name="property"
+                name="title"
                 onChange={onChange}
                 autoComplete="off"
               />
-              {errors.property && (
-                <div className={styles.error}>{errors.property}</div>
+              {errors.title && (
+                <div className={styles.error}>{errors.title}</div>
               )}
             </div>
             <div className={styles.category}>
               <label htmlFor="category">Categoria</label>
-              <select>
+              <select name="category" onChange={onChange}>
                 {category.map((item) => (
                   <option key={item.id} value={item.title}>
                     {item.title}
@@ -45,7 +45,7 @@ const AdministrationForm = ({
               </select>
             </div>
             <div className={styles.address}>
-              <label htmlFor="mail">Dirección</label>
+              <label htmlFor="address">Dirección</label>
               <input
                 type="text"
                 placeholder="direccion"
@@ -59,7 +59,7 @@ const AdministrationForm = ({
             </div>
             <div className={styles.city}>
               <label htmlFor="city">Ciudad</label>
-              <select>
+              <select name="city" onChange={onChange}>
                 {location.map((item) => (
                   <option key={item.id} value={item.title}>
                     {item.title}
@@ -86,9 +86,9 @@ const AdministrationForm = ({
           </div>
 
           <AdministrationAttributes
-            attributes={attributes}
-            handleAddAttr={handleAddAttr}
-            handleDeleteAttr={handleDeleteAttr}
+            features={features}
+            handleAddFeature={handleAddFeature}
+            handleDeleteFeature={handleDeleteFeature}
             errors={errors}
           />
 
@@ -97,39 +97,39 @@ const AdministrationForm = ({
             <div className={styles.policies}>
               <div className={styles.rulesHome}>
                 <p className={styles.policiesSubtitle}>Normas de la casa</p>
-                <label htmlFor="rules">Descripción</label>
+                <label htmlFor="norm">Descripción</label>
                 <textarea
                   className={styles.rulesText}
                   type="textarea"
                   placeholder="Escribir aquí..."
-                  name="rules"
+                  name="norm"
                   onChange={onChange}
                   autoComplete="off"
                 />
-                {errors.rules && (
-                  <div className={styles.error}>{errors.rules}</div>
+                {errors.norm && (
+                  <div className={styles.error}>{errors.norm}</div>
                 )}
               </div>
               <div className={styles.safeSecurityHome}>
                 <p className={styles.policiesSubtitle}>Salud y seguridad</p>
-                <label htmlFor="rules">Descripción</label>
+                <label htmlFor="security">Descripción</label>
                 <textarea
                   className={styles.rulesText}
                   type="textarea"
                   placeholder="Escribir aquí..."
-                  name="safeSecurity"
+                  name="security"
                   onChange={onChange}
                   autoComplete="off"
                 />
-                {errors.safeSecurity && (
-                  <div className={styles.error}>{errors.safeSecurity}</div>
+                {errors.security && (
+                  <div className={styles.error}>{errors.security}</div>
                 )}
               </div>
               <div className={styles.cancellationHome}>
                 <p className={styles.policiesSubtitle}>
                   Politicas de cancelacion
                 </p>
-                <label htmlFor="rules">Descripción</label>
+                <label htmlFor="cancellation">Descripción</label>
                 <textarea
                   className={styles.rulesText}
                   type="textarea"
@@ -146,9 +146,9 @@ const AdministrationForm = ({
           </div>
 
           <AdministrationLink
-            links={links}
-            handleAddLink={handleAddLink}
-            handleDeleteLink={handleDeleteLink}
+            images={images}
+            handleAddImage={handleAddImage}
+            handleDeleteImage={handleDeleteImage}
             errors={errors}
           />
 

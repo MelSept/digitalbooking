@@ -1,24 +1,30 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CATEGORY, CITIES } from "../../constants/endpoints";
 import { CREATE, HOME } from "../../router/routes";
+import { createProduct } from "../../service/product/product";
+import UserContext from "../../context/UserContext";
 import AdministrationForm from "../../components/AdministrationForm/AdministrationForm";
 import HeaderAdministration from "../../components/HeaderAdministration/HeaderAdministration";
 import useGet from "../../hooks/requests/useGet";
 import styles from "./Administration.module.css";
 
 const Administration = () => {
+  const { user } = useContext(UserContext);
   const [errors, setErrors] = useState({});
-  const [data, setData] = useState({
-    property: "",
-    address: "",
+  const [product, setProduct] = useState({
+    title: "",
     description: "",
-    attributes: [],
-    icon: "",
-    rules: "",
-    safeSecurity: "",
-    cancellation: "",
-    links: [],
+    images: [],
+    features: [],
+    address: "",
+    category: "",
+    city: "",
+    policy: {
+      norm: "",
+      security: "",
+      cancellation: "",
+    },
   });
 
   const navigate = useNavigate();
@@ -36,51 +42,62 @@ const Administration = () => {
   } = useGet(CATEGORY, true);
 
   const formChange = (event) => {
-    setData({ ...data, [event.target.name]: event.target.value });
+    const inputName = event.target.name;
+
+    if (
+      inputName === "cancellation" ||
+      inputName === "norm" ||
+      inputName === "security"
+    ) {
+      setProduct({
+        ...product,
+        policy: {
+          ...product.policy,
+          [inputName]: event.target.value,
+        },
+      });
+      return;
+    }
+
+    setProduct({ ...product, [inputName]: event.target.value });
   };
 
-  const handleAddLink = (newLink) => {
-    const newLinkList = [...data.links, newLink];
-    setData({ ...data, links: newLinkList });
-  };
-
-  const handleAddAttr = (newAttr) => {
-    const newAttrList = [...data.attributes, newAttr];
-    setData({
-      ...data,
-      attributes: newAttrList,
+  const handleAddFeature = (newFeature) => {
+    const newFeatureList = [...product.features, newFeature];
+    setProduct({
+      ...product,
+      features: newFeatureList,
     });
   };
 
-  const handleDeleteAttr = (id) => {
-    const newAttrList = data.attributes.filter((attr) => attr.id !== id);
-    setData({
-      ...data,
-      attributes: newAttrList,
+  const handleDeleteFeature = (id) => {
+    const newFeatureList = product.features.filter(
+      (feature) => feature.id !== id
+    );
+    setProduct({
+      ...product,
+      features: newFeatureList,
     });
   };
 
-  const handleDeleteLink = (id) => {
-    const newLinkList = data.links.filter((link) => link.id !== id);
-    setData({
-      ...data,
-      links: newLinkList,
-    });
+  const handleAddImage = (imageUrl) => {
+    const newImageList = [...product.images, imageUrl];
+    setProduct({ ...product, images: newImageList });
   };
 
-  if ((isLoadingCities && isLoadingCategories) || !cities || !categories) {
-    return <div>Loading...</div>;
-  }
-
-  if (cityError || categoryError) {
-    return <div>Error cargando los datos...</div>;
-  }
+  const handleDeleteImage = (id) => {
+    const newImageList = product.images.filter((image) => image.id !== id);
+    setProduct({
+      ...product,
+      images: newImageList,
+    });
+  };
 
   const validate = (values) => {
     let errors = {};
 
-    if (!values.property) {
-      errors.property = 'El campo "Nombre" no debe ser vacio.';
+    if (!values.title) {
+      errors.title = 'El campo "Nombre" no debe ser vacio.';
     }
 
     if (!values.address) {
@@ -91,38 +108,80 @@ const Administration = () => {
       errors.description = 'El campo "Descripcion" no debe ser vacio.';
     }
 
-    if (!values.attributes.length) {
-      errors.attributes = "Debe ingresar al menos un atributo.";
+    if (values.features.length < 5) {
+      errors.attributes = "El mínimo de atributos debe ser 5.";
     }
 
-    if (!values.rules) {
-      errors.rules = 'El campo "Normas de la casa" no debe ser vacio.';
+    if (!values.policy.norm) {
+      errors.norm = 'El campo "Normas de la casa" no debe ser vacio.';
     }
 
-    if (!values.safeSecurity) {
-      errors.safeSecurity = 'El campo "Salud y Seguridad" no debe ser vacio.';
+    if (!values.policy.security) {
+      errors.security = 'El campo "Salud y Seguridad" no debe ser vacio.';
     }
 
-    if (!values.cancellation) {
+    if (!values.policy.cancellation) {
       errors.cancellation =
         'El campo "Politicas de cancelacion" no debe ser vacio.';
     }
 
-    if (!values.links) {
-      errors.links = 'El campo "Link" no debe ser vacio.';
+    if (values.images.length < 5) {
+      errors.images = "Debe ingresar al menos 5 imágenes.";
     }
 
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const err = validate(data);
+    const err = validate(product);
     setErrors(err);
+    console.log("asdasd", err);
     if (Object.keys(err).length === 0) {
-      navigate(CREATE);
+      const {
+        title,
+        description,
+        images,
+        features,
+        address,
+        category,
+        city,
+        policy,
+      } = product;
+
+      const newProduct = {
+        title,
+        description,
+        thumbnail: images[0].imageUrl,
+        images: images.map((i) => ({ url: i.imageUrl })),
+        features: features.map((f) => ({ title: f.title, icon: f.icon })),
+        address,
+        category,
+        city,
+        policy,
+      };
+
+      console.log("NEW", newProduct);
+
+      const created = await createProduct({
+        data: newProduct,
+        tokenType: user.tokenType,
+        accessToken: user.accessToken,
+      });
+
+      if (created) {
+        navigate(CREATE);
+      }
     }
   };
+
+  if ((isLoadingCities && isLoadingCategories) || !cities || !categories) {
+    return <div>Loading...</div>;
+  }
+
+  if (cityError || categoryError) {
+    return <div>Error cargando los datos...</div>;
+  }
 
   return (
     <div className={styles.administration}>
@@ -130,14 +189,14 @@ const Administration = () => {
       <AdministrationForm
         category={categories}
         location={cities}
-        attributes={data.attributes}
-        links={data.links}
+        features={product.features}
+        images={product.images}
         onChange={formChange}
         handleSubmit={handleSubmit}
-        handleAddAttr={handleAddAttr}
-        handleAddLink={handleAddLink}
-        handleDeleteAttr={handleDeleteAttr}
-        handleDeleteLink={handleDeleteLink}
+        handleAddFeature={handleAddFeature}
+        handleDeleteFeature={handleDeleteFeature}
+        handleAddImage={handleAddImage}
+        handleDeleteImage={handleDeleteImage}
         errors={errors}
       />
     </div>
