@@ -50,10 +50,10 @@ public class GlobalException {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<ResponseError> validationException(MethodArgumentNotValidException exception) {
-        ResponseError responseError = new ResponseError("Error: Validate Fields");
-        responseError.setStatusCode(400);
+        ResponseError responseError = new ResponseError("See hints and validate body fields");
+        responseError.setStatusCode(422);
         exception.getBindingResult().getAllErrors().forEach(error -> {
             String hint = String.format("Field: '%s' - Error: %s", ((FieldError) error).getField(), error.getDefaultMessage());
             responseError.addHint(hint);
