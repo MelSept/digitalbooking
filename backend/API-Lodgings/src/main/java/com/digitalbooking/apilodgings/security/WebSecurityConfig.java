@@ -1,6 +1,6 @@
 package com.digitalbooking.apilodgings.security;
 
-import com.digitalbooking.apilodgings.exception.HandlerAccessDeniedException;
+import com.digitalbooking.apilodgings.jwt.HandlerAccessDeniedException;
 import com.digitalbooking.apilodgings.jwt.AuthEntryPointJwt;
 import com.digitalbooking.apilodgings.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +65,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler).accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -89,9 +88,9 @@ public class WebSecurityConfig {
                 .antMatchers("/city/**").permitAll()
                 .antMatchers("/place/**").permitAll()
                 .antMatchers("/reservation/**").permitAll()
-                .and().authorizeRequests()
                 // Authenticated Product EndPoint
                 .antMatchers("/digitalbooking/lodgings/api/v1/**").permitAll().anyRequest().authenticated();
+
 
         http.authenticationProvider(authenticationProvider());
 
