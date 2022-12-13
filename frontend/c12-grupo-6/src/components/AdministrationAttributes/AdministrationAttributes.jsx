@@ -90,7 +90,11 @@ const AdministrationAttributes = ({
             <select name="featureName" onChange={handleChange}>
               {featureList &&
                 featureList.map((ft) => (
-                  <option key={ft.id} value={ft.id}>
+                  <option
+                    key={ft.id}
+                    value={ft.id}
+                    disabled={features.some((feature) => feature.id === ft.id)}
+                  >
                     {ft.title}
                   </option>
                 ))}

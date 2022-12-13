@@ -37,12 +37,16 @@ const AdministrationForm = ({
             <div className={styles.category}>
               <label htmlFor="category">Categoria</label>
               <select name="category" onChange={onChange}>
+                <option value={-1}>Seleccione una categoría</option>
                 {category.map((item) => (
                   <option key={item.id} value={item.title}>
                     {item.title}
                   </option>
                 ))}
               </select>
+              {errors.category && (
+                <div className={styles.error}>{errors.category}</div>
+              )}
             </div>
             <div className={styles.address}>
               <label htmlFor="address">Dirección</label>
@@ -60,12 +64,14 @@ const AdministrationForm = ({
             <div className={styles.city}>
               <label htmlFor="city">Ciudad</label>
               <select name="city" onChange={onChange}>
+                <option value={-1}>Seleccione una Ciudad</option>
                 {location.map((item) => (
                   <option key={item.id} value={item.title}>
                     {item.title}
                   </option>
                 ))}
               </select>
+              {errors.city && <div className={styles.error}>{errors.city}</div>}
             </div>
           </div>
           <div className={styles.descriptionSection}>

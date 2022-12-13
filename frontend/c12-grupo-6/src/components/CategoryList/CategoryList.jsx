@@ -2,19 +2,13 @@ import CategoryCard from "../CategoryCard/CategoryCard";
 import styles from "./CategoryList.module.css";
 import { CATEGORY } from "../../constants/endpoints";
 import useGet from "../../hooks/requests/useGet";
+import Loader from "../Loader/Loader";
 
 const CategoryList = ({ handleCategory }) => {
   const { data: categories, isLoading } = useGet(CATEGORY, true);
 
   if (isLoading || !categories) {
-    return (
-      <div className={styles.loading}>
-        <div className={styles.one}></div>
-        <div className={styles.two}></div>
-        <div className={styles.three}></div>
-        <div className={styles.four}></div>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
