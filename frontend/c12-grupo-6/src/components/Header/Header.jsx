@@ -11,6 +11,7 @@ import {
 import { AiOutlineClose } from "react-icons/ai";
 import { useContext, useState, useEffect } from "react";
 import UserContext from "../../context/UserContext";
+import { HOME, LOGIN, REGISTER } from "../../router/routes";
 
 const Header = () => {
   const [menu, setMenu] = useState(false);
@@ -30,17 +31,25 @@ const Header = () => {
   return (
     <div className={styles.header}>
       <div className={styles.izq}>
-        <Link className={styles.inicio} to={"/"}>
+        <Link className={styles.inicio} to={HOME}>
           <img src={Logo} className={styles.logo} alt="logo" />
           <span className={styles.slogan}>Sentite como en tu hogar</span>
         </Link>
       </div>
       {user ? (
         <div className={styles.der}>
-          <div className={styles.avatar} round size="70px" color="#383b58">
-            <span className={styles.avatarLetters}>
-              {user?.username?.charAt(0).toUpperCase()}
-            </span>
+          <div className={styles.avatar} size="70px" color="#383b58">
+            {user?.role === "admin" ? (
+              <Link to={"/admin"}>
+                <span className={styles.avatarLetters}>
+                  {user?.username?.charAt(0).toUpperCase()}
+                </span>
+              </Link>
+            ) : (
+              <span className={styles.avatarLetters}>
+                {user?.username?.charAt(0).toUpperCase()}
+              </span>
+            )}
           </div>
           {/*<Avatar ClassName={styles.avatarIcon}  name={user.nombre} round size="40px" color="#000000" />*/}
           <div className={styles.userInfo}>
@@ -60,13 +69,13 @@ const Header = () => {
             <FaBars />
           </button>
           <div className={styles.menuDesktop}>
-            {location !== "/register" ? (
-              <Link className={styles.link} to={"/register"}>
+            {location !== REGISTER ? (
+              <Link className={styles.link} to={REGISTER}>
                 Crear cuenta
               </Link>
             ) : null}
-            {location !== "/login" ? (
-              <Link className={styles.link} to={"/login"}>
+            {location !== LOGIN ? (
+              <Link className={styles.link} to={LOGIN}>
                 Iniciar sesion
               </Link>
             ) : null}

@@ -11,6 +11,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import CategoryList from "../../components/CategoryList/CategoryList";
 import RecomendationList from "../../components/RecomendationList/RecomendationList";
 import styles from "./Home.module.css";
+import Loader from "../../components/Loader/Loader";
 
 const Home = () => {
   const [category, setCategory] = useState("hotel");
@@ -75,12 +76,7 @@ const Home = () => {
       />
       <CategoryList handleCategory={handleCategory} />
       {isLoading || !recomendations ? (
-        <div className={styles.loading}>
-          <div className={styles.one}></div>
-          <div className={styles.two}></div>
-          <div className={styles.three}></div>
-          <div className={styles.four}></div>
-        </div>
+        <Loader />
       ) : (
         <RecomendationList recomendations={recommend} />
       )}

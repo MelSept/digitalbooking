@@ -14,7 +14,7 @@ import GoogleMap from "../../components/Map/GoogleMap";
 import Policies from "../../components/Policies/Policies";
 import useWindowSize from "../../hooks/useWindowSize";
 import useGet from "../../hooks/requests/useGet";
-import styles from "./Product.module.css";
+import Loader from "../../components/Loader/Loader";
 
 const Product = () => {
   const { id } = useParams();
@@ -36,14 +36,7 @@ const Product = () => {
   };
 
   if (isLoading || !product) {
-    return (
-      <div className={styles.loading}>
-        <div className={styles.one}></div>
-        <div className={styles.two}></div>
-        <div className={styles.three}></div>
-        <div className={styles.four}></div>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (error) {
@@ -57,7 +50,7 @@ const Product = () => {
     description,*/
     place: {
       title: placeTitle,
-      /*description: placeDescription,*/
+      description: placeDescription,
       latitude,
       longitude,
       address,
@@ -98,7 +91,11 @@ const Product = () => {
 
       {showSlider && <Slider handleClose={handleClose} images={images} />}
 
-      <ProductDescription />
+      <ProductDescription
+        description={placeDescription}
+        category={categoryTitle}
+        title={placeTitle}
+      />
       <Features features={features} />
       <Calendar
         productId={id}

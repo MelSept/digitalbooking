@@ -7,6 +7,7 @@ import {
 } from "../../constants/endpoints";
 import { HOME, PRODUCT, SUCCESS } from "../../router/routes";
 import { postReservation } from "../../service/reservation/reservation";
+import Loader from "../../components/Loader/Loader";
 import useGet from "../../hooks/requests/useGet";
 import HeaderGoBack from "../../components/HeaderGoBack/HeaderGoBack";
 import ReservationForm from "../../components/ReservationForm/ReservationForm";
@@ -91,14 +92,7 @@ const Reservation = () => {
   };
 
   if (isLoadingProduct || !product) {
-    return (
-      <div className={styles.loading}>
-        <div className={styles.one}></div>
-        <div className={styles.two}></div>
-        <div className={styles.three}></div>
-        <div className={styles.four}></div>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (errorProduct) {

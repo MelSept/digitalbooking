@@ -8,6 +8,7 @@ import AdministrationForm from "../../components/AdministrationForm/Administrati
 import HeaderAdministration from "../../components/HeaderAdministration/HeaderAdministration";
 import useGet from "../../hooks/requests/useGet";
 import styles from "./Administration.module.css";
+import Loader from "../../components/Loader/Loader";
 
 const Administration = () => {
   const { user } = useContext(UserContext);
@@ -104,6 +105,14 @@ const Administration = () => {
       errors.address = 'El campo "Direccion" no debe ser vacio.';
     }
 
+    if (!values.category || values.category === -1) {
+      errors.category = 'Debe seleccionar una "Categoría".';
+    }
+
+    if (!values.city || values.city === -1) {
+      errors.city = 'Debe seleccionar una "City".';
+    }
+
     if (!values.description) {
       errors.description = 'El campo "Descripcion" no debe ser vacio.';
     }
@@ -136,7 +145,6 @@ const Administration = () => {
     e.preventDefault();
     const err = validate(product);
     setErrors(err);
-    console.log("asdasd", err);
     if (Object.keys(err).length === 0) {
       const {
         title,
@@ -161,8 +169,6 @@ const Administration = () => {
         policy,
       };
 
-      console.log("NEW", newProduct);
-
       const created = await createProduct({
         data: newProduct,
         tokenType: user.tokenType,
@@ -176,14 +182,7 @@ const Administration = () => {
   };
 
   if ((isLoadingCities && isLoadingCategories) || !cities || !categories) {
-    return (
-      <div className={styles.loading}>
-        <div className={styles.one}></div>
-        <div className={styles.two}></div>
-        <div className={styles.three}></div>
-        <div className={styles.four}></div>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (cityError || categoryError) {
