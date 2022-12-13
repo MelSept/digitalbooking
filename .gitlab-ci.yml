@@ -25,7 +25,7 @@ npm_prod:
   stage: build
   only:
     refs:
-      - develop
+      - main
 
 .deploy_aws:
   image: python:latest
@@ -45,6 +45,5 @@ deploy_prod:
     - export S3_BUCKET=${S3_BUCKET_PROD}
   only:
     refs:
-      - develop
-
+      - main
 
