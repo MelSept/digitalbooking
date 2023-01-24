@@ -6,7 +6,7 @@
 ---
 
 ### Roles de Equipo
-- ```Front-End``` - Meli, Sora
+- ```Front-End``` - Meli
 - ```Back-End``` - Juanca, Sebas
 - ```DB``` - Deiver, Juanca
 - ```Testing``` - Meli, Deiver, Sebas, Juanca
